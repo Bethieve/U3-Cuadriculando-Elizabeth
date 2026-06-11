@@ -1,19 +1,64 @@
-
 @font-face{
     font-family:"Louis George Cafe";
     src:url("../fonts/LouisGeorgeCafe.ttf");
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
+/* 1. CORRECCIÓN DEL BODY: Eliminamos el bloqueo de Flexbox */
+body {
+    margin: 0;
+    min-height: 100vh;      
+    display: flex;
+    flex-direction: column;  
+    text-align: center; /* Centra los textos de manera limpia sin romper márgenes */
     background:#1e1e1e;
     overflow-x:hidden;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+h2 {
+    font-family: inlanders;
+    font-size: 60px;
+    color:white;
+    margin-top: 80px; /* Espacio superior para que respire tras el scroll */
+    letter-spacing:4px;
+}
+
+/* ==========================================================================
+   PÁRRAFO P: TIENE LA ANIMACIÓN ACTIVA
+   ========================================================================== */
+p { 
+    font-family: "Louis George Cafe";
+    font-size: 18px;
+    color: #3a3a3a;              /* Gris de fondo */
+    line-height: 1.6; 
+    margin: 40px auto 80px auto; /* Márgenes compactos */
+    text-align: center;     
+    max-width: 800px;     
+    padding: 0 30px;
+    cursor: pointer;      
+
+    /* ANIMACIÓN: Vuelve a activarse de forma exclusiva para la etiqueta p */
+    animation: pulsoAdelante 1.5s ease-in-out infinite !important;
+    transition: all 0.3s ease;   /* Suaviza la transición al hacer clic */
+}
+
+
+/* El movimiento hacia adelante (un 3% más grande) */
+@keyframes pulsoAdelante {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); } /* Se agranda sutilmente hacia el frente */
+}
+/* ==========================================================================
+   CLASE QUE ACTIVA EL JAVASCRIPT AL HACER CLIC
+   ========================================================================== */
+p.detener-palpito {
+    color: #ffffff !important;   /* Vuelve el texto completamente blanco */
+    animation: none !important;  /* Apaga la animación en el párrafo clickeado */
+}
+
 
 /* PANTALLAS */
 
@@ -28,11 +73,8 @@ body{
 /* INICIO */
 
 #inicio{
-
     min-height:300vh;
-
     background:#1e1e1e;
-
     background-image:
         linear-gradient(
             rgba(255,255,255,.12) 1px,
@@ -45,46 +87,60 @@ body{
         );
 
     background-size:100px 100px;
-
     display:flex;
     justify-content:flex-end;
     align-items:center;
     flex-direction:column;
+    width: 100vw;
+    height: 100vh;
 }
 
-.discover-btn{
-
-    margin-bottom:120px;
-
+.buttons-group1{margin-bottom:120px;
     padding:20px 60px;
-
-    border:2px solid white;
     border-radius:25px;
-
     background:#1e1e1e;
     color:white;
-
     font-size:2rem;
     letter-spacing:4px;
-
     font-family:"Louis George Cafe", sans-serif;
-
     cursor:pointer;
+    transition:.3s;
+    text-decoration: none;}
 
+
+.discover-btn{
+    margin-bottom:120px;
+    padding:20px 60px;
+    border:2px solid white;
+    border-radius:25px;
+    background:#1e1e1e;
+    color:white;
+    font-size:2rem;
+    letter-spacing:4px;
+    font-family:"Louis George Cafe", sans-serif;
+    cursor:pointer;
     transition:.3s;
     text-decoration: none;
-
 }
 
 .discover-btn:hover{
-
     background:white;
     color:black;
 }
 
+.buttons-group {
+    display: flex;
+    flex-direction: row; 
+    gap: 30px;          
+    margin-bottom: 120px; 
+    z-index: 20;         
+}
+
+.discover-btn {
+    margin-bottom: 0px !important;
+}
+
 /*imagenes*/
-
-
 
 .img-01 {width: 450px; height: 650px; transform: rotate(45deg);
     position:absolute;
@@ -103,8 +159,8 @@ body{
  z-index:10}
 .img-04 {width: 200px; height: 300px; transform: rotate(-65deg);
     position:absolute;
-    top:100px;
-    left:200px;
+    top:35px;
+    left:300px;
  z-index:10}
 
 .cuadri {width: 1300px; height: 200px; position:absolute;
@@ -112,6 +168,41 @@ body{
     left:120px; 
  z-index:1;
 }
+
+/* ==========================================================================
+   INTERACCIÓN Y PÁLPITO SEGURO PARA IMÁGENES (COMPATIBLE CON PARALLAX Y JS)
+   ========================================================================== */
+
+/* Regla unificada para las 4 imágenes interactivas */
+.img-01, .img-02, .img-03, .img-04 {
+    cursor: pointer !important;
+    
+    /* Activa la animación constante de respiración visual */
+    animation: pulsoEsperaSeguro 2s ease-in-out infinite !important;
+    
+    /* Transición suave para los cambios de opacidad o filtros nativos del juego */
+    transition: filter 0.3s ease, opacity 0.3s ease !important;
+}
+
+/* Efecto Hover: Al pasar el cursor, se iluminan un poco más para denotar que son clickeables */
+.img-01:hover, .img-02:hover, .img-03:hover, .img-04:hover {
+    filter: brightness(1.2) !important;
+    opacity: 1 !important;
+}
+
+/* ANIMACIÓN: Modifica la luz y la opacidad de fondo de forma cíclica.
+   NO usa 'transform' (scale, translate, rotate) para no romper el Parallax ni el JS */
+@keyframes pulsoEsperaSeguro {
+    0%, 100% { 
+        opacity: 0.9;
+        filter: brightness(0.85) contrast(1);
+    }
+    50% { 
+        opacity: 1;
+        filter: brightness(1.15) contrast(1.05); /* Sutil destello de atención */
+    } 
+}
+
 
 .img-001{ width: 350px; height: 450px; transform: rotate(150deg);
 position:absolute;
@@ -160,60 +251,73 @@ position:absolute;
 .img-003-1,
 .img-004-1,
 .img-003-2{
-
     will-change: transform;
-
-    transition:
-        transform 0.08s linear;
+    transition: transform 0.08s linear;
 }
 
-/* barra*/
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+/* ==========================================
+   SECCIÓN DE GIFS CORREGIDA
+   ========================================== */
+
+/* 1. LA GALERÍA: Fuerza a que los tres primeros hijos se pongan en fila */
+.galeria-gifs {
+    display: flex !important;
+    flex-direction: row !important; /* Los alinea horizontalmente uno al lado del otro */
+    justify-content: center !important; /* Los centra en el medio de la pantalla */
+    gap: 50px !important; /* Deja un espacio de separación limpio entre cada caja */
+    
+    width: 90% !important;
+    max-width: 1000px !important; /* Aumentamos el ancho máximo para que quepan los 3 bien */
+    margin: 20px auto 40px auto !important; /* Centra toda la galería en la página */
 }
 
-/* Barra superior */
-.top-bar {
-  height: 60px;
-  width: 100%;
-  background-color: #e1e1e1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  box-sizing: border-box;
+/* 2. CONTENEDOR INDIVIDUAL: */
+.gif-container {
+    display: block !important;
+    max-width: 600px !important;     
+    margin: 20px auto 40px auto !important; /* Unificamos los 4 márgenes en una sola línea */
+    
+    padding: 15px !important;               /* El grosor del marco interior */
+    background-color: #0a0a0a !important;   /* El color del cuadro */
+    border-radius: 20px !important;         /* Curvatura del cuadro exterior */
+    
+    overflow: hidden !important;            /* Recorta automáticamente el GIF de adentro */
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Icono hamburguesa */
-.menu-icon {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 18px;
-  cursor: pointer;
+/* 3. IMAGEN INTERNA: CON BORDES REDONDEADOS PROPIOS */
+.gif-container .gif-media {
+    display: block !important;
+    width: 100% !important;
+    height: 300px !important; /* Aquí controlas el alto de tus GIFs libremente */
+    object-fit: cover !important; /* Recorta el GIF para que llene el alto sin estirarse feo */
+    
+    /* SOLUCIÓN: Redondea las esquinas del GIF dentro del marco */
+    border-radius: 12px !important; 
+    
+    filter: brightness(0.6) contrast(1.05) !important; 
+    transition: filter 0.4s ease !important; 
 }
 
-.menu-icon span {
-  width: 25px;
-  height: 2px;
-  background-color: black;
-  display: block;
+/* Interacción Hover */
+.gif-container:hover .gif-media {
+    filter: brightness(1) !important;
 }
 
-/* Botón descubrir */
-.discover-btn-2 {
-  background-color: #e1e1e1;
-  border: none;
-border-radius:25px;
-  color: black;
-  font-family: "Louis George Cafe", sans-serif;
-  font-size: 14px;
-  padding: 8px 14px;
-  cursor: pointer;
-  transition: all 0.25s ease;
+/* Fuerza a los contenedores de la fila dos a medir lo mismo que si fueran tres columnas */
+.galeria-gifs.fila-dos .gif-container {
+    flex: 0 1 calc(33.333% - 14px) !important;
+    max-width: calc(33.333% - 14px) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
+
+
+
+
+
+
 
 /* Hover */
 .discover-btn-2:hover {
@@ -226,14 +330,11 @@ border-radius:25px;
     position: fixed;
     top: 30px;
     left: 45px;
-
     text-decoration: none;
     color: #e1e1e1;
-
     font-size: 70px;
     font-weight: bold;
     line-height: 1;
-
     transition: transform 0.25s ease;
     cursor: pointer;
     z-index: 1000;
@@ -248,37 +349,33 @@ border-radius:25px;
 .body2 {
     margin: 0;
     padding: 0;
-    width: 100vw;              /* Ocupa el 100% del ancho de la ventana */
-    height: 100vh;             /* Ocupa el 100% del alto de la ventana */
-    background-color: #1a1a1a; /* Fondo oscuro general */
-    
-    /* Fuerza a esta sección a comportarse como una capa de pantalla completa */
+    width: 100vw;              
+    height: 100vh;             
+    background-color: #1a1a1a; 
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;                /* Asegura que quede en el fondo */
-
-    /* Sistema Flexbox para centrado absoluto */
+    z-index: 1;                
     display: flex;
-    justify-content: center;   /* Centrado horizontal */
-    align-items: center;       /* Centrado vertical */
-    overflow: hidden;          /* Evita barras de scroll innecesarias */
+    justify-content: center;   
+    align-items: center;       
+    overflow: hidden;          
 }
 
 /* --- Contenedor Principal del Tablero --- */
 .tablero {
     display: grid;
-    grid-template-columns: repeat(11, 50px); /* 11 columnas de 50px */
-    grid-template-rows: repeat(11, 50px);    /* 11 filas de 50px */
+    grid-template-columns: repeat(11, 50px); 
+    grid-template-rows: repeat(11, 50px);    
     background-color: #1e1e1e;
     padding: 20px;
     border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra suave para dar profundidad */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
 }
 
 /* --- Estilo de las Casillas del Camino --- */
 .casilla {
-    border: 1px solid rgba(255, 255, 255, 0.25); /* Bordes más sutiles para que se vea limpio */
+    border: 1px solid rgba(255, 255, 255, 0.25); 
     box-sizing: border-box;
 }
 
@@ -289,20 +386,115 @@ border-radius:25px;
     cursor: pointer;
     width: 70px;         
     height: 70px;
-    margin: -20px;
+  
 }
 
-.rojo{  z-index: 2;
-    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
-    cursor: pointer;
-    width: 70px;         
-    height: 70px;}
+/* ==========================================================================
+   PROPIEDADES GENERALES PARA TODAS LAS ESQUINAS
+   ========================================================================== */
+.esquina {
+    /* Aquí puedes poner estilos que compartan las 4 esquinas, como bordes o sombras */
+    border-radius: 8px; 
+}
 
-/* Efecto visual al pasar el cursor (Manejado por CSS) */
+/* ==========================================================================
+   MANIPULACIÓN INDIVIDUAL DE CADA ESQUINA
+   ========================================================================== */
+
+.esquina-amarilla {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    background-color: #ffd15c !important; 
+      margin: -20px;
+}
+
+.esquina-roja {
+    grid-column: 11 !important;
+    grid-row: 1 !important;
+    background-color: #ff6b6b !important; 
+    transform: translate(0px, -20px);
+}
+
+.esquina-azul {
+    grid-column: 11 !important;
+    grid-row: 11 !important;
+    background-color: #4dabf7 !important; 
+    transform: translate(0px, 0px);
+}
+
+.esquina-verde {
+    grid-column: 1 !important;
+    grid-row: 11 !important;
+    background-color: #51cf66 !important; 
+    transform: translate(-20px, 0px);
+}
+
+
+
+
+
+/* ==========================================================================
+   UBICACIÓN DE LAS MATRICES EN LOS CUADRANTES CENTRALES VACÍOS
+   ========================================================================== */
+
+/* Coordenadas del Grid que delimitan los 4 espacios negros del centro */
+.centro-amarillo { grid-column: 2 / 6; grid-row: 2 / 6; }
+.centro-roja     { grid-column: 7 / 11; grid-row: 2 / 6; }
+.centro-verde    { grid-column: 2 / 6; grid-row: 7 / 11; }
+.centro-azul     { grid-column: 7 / 11; grid-row: 7 / 11; }
+
+/* Contenedor invisible que centra la matriz en su respectivo cuadrante */
+.zona-centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    pointer-events: none; /* Evita que interfiera con los clics del tablero */
+}
+
+/* La caja gris claro de 4x4 que guarda las mini casillas */
+.matriz-interna {
+    display: none; /* Oculta por defecto hasta que el JS le añada la clase */
+    width: 170px;  /* Ajuste de tamaño para encajar perfecto en el espacio central */
+    height: 170px;
+    background-color: #e0e0e0; /* Gris claro de fondo exacto al video */
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    
+    /* Configuración interna del mini grid 4x4 */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 4px;
+    box-sizing: border-box;
+}
+
+/* Los pequeños píxeles dentro de la matriz */
+.mini-casilla {
+    background-color: #ffffff; /* Cuadritos blancos base */
+    border-radius: 4px;
+}
+
+/* Clases de color para los patrones activos (Heredan los tonos exactos de tus esquinas) */
+.mini-casilla.activo-amarillo { background-color: #ffd15c !important; }
+.mini-casilla.activo-rojo     { background-color: #ff6b6b !important; }
+.mini-casilla.activo-azul     { background-color: #4dabf7 !important; }
+.mini-casilla.activo-verde    { background-color: #51cf66 !important; }
+
+/* Clase interruptor que activa el JavaScript al pasar el cursor (mouseenter) */
+.mostrar-matriz {
+    display: grid !important;
+}
+
+
+
+
+
+/* Efecto visual al pasar el cursor */
 .esquina:hover {
-    transform: scale(1.15); /* Crece un 15% */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* Sombra más marcada al flotar */
-    z-index: 3; /* Se posiciona por encima de las líneas contiguas */
+    transform: scale(1.15); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); 
+    z-index: 3; 
 }
 
 /* --- Paleta de Colores de las Esquinas --- */
