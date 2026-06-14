@@ -1,185 +1,76 @@
-
+// ==========================================================================
+// 1. CONFIGURACIÓN Y DECLARACIÓN DE OBJETOS PARALLAX
+// ==========================================================================
 const imagenes = [
-{
-        elemento: document.querySelector(".img-004-1"),
-        rotacion: 45,
-        velocidad: 0.7,
-        direccionX: -0.25
-    },
-    {
-        elemento: document.querySelector(".img-003-2"),
-        rotacion: 45,
-        velocidad: 0.7,
-        direccionX: -0.25
-    },
-{
-         elemento: document.querySelector(".cuadri"),
-    rotacion: 0,
-    velocidad: -1,
-    direccionX: 0
-    },
-    {
-        elemento: document.querySelector(".img-01"),
-        rotacion: 45,
-        velocidad: 0.7,
-        direccionX: -0.25
-    },
-
-
-    {
-        elemento: document.querySelector(".img-02"),
-        rotacion: -45,
-        velocidad: 1,
-        direccionX: 0.4
-    },
-
-    {
-        elemento: document.querySelector(".img-03"),
-        rotacion: 80,
-        velocidad: 1.2,
-        direccionX: 0.25
-    },
-
-    {
-        elemento: document.querySelector(".img-04"),
-        rotacion: -65,
-        velocidad: 0.6,
-        direccionX: -0.35
-    },
-
-    
-    {
-        elemento: document.querySelector(".img-001"),
-        rotacion: 150,
-        velocidad: 0.9,
-        direccionX: -0.5
-    },
-
-    {
-        elemento: document.querySelector(".img-002"),
-        rotacion: 60,
-        velocidad: 1.1,
-        direccionX: 0.45
-    },
-
-    {
-        elemento: document.querySelector(".img-003"),
-        rotacion: 80,
-        velocidad: 0.8,
-        direccionX: -0.3
-    },
-
-    {
-        elemento: document.querySelector(".img-004"),
-        rotacion: 45,
-        velocidad: 1.3,
-        direccionX: 0.55
-    },
-
-    {
-        elemento: document.querySelector(".img-002-1"),
-        rotacion: 80,
-        velocidad: 0.9,
-        direccionX: 0.3
-    },
-
-    {
-        elemento: document.querySelector(".img-003-1"),
-        rotacion: 80,
-        velocidad: 1.2,
-        direccionX: -0.4
-    },
-
-    {
-        elemento: document.querySelector(".img-001-1"),
-        rotacion: 80,
-        velocidad: 0.7,
-        direccionX: 0.5
-    }
-
+    { elemento: document.querySelector(".img-004-1"), rotacion: 45, velocidad: 0.7, direccionX: -0.25 },
+    { elemento: document.querySelector(".img-003-2"), rotacion: 45, velocidad: 0.7, direccionX: -0.25 },
+    { elemento: document.querySelector(".cuadri"), rotacion: 0, velocidad: -1, direccionX: 0 },
+    { elemento: document.querySelector(".img-01"), rotacion: 45, velocidad: 0.7, direccionX: -0.25 },
+    { elemento: document.querySelector(".img-02"), rotacion: -45, velocidad: 1, direccionX: 0.4 },
+    { elemento: document.querySelector(".img-03"), rotacion: 80, velocidad: 1.2, direccionX: 0.25 },
+    { elemento: document.querySelector(".img-04"), rotacion: -65, velocidad: 0.6, direccionX: -0.35 },
+    { elemento: document.querySelector(".img-001"), rotacion: 150, velocidad: 0.9, direccionX: -0.5 },
+    { elemento: document.querySelector(".img-002"), rotacion: 60, velocidad: 1.1, direccionX: 0.45 },
+    { elemento: document.querySelector(".img-003"), rotacion: 80, velocidad: 0.8, direccionX: -0.3 },
+    { elemento: document.querySelector(".img-004"), rotacion: 45, velocidad: 1.3, direccionX: 0.55 },
+    { elemento: document.querySelector(".img-002-1"), rotacion: 80, velocidad: 0.9, direccionX: 0.3 },
+    { elemento: document.querySelector(".img-003-1"), rotacion: 80, velocidad: 1.2, direccionX: -0.4 },
+    { elemento: document.querySelector(".img-001-1"), rotacion: 80, velocidad: 0.7, direccionX: 0.5 }
 ];
 
+// Mapeo dinámico del scroll
 window.addEventListener("scroll", () => {
-
     const scroll = window.scrollY;
-    
-    // Buscamos el contenedor de los botones para saber dónde frenar
     const botones = document.querySelector(".buttons-group");
     let limiteFreno = Infinity;
 
     if (botones) {
-        // Obtenemos la posición de los botones respecto al tope de la página
         const posicionBotones = botones.getBoundingClientRect().top + window.scrollY;
-        // El freno se activa 250px antes de tocar el tope de los botones (ajustable)
         limiteFreno = posicionBotones - 250;
     }
 
     imagenes.forEach(img => {
-
         if (!img.elemento) return;
 
         let moverY = scroll * img.velocidad;
         const moverX = scroll * img.direccionX;
 
-        // LÓGICA EXCLUSIVA PARA LA IMAGEN CUADRICULANDO
+        // Lógica de congelamiento para la cuadricula contenedora
         if (img.elemento.classList.contains("cuadri")) {
-            // Calculamos la posición actual donde va la imagen en el eje Y
-            // (La imagen inicia en top: 200px según tu CSS)
             const posicionActualY = 200 - moverY; 
-
-            // Si la imagen intenta pasarse del límite, congelamos su movimiento vertical
             if (posicionActualY >= limiteFreno) {
                 moverY = -(limiteFreno - 200);
             }
         }
 
-        img.elemento.style.transform =
-            `translate(${moverX}px, ${-moverY}px)
-             rotate(${img.rotacion}deg)`;
-
+        img.elemento.style.transform = `translate(${moverX}px, ${-moverY}px) rotate(${img.rotacion}deg)`;
     });
 });
-    
 
-
-/*agitar y desaparecer*/
-
-const fichas = document.querySelectorAll(
-    ".img-01, .img-02, .img-03, .img-04"
-);
+// ==========================================================================
+// 2. COMPORTAMIENTO MOUSE INTERACTIVO (AGITAR Y DESAPARECER)
+// ==========================================================================
+const fichas = document.querySelectorAll(".img-01, .img-02, .img-03, .img-04");
 
 fichas.forEach(ficha => {
-
     let intervalo;
     let intensidad = 10;
     let presionado = false;
 
     function iniciarAgitacion() {
-
         presionado = true;
         intensidad = 9;
 
         intervalo = setInterval(() => {
-
             intensidad += 2;
-
-            const rotacion =
-                (Math.random() * intensidad * 2) - intensidad;
-
+            const rotacion = (Math.random() * intensidad * 2) - intensidad;
             ficha.style.transform = `rotate(${rotacion}deg)`;
-
         }, 30);
 
         setTimeout(() => {
-
             if (presionado) {
-
                 clearInterval(intervalo);
-
-                ficha.style.transition =
-                    "opacity 0.5s ease, transform 0.5s ease";
-
-                    /*Desvanecer al desaparecer*/
+                ficha.style.transition = "opacity 0.5s ease, transform 0.5s ease";
                 ficha.style.opacity = "0";
                 ficha.style.transform = "scale(0)";
 
@@ -187,115 +78,61 @@ fichas.forEach(ficha => {
                     ficha.style.display = "none";
                 }, 500);
             }
-
         }, 1500);
     }
 
     function detenerAgitacion() {
-
         presionado = false;
-
         clearInterval(intervalo);
-
         ficha.style.transition = "transform 0.2s ease";
         ficha.style.transform = "rotate(0deg)";
     }
 
+    // Eventos Mouse y Touch integrados
     ficha.addEventListener("mousedown", iniciarAgitacion);
     ficha.addEventListener("mouseup", detenerAgitacion);
     ficha.addEventListener("mouseleave", detenerAgitacion);
-
-    // Soporte para pantallas táctiles
     ficha.addEventListener("touchstart", iniciarAgitacion);
     ficha.addEventListener("touchend", detenerAgitacion);
 });
 
-/*tablero*/
-
-// Esperar a que el documento HTML esté completamente cargado
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // Seleccionar todos los elementos que tengan la clase 'esquina'
-    const esquinas = document.querySelectorAll('.esquina');
-
-    esquinas.forEach(esquina => {
-        
-        // 1. ASIGNAR EL ORIGEN DE AGRANDAMIENTO SEGÚN EL COLOR (Para que no se muevan)
-        if (esquina.classList.contains('esquina-amarilla')) {
-            esquina.style.transformOrigin = "top left"; // Se agranda hacia abajo y la derecha
-        } else if (esquina.classList.contains('esquina-roja')) {
-            esquina.style.transformOrigin = "top right"; // Se agranda hacia abajo y la izquierda
-        } else if (esquina.classList.contains('esquina-verde')) {
-            esquina.style.transformOrigin = "bottom left"; // Se agranda hacia arriba y la derecha
-        } else if (esquina.classList.contains('esquina-azul')) {
-            esquina.style.transformOrigin = "bottom right"; // Se agranda hacia arriba y la izquierda
-        }
-
-        // 2. DETECTAR CUANDO EL CURSOR ENTRA A LA CASILLA
-        esquina.addEventListener('mouseenter', () => {
-            esquina.style.scale = "1.15"; // Se agranda un 15% levemente
-            esquina.style.zIndex = "10";   // Se posiciona por encima de las casillas vecinas
-            console.log("El cursor está sobre una casilla de esquina activa");
-        });
-
-        // 3. DETECTAR CUANDO EL CURSOR SALE DE LA CASILLA
-        esquina.addEventListener('mouseleave', () => {
-            esquina.style.scale = "1";    // Vuelve a su tamaño original
-            esquina.style.zIndex = "1";    // Vuelve a su capa normal
-        });
-
-        // 4. DETECTAR CLICS EN LAS ESQUINAS
-        esquina.addEventListener('click', (e) => {
-            const colorCasilla = e.target.classList[1]; // Obtiene la clase de color
-            console.log(`Se ha hecho clic en la esquina de color: ${colorCasilla}`);
-        });
-    });
-});
-// 1. Seleccionamos TODOS los párrafos de la página que tienen la animación
+// ==========================================================================
+// 3. EVENTOS DE PÁRRAFOS INTERACTIVOS (APARECER CON SCROLL)
+// ==========================================================================
 const todosLosParrafos = document.querySelectorAll("p");
 
-// 2. Recorremos cada párrafo uno por uno
-todosLosParrafos.forEach(parrafo => {
-    // 3. Le asignamos el detector de clics a cada uno de forma independiente
-    parrafo.addEventListener("click", () => {
-        // Al hacer clic, le pega la clase solo al párrafo seleccionado
-        parrafo.classList.add("detener-palpito");
+const opcionesObersver = {
+    root: null,        // Usa la pantalla del navegador como referencia
+    rootMargin: "0px",
+    threshold: 0.15    // Se activa cuando el 15% del párrafo ya asoma en la pantalla
+};
+
+const scrollObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        // Si el párrafo entra en el mapa visual
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target); // 💡 Clave: Deja de vigilarlo para que se quede fijo
+        }
     });
+}, opcionesObersver);
+
+// Activamos el observador en cada párrafo
+todosLosParrafos.forEach(parrafo => {
+    scrollObserver.observe(parrafo);
 });
 
-
-
-/*tablero*/
-
+// ==========================================================================
+// 4. LÓGICA DEL TABLERO Y CONSTRUCCIÓN DE MATRICES INTERNAS
+// ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
     const esquinas = document.querySelectorAll('.esquina');
 
-    // Patrones visuales extraídos exactamente de tu video muestra
     const patrones = {
-        'esquina-amarilla': [
-            1,1,0,0,
-            1,0,0,0,
-            0,0,0,1,
-            0,0,1,1
-        ],
-        'esquina-roja': [
-            0,0,0,0,
-            0,1,1,0,
-            0,0,1,0,
-            1,0,0,1
-        ],
-        'esquina-azul': [
-            0,1,1,0,
-            1,0,0,1,
-            1,0,0,1,
-            0,1,1,0
-        ],
-        'esquina-verde': [
-            1,0,0,1,
-            0,1,0,0,
-            0,1,1,0,
-            1,0,0,1
-        ]
+        'esquina-amarilla': [1,1,0,0, 1,0,0,0, 0,0,0,1, 0,0,1,1],
+        'esquina-roja':     [0,0,0,0, 0,1,1,0, 0,0,1,0, 1,0,0,1],
+        'esquina-azul':     [0,1,1,0, 1,0,0,1, 1,0,0,1, 0,1,1,0],
+        'esquina-verde':    [1,0,0,1, 0,1,0,0, 0,1,1,0, 1,0,0,1]
     };
 
     esquinas.forEach(esquina => {
@@ -303,7 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let claseColor = '';
         let contenedorCentroSelector = '';
 
-        // Identificamos la esquina y asociamos su zona central correspondiente
         if (esquina.classList.contains('esquina-amarilla')) { 
             tipoEsquina = 'esquina-amarilla'; claseColor = 'activo-amarillo'; contenedorCentroSelector = '.centro-amarillo'; 
         } else if (esquina.classList.contains('esquina-roja')) { 
@@ -314,11 +150,15 @@ document.addEventListener("DOMContentLoaded", () => {
             tipoEsquina = 'esquina-azul'; claseColor = 'activo-azul'; contenedorCentroSelector = '.centro-azul'; 
         }
 
-        // Buscamos el contenedor del centro del tablero HTML
+        // Asignación de orígenes de transformación cardinales
+        if (tipoEsquina === 'esquina-amarilla') esquina.style.transformOrigin = "top left";
+        else if (tipoEsquina === 'esquina-roja') esquina.style.transformOrigin = "top right";
+        else if (tipoEsquina === 'esquina-verde') esquina.style.transformOrigin = "bottom left";
+        else if (tipoEsquina === 'esquina-azul') esquina.style.transformOrigin = "bottom right";
+
         const contenedorCentro = document.querySelector(contenedorCentroSelector);
 
         if (contenedorCentro) {
-            // Creamos la matriz de forma aislada en el centro vacío
             const matriz = document.createElement('div');
             matriz.classList.add('matriz-interna');
 
@@ -333,30 +173,19 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             contenedorCentro.appendChild(matriz);
 
-            // 2. DETECTAR CUANDO EL CURSOR ENTRA A LA ESQUINA
+            // Controladores de expansión Hoover & Render de matrices
             esquina.addEventListener('mouseenter', () => {
                 esquina.style.scale = "1.15"; 
                 esquina.style.zIndex = "10";
-                
-                // Muestra la matriz en el espacio vacío del medio
                 matriz.classList.add('mostrar-matriz');
             });
 
-            // 3. DETECTAR CUANDO EL CURSOR SALE DE LA ESQUINA
             esquina.addEventListener('mouseleave', () => {
                 esquina.style.scale = "1";    
                 esquina.style.zIndex = "2";
-                
-                // Oculta la matriz del espacio vacío
                 matriz.classList.remove('mostrar-matriz');
             });
         }
-
-        // Configuración de los orígenes de tus esquinas originales para el hover
-        if (tipoEsquina === 'esquina-amarilla') esquina.style.transformOrigin = "top left";
-        else if (tipoEsquina === 'esquina-roja') esquina.style.transformOrigin = "top right";
-        else if (tipoEsquina === 'esquina-verde') esquina.style.transformOrigin = "bottom left";
-        else if (tipoEsquina === 'esquina-azul') esquina.style.transformOrigin = "bottom right";
 
         esquina.addEventListener('click', (e) => {
             const colorCasilla = e.currentTarget.classList[1]; 
@@ -364,3 +193,124 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+// ==========================================================================
+// LÓGICA DE CONTROL DEL CARRUSEL
+// ==========================================================================
+const slides = document.querySelectorAll('.slide');
+const botonAnterior = document.getElementById('anterior');
+const botonSiguiente = document.getElementById('siguiente');
+let indexActual = 0;
+
+function cambiarSlide(nuevoIndex) {
+    if (slides.length === 0) return; // Seguridad si no hay slides
+    slides[indexActual].classList.remove('active');
+
+    if (nuevoIndex >= slides.length) {
+        indexActual = 0;
+    } else if (nuevoIndex < 0) {
+        indexActual = slides.length - 1;
+    } else {
+        indexActual = nuevoIndex;
+    }
+
+    slides[indexActual].classList.add('active');
+}
+
+// 💡 CORREGIDO CON FILTROS 'IF' PARA EVITAR QUE EL SCRIPT SE ROMPA EN ESTA PÁGINA
+if (botonAnterior) {
+    botonAnterior.addEventListener('click', () => {
+        cambiarSlide(indexActual - 1);
+    });
+}
+
+if (botonSiguiente) {
+    botonSiguiente.addEventListener('click', () => {
+        cambiarSlide(indexActual + 1);
+    });
+}
+
+// ==========================================================================
+// LÓGICA DE ARRASTRAR Y SOLTAR (DRAG AND DROP)
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    const contenedorOriginal = document.querySelector('.cuadroscuadricula');
+    const cuadricula = document.querySelector('.cuadricula-4x4');
+
+    // 1. Configurar las imágenes
+    document.querySelectorAll('.cuadroscuadricula img').forEach((img, index) => {
+        img.draggable = true;
+        img.id = `img-${index}`; 
+        
+        img.addEventListener('dragstart', e => {
+            e.dataTransfer.setData('text/plain', img.id);
+            e.dataTransfer.effectAllowed = 'move'; 
+        });
+    });
+
+    // 2. Configurar los casilleros de la cuadrícula
+    document.querySelectorAll('.cuadro').forEach(cuadro => {
+        
+        cuadro.addEventListener('dragover', e => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move'; 
+        });
+
+        cuadro.addEventListener('dragenter', e => {
+            e.preventDefault();
+        });
+        
+        cuadro.addEventListener('drop', e => {
+            e.preventDefault();
+            const id = e.dataTransfer.getData('text/plain');
+            const img = document.getElementById(id);
+            
+            if (img && !cuadro.querySelector('img')) {
+                cuadro.appendChild(img);
+
+                // Comprobación de última imagen colocada
+                const imagenesRestantes = contenedorOriginal.querySelectorAll('img').length;
+                if (imagenesRestantes === 0) {
+                    setTimeout(() => {
+                        // 1. Inicia el efecto visual de desvanecerse (opacidad a 0)
+                        if (cuadricula) cuadricula.classList.add('fading');
+                        if (contenedorOriginal) contenedorOriginal.classList.add('fading');
+
+                        // 2. Al terminar el segundo de animación, los borra por completo del flujo
+                        setTimeout(() => {
+                            if (cuadricula) cuadricula.style.display = 'none';
+                            if (contenedorOriginal) contenedorOriginal.style.display = 'none';
+                        }, 1000); 
+                    }, 200);
+                }
+            }
+        });
+    });
+
+    // 3. Permitir devolver las imágenes a la barra de abajo si te arrepientes
+    if (contenedorOriginal) {
+        contenedorOriginal.addEventListener('dragover', e => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        });
+
+        contenedorOriginal.addEventListener('drop', e => {
+            e.preventDefault();
+            const id = e.dataTransfer.getData('text/plain');
+            const img = document.getElementById(id);
+            if (img) contenedorOriginal.appendChild(img);
+        });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+

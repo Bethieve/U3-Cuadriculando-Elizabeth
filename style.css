@@ -1,332 +1,143 @@
-@font-face{
-    font-family:"Louis George Cafe";
-    src:url("../fonts/LouisGeorgeCafe.ttf");
-}
-
-/* 1. CORRECCIÓN DEL BODY: Eliminamos el bloqueo de Flexbox */
-body {
-    margin: 0;
-    min-height: 100vh;      
-    display: flex;
-    flex-direction: column;  
-    text-align: center; /* Centra los textos de manera limpia sin romper márgenes */
-    background:#1e1e1e;
-    overflow-x:hidden;
+/* ==========================================================================
+   1. CONFIGURACIONES GENERALES Y FUENTES
+   ========================================================================== */
+@font-face {
+    font-family: "Louis George Cafe";
+    src: url("../fonts/LouisGeorgeCafe.ttf");
 }
 
 html {
     scroll-behavior: smooth;
 }
 
+body {
+    margin: 0;
+    min-height: 100vh;      
+    display: flex;
+    flex-direction: column;  
+    text-align: center; 
+    background: #1e1e1e;
+   overflow-x: clip;
+}
+
+
 h2 {
     font-family: inlanders;
     font-size: 60px;
-    color:white;
-    margin-top: 80px; /* Espacio superior para que respire tras el scroll */
-    letter-spacing:4px;
+    color: white;
+    margin-top: 80px; 
+    letter-spacing: 4px;
 }
 
 /* ==========================================================================
-   PÁRRAFO P: TIENE LA ANIMACIÓN ACTIVA
+   2. TEXTOS Y ANIMACIONES DE PÁRRAFO
+   ========================================================================== */
+/* ==========================================================================
+   PÁRRAFOS CON REVEAL EN SCROLL
    ========================================================================== */
 p { 
     font-family: "Louis George Cafe";
     font-size: 18px;
-    color: #3a3a3a;              /* Gris de fondo */
+    color: #e1e1e1;               
     line-height: 1.6; 
-    margin: 40px auto 80px auto; /* Márgenes compactos */
-    text-align: center;     
-    max-width: 800px;     
+    margin: 40px auto 80px auto; 
+    text-align: center;      
+    max-width: 800px;      
     padding: 0 30px;
-    cursor: pointer;      
+    
+    /* 💡 ESTADO INICIAL: Oculto y 20px abajo */
+    opacity: 0;
+    transform: translateY(20px);
+    /* Transición suave para la opacidad y el movimiento */
+    transition: opacity 0.8s ease, transform 0.8s ease;   
+}
 
-    /* ANIMACIÓN: Vuelve a activarse de forma exclusiva para la etiqueta p */
-    animation: pulsoAdelante 1.5s ease-in-out infinite !important;
-    transition: all 0.3s ease;   /* Suaviza la transición al hacer clic */
+/* 💡 ESTADO ACTIVO: Se activa mediante JS cuando entra en pantalla */
+p.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 
-/* El movimiento hacia adelante (un 3% más grande) */
-@keyframes pulsoAdelante {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.03); } /* Se agranda sutilmente hacia el frente */
-}
+
 /* ==========================================================================
-   CLASE QUE ACTIVA EL JAVASCRIPT AL HACER CLIC
+   3. ESTRUCTURA DE PANTALLAS Y NAVEGACIÓN
    ========================================================================== */
-p.detener-palpito {
-    color: #ffffff !important;   /* Vuelve el texto completamente blanco */
-    animation: none !important;  /* Apaga la animación en el párrafo clickeado */
+.screen {
+    display: none;
 }
 
-
-/* PANTALLAS */
-
-.screen{
-    display:none;
+.screen.active {
+    display: block;
 }
 
-.screen.active{
-    display:block;
-}
-
-/* INICIO */
-
-#inicio{
-    min-height:300vh;
-    background:#1e1e1e;
+#inicio {
+    min-height: 300vh;
+    background: #1e1e1e;
     background-image:
-        linear-gradient(
-            rgba(255,255,255,.12) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.12) 1px,
-            transparent 1px
-        );
-
-    background-size:100px 100px;
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    flex-direction:column;
+        linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+    background-size: 100px 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
 }
 
-.buttons-group1{margin-bottom:120px;
-    padding:20px 60px;
-    border-radius:25px;
-    background:#1e1e1e;
-    color:white;
-    font-size:2rem;
-    letter-spacing:4px;
-    font-family:"Louis George Cafe", sans-serif;
-    cursor:pointer;
-    transition:.3s;
-    text-decoration: none;}
-
-
-.discover-btn{
-    margin-bottom:120px;
-    padding:20px 60px;
-    border:2px solid white;
-    border-radius:25px;
-    background:#1e1e1e;
-    color:white;
-    font-size:2rem;
-    letter-spacing:4px;
-    font-family:"Louis George Cafe", sans-serif;
-    cursor:pointer;
-    transition:.3s;
-    text-decoration: none;
-}
-
-.discover-btn:hover{
-    background:white;
-    color:black;
-}
-
+/* ==========================================================================
+   4. BOTONES Y COMPONENTES INTERACTIVOS
+   ========================================================================== */
 .buttons-group {
     display: flex;
     flex-direction: row; 
     gap: 30px;          
     margin-bottom: 120px; 
-    z-index: 20;         
+    z-index: 20;    
+    
+         
+}
+
+.buttons-group1 {
+    padding: 20px 60px;
+    border-radius: 25px;
+    background: #1e1e1e;
+    color: white;
+    font-size: 13;
+    letter-spacing: 4px;
+    font-family: "Louis George Cafe", sans-serif;
+    cursor: pointer;
+    transition: .3s;
+    text-decoration: none;
 }
 
 .discover-btn {
+    padding: 20px 60px;
+    border: 2px solid white;
+    border-radius: 25px;
+    background: #1e1e1e;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 4px;
+    font-family: "Louis George Cafe", sans-serif;
+    cursor: pointer;
+    transition: .3s;
+    text-decoration: none;
     margin-bottom: 0px !important;
 }
 
-/*imagenes*/
-
-.img-01 {width: 450px; height: 650px; transform: rotate(45deg);
-    position:absolute;
-    top:400px;
-    left:200px;
- z-index:10}
-.img-02 {width: 450px; height: 650px; transform: rotate(-45deg);
-    position:absolute;
-    top:500px;
-    left:800px;
- z-index:10}
-.img-03 {width: 300px; height: 450px; transform: rotate(80deg);
-    position:absolute;
-    top:200px;
-    left:900px;
- z-index:10}
-.img-04 {width: 200px; height: 300px; transform: rotate(-65deg);
-    position:absolute;
-    top:35px;
-    left:300px;
- z-index:10}
-
-.cuadri {width: 1300px; height: 200px; position:absolute;
-    top:200px;
-    left:120px; 
- z-index:1;
+.discover-btn:hover {
+    background: white;
+    color: black;
 }
 
-/* ==========================================================================
-   INTERACCIÓN Y PÁLPITO SEGURO PARA IMÁGENES (COMPATIBLE CON PARALLAX Y JS)
-   ========================================================================== */
-
-/* Regla unificada para las 4 imágenes interactivas */
-.img-01, .img-02, .img-03, .img-04 {
-    cursor: pointer !important;
-    
-    /* Activa la animación constante de respiración visual */
-    animation: pulsoEsperaSeguro 2s ease-in-out infinite !important;
-    
-    /* Transición suave para los cambios de opacidad o filtros nativos del juego */
-    transition: filter 0.3s ease, opacity 0.3s ease !important;
-}
-
-/* Efecto Hover: Al pasar el cursor, se iluminan un poco más para denotar que son clickeables */
-.img-01:hover, .img-02:hover, .img-03:hover, .img-04:hover {
-    filter: brightness(1.2) !important;
-    opacity: 1 !important;
-}
-
-/* ANIMACIÓN: Modifica la luz y la opacidad de fondo de forma cíclica.
-   NO usa 'transform' (scale, translate, rotate) para no romper el Parallax ni el JS */
-@keyframes pulsoEsperaSeguro {
-    0%, 100% { 
-        opacity: 0.9;
-        filter: brightness(0.85) contrast(1);
-    }
-    50% { 
-        opacity: 1;
-        filter: brightness(1.15) contrast(1.05); /* Sutil destello de atención */
-    } 
-}
-
-
-.img-001{ width: 350px; height: 450px; transform: rotate(150deg);
-position:absolute;
-    top:1500px;
-    left:200px; z-index:10}
-
-.img-002{ width: 250px; height: 350px; transform: rotate(60deg); z-index:10}
-.img-003{ width: 250px; height: 250px; transform: rotate(80deg); z-index:10}
-.img-004{ width: 250px; height: 350px; transform: rotate(45deg); z-index:10}
-
-.img-002-1 {width: 300px; height: 450px; transform: rotate(80deg);
-    position:absolute;
-    top:1500px;
-    left:900px; z-index:10}
-
-.img-003-1 {width: 300px; height: 450px; transform: rotate(80deg);
-    position:absolute;
-    top:1500px;
-    left:500px; z-index:10}
-
-.img-001-1 {width: 300px; height: 450px; transform: rotate(80deg);
-    position:absolute;
-    top:1400px;
-    left:700px; z-index:10}
-
-.img-004-1 {width: 300px; height: 450px; transform: rotate(80deg);
-    position:absolute;
-    top:1400px;
-    left:300px; z-index:10}
-
-.img-003-2 {width: 300px; height: 450px; transform: rotate(80deg);
-    position:absolute;
-    top:1400px;
-    left:900px; z-index:10}
-
-.img-01,
-.img-02,
-.img-03,
-.img-04,
-.img-001,
-.img-002,
-.img-003,
-.img-004,
-.img-001-1,
-.img-002-1,
-.img-003-1,
-.img-004-1,
-.img-003-2{
-    will-change: transform;
-    transition: transform 0.08s linear;
-}
-
-
-/* ==========================================
-   SECCIÓN DE GIFS CORREGIDA
-   ========================================== */
-
-/* 1. LA GALERÍA: Fuerza a que los tres primeros hijos se pongan en fila */
-.galeria-gifs {
-    display: flex !important;
-    flex-direction: row !important; /* Los alinea horizontalmente uno al lado del otro */
-    justify-content: center !important; /* Los centra en el medio de la pantalla */
-    gap: 50px !important; /* Deja un espacio de separación limpio entre cada caja */
-    
-    width: 90% !important;
-    max-width: 1000px !important; /* Aumentamos el ancho máximo para que quepan los 3 bien */
-    margin: 20px auto 40px auto !important; /* Centra toda la galería en la página */
-}
-
-/* 2. CONTENEDOR INDIVIDUAL: */
-.gif-container {
-    display: block !important;
-    max-width: 600px !important;     
-    margin: 20px auto 40px auto !important; /* Unificamos los 4 márgenes en una sola línea */
-    
-    padding: 15px !important;               /* El grosor del marco interior */
-    background-color: #0a0a0a !important;   /* El color del cuadro */
-    border-radius: 20px !important;         /* Curvatura del cuadro exterior */
-    
-    overflow: hidden !important;            /* Recorta automáticamente el GIF de adentro */
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* 3. IMAGEN INTERNA: CON BORDES REDONDEADOS PROPIOS */
-.gif-container .gif-media {
-    display: block !important;
-    width: 100% !important;
-    height: 300px !important; /* Aquí controlas el alto de tus GIFs libremente */
-    object-fit: cover !important; /* Recorta el GIF para que llene el alto sin estirarse feo */
-    
-    /* SOLUCIÓN: Redondea las esquinas del GIF dentro del marco */
-    border-radius: 12px !important; 
-    
-    filter: brightness(0.6) contrast(1.05) !important; 
-    transition: filter 0.4s ease !important; 
-}
-
-/* Interacción Hover */
-.gif-container:hover .gif-media {
-    filter: brightness(1) !important;
-}
-
-/* Fuerza a los contenedores de la fila dos a medir lo mismo que si fueran tres columnas */
-.galeria-gifs.fila-dos .gif-container {
-    flex: 0 1 calc(33.333% - 14px) !important;
-    max-width: calc(33.333% - 14px) !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
-
-
-
-
-
-
-
-/* Hover */
 .discover-btn-2:hover {
-  background-color: #1e1e1e;
-  color: white;
+    background-color: #1e1e1e;
+    color: white;
 }
 
-/*Flecha*/ 
-.back-arrow{
+.back-arrow {
     position: fixed;
     top: 30px;
     left: 45px;
@@ -340,12 +151,128 @@ position:absolute;
     z-index: 1000;
 }
 
-.back-arrow:hover{
+.back-arrow:hover {
     transform: scale(1.15);
 }
 
-/*Tablero*/
+.espaciador-inferior {
+    display: block;
+    width: 100%;
+    height: 300px; 
+    pointer-events: none; 
+}
 
+/* ==========================================================================
+   5. IMÁGENES Y CAPAS VISUALES (PARALLAX COORDENADAS)
+   ========================================================================== */
+.cuadri {
+    width: 1100px;
+    height: 200px;
+    position: absolute;
+    top: 200px;
+    /* 👇 Esto centra la caja absoluta en la pantalla sin tocar el 'transform' */
+    left: 0;
+    right: 0;
+    margin: 0 auto; 
+    
+    /* 👇 Esto asegura que el texto del H1 también se centre dentro de sus 1100px */
+    text-align: center; 
+    
+    z-index: 1;
+}
+.img-01  { width: 450px; height: 650px; transform: rotate(45deg); position: absolute; top: 400px; left: 200px; z-index: 10; }
+.img-02  { width: 450px; height: 650px; transform: rotate(-45deg); position: absolute; top: 500px; left: 800px; z-index: 10; }
+.img-03  { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 200px; left: 900px; z-index: 10; }
+.img-04  { width: 200px; height: 300px; transform: rotate(-65deg); position: absolute; top: 35px; left: 300px; z-index: 10; }
+
+.img-001 { width: 350px; height: 450px; transform: rotate(150deg); position: absolute; top: 1500px; left: 200px; z-index: 10; }
+.img-002 { width: 250px; height: 350px; transform: rotate(60deg); z-index: 10; }
+.img-003 { width: 250px; height: 250px; transform: rotate(80deg); z-index: 10; }
+.img-004 { width: 250px; height: 350px; transform: rotate(45deg); z-index: 10; }
+
+.img-002-1 { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 1500px; left: 900px; z-index: 10; }
+.img-003-1 { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 1500px; left: 500px; z-index: 10; }
+.img-001-1 { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 1400px; left: 700px; z-index: 10; }
+.img-004-1 { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 1400px; left: 300px; z-index: 10; }
+.img-003-2 { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 1400px; left: 900px; z-index: 10; }
+
+.img-01, .img-02, .img-03, .img-04, .img-001, .img-002, .img-003, .img-004,
+.img-001-1, .img-002-1, .img-003-1, .img-004-1, .img-003-2 {
+    will-change: transform;
+    transition: transform 0.08s linear;
+}
+
+/* --- Animaciones e Interacción en Fichas --- */
+.img-01, .img-02, .img-03, .img-04 {
+    cursor: pointer !important;
+    animation: pulsoEsperaSeguro 2s ease-in-out infinite !important;
+    transition: filter 0.3s ease, opacity 0.3s ease !important;
+}
+
+.img-01:hover, .img-02:hover, .img-03:hover, .img-04:hover {
+    filter: brightness(1.2) !important;
+    opacity: 1 !important;
+}
+
+@keyframes pulsoEsperaSeguro {
+    0%, 100% { 
+        opacity: 0.9;
+        filter: brightness(0.85) contrast(1);
+    }
+    50% { 
+        opacity: 1;
+        filter: brightness(1.15) contrast(1.05);
+    } 
+}
+
+/* ==========================================================================
+   6. SECCIÓN DE GIFS COMPONENTES
+   ========================================================================== */
+.galeria-gifs {
+    display: flex !important;
+    flex-direction: row !important; 
+    justify-content: center !important; 
+    gap: 50px !important; 
+    width: 90% !important;
+    max-width: 1000px !important; 
+    margin: 20px auto 40px auto !important; 
+}
+
+.gif-container {
+    display: block !important;
+    max-width: 600px !important;     
+    margin: 20px auto 40px auto !important; 
+    padding: 15px !important;               
+    background-color: #0a0a0a !important;   
+    border-radius: 20px !important;         
+    overflow: hidden !important;            
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+.gif-container .gif-media {
+    display: block !important;
+    width: 100% !important;
+    height: 300px !important; 
+    object-fit: cover !important; 
+    border-radius: 12px !important; 
+    filter: brightness(0.6) contrast(1.05) !important; 
+    transition: filter 0.4s ease !important; 
+}
+
+.gif-container:hover .gif-media {
+    filter: brightness(1) !important;
+}
+
+.galeria-gifs.fila-dos .gif-container {
+    flex: 0 1 calc(33.333% - 14px) !important;
+    max-width: calc(33.333% - 14px) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* ==========================================================================
+   7. TABLERO GENERAL (PROPIEDADES DE JUEGO)
+   ========================================================================== */
 .body2 {
     margin: 0;
     padding: 0;
@@ -362,7 +289,6 @@ position:absolute;
     overflow: hidden;          
 }
 
-/* --- Contenedor Principal del Tablero --- */
 .tablero {
     display: grid;
     grid-template-columns: repeat(11, 50px); 
@@ -373,175 +299,351 @@ position:absolute;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
 }
 
-/* --- Estilo de las Casillas del Camino --- */
 .casilla {
     border: 1px solid rgba(255, 255, 255, 0.25); 
     box-sizing: border-box;
 }
 
-/* --- Estilos base para las Esquinas Activas --- */
 .esquina {
     z-index: 2;
     transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
     cursor: pointer;
     width: 70px;         
     height: 70px;
-  
-}
-
-/* ==========================================================================
-   PROPIEDADES GENERALES PARA TODAS LAS ESQUINAS
-   ========================================================================== */
-.esquina {
-    /* Aquí puedes poner estilos que compartan las 4 esquinas, como bordes o sombras */
     border-radius: 8px; 
 }
 
-/* ==========================================================================
-   MANIPULACIÓN INDIVIDUAL DE CADA ESQUINA
-   ========================================================================== */
-
-.esquina-amarilla {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-    background-color: #ffd15c !important; 
-      margin: -20px;
-}
-
-.esquina-roja {
-    grid-column: 11 !important;
-    grid-row: 1 !important;
-    background-color: #ff6b6b !important; 
-    transform: translate(0px, -20px);
-}
-
-.esquina-azul {
-    grid-column: 11 !important;
-    grid-row: 11 !important;
-    background-color: #4dabf7 !important; 
-    transform: translate(0px, 0px);
-}
-
-.esquina-verde {
-    grid-column: 1 !important;
-    grid-row: 11 !important;
-    background-color: #51cf66 !important; 
-    transform: translate(-20px, 0px);
-}
-
-
-
-
-
-/* ==========================================================================
-   UBICACIÓN DE LAS MATRICES EN LOS CUADRANTES CENTRALES VACÍOS
-   ========================================================================== */
-
-/* Coordenadas del Grid que delimitan los 4 espacios negros del centro */
-.centro-amarillo { grid-column: 2 / 6; grid-row: 2 / 6; }
-.centro-roja     { grid-column: 7 / 11; grid-row: 2 / 6; }
-.centro-verde    { grid-column: 2 / 6; grid-row: 7 / 11; }
-.centro-azul     { grid-column: 7 / 11; grid-row: 7 / 11; }
-
-/* Contenedor invisible que centra la matriz en su respectivo cuadrante */
-.zona-centro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    pointer-events: none; /* Evita que interfiera con los clics del tablero */
-}
-
-/* La caja gris claro de 4x4 que guarda las mini casillas */
-.matriz-interna {
-    display: none; /* Oculta por defecto hasta que el JS le añada la clase */
-    width: 170px;  /* Ajuste de tamaño para encajar perfecto en el espacio central */
-    height: 170px;
-    background-color: #e0e0e0; /* Gris claro de fondo exacto al video */
-    padding: 8px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    
-    /* Configuración interna del mini grid 4x4 */
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 4px;
-    box-sizing: border-box;
-}
-
-/* Los pequeños píxeles dentro de la matriz */
-.mini-casilla {
-    background-color: #ffffff; /* Cuadritos blancos base */
-    border-radius: 4px;
-}
-
-/* Clases de color para los patrones activos (Heredan los tonos exactos de tus esquinas) */
-.mini-casilla.activo-amarillo { background-color: #ffd15c !important; }
-.mini-casilla.activo-rojo     { background-color: #ff6b6b !important; }
-.mini-casilla.activo-azul     { background-color: #4dabf7 !important; }
-.mini-casilla.activo-verde    { background-color: #51cf66 !important; }
-
-/* Clase interruptor que activa el JavaScript al pasar el cursor (mouseenter) */
-.mostrar-matriz {
-    display: grid !important;
-}
-
-
-
-
-
-/* Efecto visual al pasar el cursor */
 .esquina:hover {
     transform: scale(1.15); 
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); 
     z-index: 3; 
 }
 
-/* --- Paleta de Colores de las Esquinas --- */
-.amarillo { background-color: #f1c40f; }
-.rojo     { background-color: #b05140; }
-.celeste  { background-color: #76a89f; }
-.azul     { background-color: #29388a; }
+/* --- Posiciones Individuales de Esquinas --- */
+.esquina-amarilla { grid-column: 1 !important; grid-row: 1 !important; background-color: #efc300 !important; margin: -20px; }
+.esquina-roja     { grid-column: 11 !important; grid-row: 1 !important; background-color:  #aa4d3c !important; transform: translate(0px, -20px); }
+.esquina-azul     { grid-column: 11 !important; grid-row: 11 !important; background-color: #273584 !important; transform: translate(0px, 0px); }
+.esquina-verde    { grid-column: 1 !important; grid-row: 11 !important; background-color: #74aa9f  !important; transform: translate(-20px, 0px); }
 
-/* --- Distribución de Tramos en el CSS Grid --- */
-.fila-superior {
-    grid-column: 2 / 11;
-    grid-row: 1;
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
+/* --- Paleta de Muestras del Camino --- */
+.amarillo { background-color: #efc300; }
+.rojo     { background-color: #aa4d3c; }
+.celeste  { background-color: #74aa9f ; }
+.azul     { background-color: #273584 ; }
+
+/* ==========================================================================
+   8. MATRICES INTERNAS CENTRALES
+   ========================================================================== */
+.centro-amarillo { grid-column: 2 / 6; grid-row: 2 / 6; }
+.centro-roja     { grid-column: 7 / 11; grid-row: 2 / 6; }
+.centro-verde    { grid-column: 2 / 6; grid-row: 7 / 11; }
+.centro-azul     { grid-column: 7 / 11; grid-row: 7 / 11; }
+
+.zona-centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    pointer-events: none; 
 }
 
-.fila-medio {
-    grid-column: 2 / 11;
-    grid-row: 6;
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
+.matriz-interna {
+    display: none; 
+    width: 170px;  
+    height: 170px;
+    background-color: #e0e0e0; 
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 4px;
+    box-sizing: border-box;
 }
 
-.fila-inferior {
-    grid-column: 2 / 11;
-    grid-row: 11;
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
+.mini-casilla {
+    background-color: #ffffff; 
+    border-radius: 4px;
 }
 
-.columna-izquierda {
-    grid-column: 1;
-    grid-row: 2 / 11;
-    display: grid;
-    grid-template-rows: repeat(9, 1fr);
+.mini-casilla.activo-amarillo { background-color: #efc300 !important; }
+.mini-casilla.activo-rojo     { background-color: #aa4d3c !important; }
+.mini-casilla.activo-azul     { background-color: #273584 !important; }
+.mini-casilla.activo-verde    { background-color: #74aa9f !important; }
+
+.mostrar-matriz {
+    display: grid !important;
 }
 
-.columna-medio {
-    grid-column: 6;
-    grid-row: 2 / 11;
-    display: grid;
-    grid-template-rows: repeat(9, 1fr);
+/* --- Mapeo de Filas y Columnas de Redirección --- */
+.fila-superior     { grid-column: 2 / 11; grid-row: 1; display: grid; grid-template-columns: repeat(9, 1fr); }
+.fila-medio        { grid-column: 2 / 11; grid-row: 6; display: grid; grid-template-columns: repeat(9, 1fr); }
+.fila-inferior     { grid-column: 2 / 11; grid-row: 11; display: grid; grid-template-columns: repeat(9, 1fr); }
+.columna-izquierda { grid-column: 1; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); }
+.columna-medio     { grid-column: 6; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); }
+.columna-derecha   { grid-column: 11; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); }
+
+/* ==========================================================================
+   9. SECCIÓN FINAL O FOOTER
+   ========================================================================== */
+.seccion-final {
+    width: 100%;
+    height: 400px; 
+    background-color: #e1e1e1;
+    margin-top: 90px; 
 }
 
-.columna-derecha {
-    grid-column: 11;
-    grid-row: 2 / 11;
-    display: grid;
-    grid-template-rows: repeat(9, 1fr);
+
+
+
+
+
+
+/* ==========================================================================
+   1. ESTILOS GENERALES
+   ========================================================================== */
+body {
+    font-family: "Louis George Cafe";
+    background-color: #1e1e1e;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+     place-content: center;
 }
+
+.galeria-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    max-width: 950px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. CONTENEDOR DE LA GALERÍA e IMÁGENES
+   ========================================================================== */
+.carrusel-contenedor {
+    position: relative;
+    width: 100%;
+    height: 520px; /* Alto general del carrusel */
+    overflow: hidden;
+    background-color: #e1e1e1;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    
+}
+
+.slide.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.slide img {
+    width: 85%;          /* <--- Cambia el 100% por un porcentaje menor */
+    height: 75%;         /* <--- Reduce el alto interno de la foto */
+    margin: 15px auto 0; /* <--- Centra la imagen y le da espacio arriba */
+    object-fit: contain; /* <--- Cambiar a 'contain' ayuda a que no se deforme al achicarla */
+}
+
+/* Pie de página de letra 18 */
+.pie-pagina {
+    font-size: 18px; 
+    color: #1e1e1e;
+    text-align: center;
+    margin: 0;
+    padding: 20px 15px;
+    background-color: #e1e1e1;
+    height: 18%;
+    box-sizing: border-box;
+    font-weight: 500;
+    
+}
+
+.p3{font-size: 18px; 
+    color: #1e1e1e;
+    font-family: "Louis George Cafe";
+    text-align: center;
+    margin: 0;
+    padding: 20px 15px;
+
+
+}
+
+/* ==========================================================================
+   3. BOTONES DE CONTROL (Círculo y Rombo)
+   ========================================================================== */
+.btn-control {
+    background-color: #e1e1e1;
+    
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.2s;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
+
+.btn-control:active {
+    transform: scale(0.95);
+}
+
+/* Extremo izquierdo: Círculo */
+.btn-circulo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+/* Extremo derecho: Rombo */
+.btn-rombo {
+    width: 44px;
+    height: 44px;
+    transform: rotate(45deg);
+    margin-right: 6px;
+}
+
+.flecha {
+    font-size: 20px;
+    user-select: none;
+}
+
+/* Corrige la rotación interna para la flecha del rombo */
+.flecha-derecha {
+    transform: rotate(-45deg);
+}
+
+
+/* ==========================================================================
+   2. ESTRUCTURA DE LA CUADRÍCULA (4x4)
+   ========================================================================== */
+
+
+:root {
+    --bg-cuadro: #080808;
+    --linea: #e1e1e1;
+}
+
+
+/* ==========================================================================
+   CENTRADO GLOBAL (Asegura que todo quede en medio de la pantalla)
+   ========================================================================== */
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================================
+   CUADRÍCULA PRINCIPAL
+   ========================================================================== */
+/* CUADRÍCULA PRINCIPAL (CORREGIDA Y CONGELADA) */
+.cuadricula-4x4 {
+    display: grid;
+    /* 💡 CAMBIO: minmax(0, 1fr) evita que las columnas se estiren por el tamaño de la imagen */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    /* 💡 NUEVO: Define y congela las filas para que midan siempre lo mismo, con o sin imagen */
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    
+    gap: 2px;
+    width: 320px;
+    aspect-ratio: 1; /* Mantiene la proporción cuadrada automáticamente */
+    background-color: var(--linea);
+    border: 2px solid var(--linea);
+    box-shadow: 0 50px 90px rgba(15, 15, 15, 0.65);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+
+.cuadricula-4x4, .cuadroscuadricula {
+    transition: opacity 1s ease; /* Duración del desvanecido: 1 segundo */
+    opacity: 1;
+}
+
+.fading {
+    opacity: 0 !important;
+}
+
+
+.cuadro {
+    background-color: var(--bg-cuadro);
+}
+
+/* ==========================================================================
+   SECCIÓN DE IMÁGENES
+   ========================================================================== */
+.cuadroscuadricula {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Organiza las 8 imágenes en 2 filas de 4 */
+    gap: 2px;                              /* Mismo espacio entre cuadros que el anterior */
+    width: 320px;   
+    margin-top: 50px;                      /* Espacio de separación con la cuadrícula de arriba */
+}
+
+/* 💡 CORREGIDO: Aplica el estilo si están en la barra inferior O dentro del tablero */
+.cuadroscuadricula img, .cuadro img {
+    width: 100%;                           /* Ocupa el espacio exacto de su celda grid */
+    aspect-ratio: 1;                       /* Fuerza a que sean completamente cuadradas */
+    object-fit: cover;                     /* Evita que las imágenes se estiren o deformen */
+    display: block;                        /* Elimina espacios rebeldes de las imágenes en línea */
+    cursor: grab;                          /* Cambia el cursor a la mano para arrastrar */
+}
+
+
+
+/* ==========================================================================
+VIDEOS
+   ========================================================================== */
+
+.Video {
+    width: 100%;
+    max-width: 700px;        /* Controla el ancho máximo */
+    aspect-ratio: 16 / 9;    /* Mantiene la proporción clásica de video */
+    display: block;
+    margin: 20px auto;       /* Lo centra en la página */
+    border-radius: 12px;     /* Bordes redondeados modernos */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra suave */
+    object-fit: cover;       /* Evita barras negras si las proporciones varían */
+    transition: transform 0.3s ease;
+}
+
+.Video:hover {
+    transform: scale(1.02);
+}
+
+.video-container {
+    display: block !important;
+    max-width: 600px !important;     
+    margin: 20px auto 40px auto !important; 
+    padding: 15px !important;               
+    background-color: #0a0a0a !important;   
+    border-radius: 20px !important;         
+    overflow: hidden !important;            
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+
