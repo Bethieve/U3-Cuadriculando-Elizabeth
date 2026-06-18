@@ -3,60 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuadrícula 4x4</title>
+    <title>Minijuego - Linterna Geométrica</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="escenario-juego">
 
-<a href="tablero.html" class="back-arrow">
-      ←
-</a>
+    <div class="linterna-oscuridad" id="capa-negra"></div>
 
+    <div class="cuadricula-oculta" id="tablero-rejilla"></div>
 
-    <div class="cuadricula-4x4">
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
+    <div id="mensaje-oculto-final" style="display: none;">Revelando lo oculto</div>
 
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-        <div class="cuadro"></div>
-    </div>
-
-
-
-<div class="cuadroscuadricula">
-    <img src="img/cuadro rojo.png" class="Cuadrorojo1" alt="">
-     <img src="img/cuadro rojo.png" class="Cuadrorojo2" alt="">
-      <img src="img/cuadro rojo.png" class="Cuadrorojo3" alt="">
-       <img src="img/cuadro rojo.png" class="Cuadrorojo4" alt="">
-        <img src="img/cuadro rojo.png" class="Cuadrorojo5" alt="">
-         <img src="img/cuadro rojo.png" class="Cuadrorojo6" alt="">
-          <img src="img/cuadro rojo.png" class="Cuadrorojo7" alt="">
-           <img src="img/cuadro rojo.png" class="Cuadrorojo8" alt="">
-           <img src="img/cuadro rojo.png" class="Cuadrorojo9" alt="">
-           <img src="img/cuadro rojo.png" class="Cuadrorojo10" alt="">
-           <img src="img/cuadro rojo.png" class="Cuadrorojo11" alt="">
-           <img src="img/cuadro rojo.png" class="Cuadrorojo12" alt="">
-           <img src="img/cuadro rojo.png" class="Cuadrorojo13" alt="">
-           <img src="img/cuadro rojo.png" class="Cuadrorojo14" alt="">
-           <img src="img/cuadro rojo.png" class="Cuadrorojo15" alt="">
-           <img src="img/cuadro rojo.png" class="Cuadrorojo16" alt="">
-        </div>
-
-
-<script src="script.js"></script>
+    <button id="boton-regresar-tablero" style="display: none;">←</button>
+    <script src="script.js"></script>
 </body>
 </html>

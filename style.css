@@ -10,16 +10,29 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Limpieza total y única del body */
 body {
     margin: 0;
-    min-height: 100vh;      
+    padding: 0;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;  
-    text-align: center; 
+    flex-direction: column;
+    align-items: center;         /* Centra el wrapper principal */
+    justify-content: flex-start; /* Permite que la página crezca de arriba a abajo */
     background: #1e1e1e;
-   overflow-x: clip;
+    overflow-x: hidden;
+    font-family: "Louis George Cafe", sans-serif;
 }
 
+/* Contenedor que agrupa todo para mantener el ancho máximo controlado */
+.main-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
 
 h2 {
     font-family: inlanders;
@@ -29,11 +42,20 @@ h2 {
     letter-spacing: 4px;
 }
 
+/* El título H3 que pediste estrictamente a la izquierda */
+h3 {
+    font-family: inlanders;
+    font-size: 60px;
+    color: white;
+    margin-top: 80px; 
+    letter-spacing: 4px;
+    text-align: left !important;  /* Forzado a la izquierda */
+    width: 100%;                  /* Ocupa todo el ancho para poder alinearse */
+    box-sizing: border-box;
+}
+
 /* ==========================================================================
    2. TEXTOS Y ANIMACIONES DE PÁRRAFO
-   ========================================================================== */
-/* ==========================================================================
-   PÁRRAFOS CON REVEAL EN SCROLL
    ========================================================================== */
 p { 
     font-family: "Louis George Cafe";
@@ -44,21 +66,15 @@ p {
     text-align: center;      
     max-width: 800px;      
     padding: 0 30px;
-    
-    /* 💡 ESTADO INICIAL: Oculto y 20px abajo */
     opacity: 0;
     transform: translateY(20px);
-    /* Transición suave para la opacidad y el movimiento */
     transition: opacity 0.8s ease, transform 0.8s ease;   
 }
 
-/* 💡 ESTADO ACTIVO: Se activa mediante JS cuando entra en pantalla */
 p.visible {
     opacity: 1;
     transform: translateY(0);
 }
-
-
 
 /* ==========================================================================
    3. ESTRUCTURA DE PANTALLAS Y NAVEGACIÓN
@@ -91,56 +107,69 @@ p.visible {
    ========================================================================== */
 .buttons-group {
     display: flex;
-    flex-direction: row; 
-    gap: 30px;          
+    flex-direction: column;
+    gap: 12px;                  /* Distancia menor entre ellos (antes 30px) */
     margin-bottom: 120px; 
-    z-index: 20;    
-    
-         
+    width: 160px;               /* Ancho fijo del contenedor */
+    position: absolute;
+    right: 40px;                /* Se queda en su posición original a la derecha */
+    z-index: 20;               
 }
 
 .buttons-group1 {
-    padding: 20px 60px;
+    padding: 5px 10px;
     border-radius: 25px;
     background: #1e1e1e;
     color: white;
-    font-size: 13;
+    font-size: 10px;
     letter-spacing: 4px;
     font-family: "Louis George Cafe", sans-serif;
     cursor: pointer;
     transition: .3s;
     text-decoration: none;
+    display: inline-flex;       
+    align-items: center;        
+    justify-content: center;    
+    text-align: center;         
 }
 
 .discover-btn {
-    padding: 20px 60px;
-    border: 2px solid white;
+    /* 🟢 AQUÍ ESTÁ EL CAMBIO CLAVE */
+    width: 130px !important;    /* Fuerza el ancho exacto de 'MATERIALIDAD' a todos por igual */
+    max-width: 160px !important;/* Evita estrictamente que se estiren por el ancho de la pantalla */
+    box-sizing: border-box !important; /* Mantiene el padding dentro de los 160px */
+    
+    padding: 8px 12px;          
+    border: 2px solid #e1e1e1;
     border-radius: 25px;
     background: #1e1e1e;
-    color: white;
-    font-size: 18px;
-    letter-spacing: 4px;
+    color: #e1e1e1;
+    font-size: 12px;            /* Letra más pequeña para no interferir */
+    letter-spacing: 2px;        
     font-family: "Louis George Cafe", sans-serif;
     cursor: pointer;
     transition: .3s;
     text-decoration: none;
-    margin-bottom: 0px !important;
+    display: inline-flex;       
+    align-items: center;        
+    justify-content: center;    
+    text-align: center;         
 }
 
 .discover-btn:hover {
-    background: white;
+    background: #e1e1e1;
     color: black;
 }
 
 .discover-btn-2:hover {
     background-color: #1e1e1e;
-    color: white;
+    color: #e1e1e1;
 }
 
 .back-arrow {
     position: fixed;
-    top: 30px;
-    left: 45px;
+    top: 80px;
+    left: 55px;
     text-decoration: none;
     color: #e1e1e1;
     font-size: 70px;
@@ -170,39 +199,39 @@ p.visible {
     height: 200px;
     position: absolute;
     top: 200px;
-    /* 👇 Esto centra la caja absoluta en la pantalla sin tocar el 'transform' */
     left: 0;
     right: 0;
     margin: 0 auto; 
-    
-    /* 👇 Esto asegura que el texto del H1 también se centre dentro de sus 1100px */
     text-align: center; 
-    
     z-index: 1;
 }
-.img-01  { width: 450px; height: 650px; transform: rotate(45deg); position: absolute; top: 400px; left: 200px; z-index: 10; }
-.img-02  { width: 450px; height: 650px; transform: rotate(-45deg); position: absolute; top: 500px; left: 800px; z-index: 10; }
-.img-03  { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 200px; left: 900px; z-index: 10; }
-.img-04  { width: 200px; height: 300px; transform: rotate(-65deg); position: absolute; top: 35px; left: 300px; z-index: 10; }
 
-.img-001 { width: 350px; height: 450px; transform: rotate(150deg); position: absolute; top: 1500px; left: 200px; z-index: 10; }
-.img-002 { width: 250px; height: 350px; transform: rotate(60deg); z-index: 10; }
-.img-003 { width: 250px; height: 250px; transform: rotate(80deg); z-index: 10; }
-.img-004 { width: 250px; height: 350px; transform: rotate(45deg); z-index: 10; }
-
-.img-002-1 { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 1500px; left: 900px; z-index: 10; }
-.img-003-1 { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 1500px; left: 500px; z-index: 10; }
-.img-001-1 { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 1400px; left: 700px; z-index: 10; }
-.img-004-1 { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 1400px; left: 300px; z-index: 10; }
-.img-003-2 { width: 300px; height: 450px; transform: rotate(80deg); position: absolute; top: 1400px; left: 900px; z-index: 10; }
-
-.img-01, .img-02, .img-03, .img-04, .img-001, .img-002, .img-003, .img-004,
+.img-01, .img-02, .img-03, .img-04, 
+.img-001, .img-002, .img-003, .img-004,
 .img-001-1, .img-002-1, .img-003-1, .img-004-1, .img-003-2 {
+    position: absolute;
+    z-index: 10;
+    left: 50%;
     will-change: transform;
     transition: transform 0.08s linear;
 }
 
-/* --- Animaciones e Interacción en Fichas --- */
+.img-01 { width: 450px; height: 650px; top: 400px; margin-left: -500px; transform: rotate(45deg); }
+.img-02 { width: 450px; height: 650px; top: 500px; margin-left: 100px;  transform: rotate(-45deg); }
+.img-03 { width: 300px; height: 450px; top: 200px; margin-left: 200px;  transform: rotate(80deg); }
+.img-04 { width: 200px; height: 300px; top: 35px;  margin-left: -400px; transform: rotate(-65deg); }
+
+.img-004-1 { width: 300px; height: 450px; top: 1400px; margin-left: -400px; transform: rotate(80deg); }
+.img-001-1 { width: 300px; height: 450px; top: 1400px; margin-left: 0px;    transform: rotate(80deg); }
+.img-003-2 { width: 300px; height: 450px; top: 1400px; margin-left: 200px;  transform: rotate(80deg); }
+
+.img-002   { width: 250px; height: 350px; top: 1450px; margin-left: -200px; transform: rotate(60deg); }
+.img-004   { width: 250px; height: 350px; top: 1480px; margin-left: 150px;  transform: rotate(45deg); }
+.img-001   { width: 350px; height: 450px; top: 1500px; margin-left: -500px; transform: rotate(150deg); }
+.img-003-1 { width: 300px; height: 450px; top: 1500px; margin-left: -200px; transform: rotate(80deg); }
+.img-002-1 { width: 300px; height: 450px; top: 1500px; margin-left: 200px;  transform: rotate(80deg); }
+.img-003   { width: 250px; height: 250px; top: 1550px; margin-left: -50px;  transform: rotate(80deg); }
+
 .img-01, .img-02, .img-03, .img-04 {
     cursor: pointer !important;
     animation: pulsoEsperaSeguro 2s ease-in-out infinite !important;
@@ -215,67 +244,123 @@ p.visible {
 }
 
 @keyframes pulsoEsperaSeguro {
-    0%, 100% { 
-        opacity: 0.9;
-        filter: brightness(0.85) contrast(1);
-    }
-    50% { 
-        opacity: 1;
-        filter: brightness(1.15) contrast(1.05);
-    } 
+    0%, 100% { opacity: 0.9; filter: brightness(0.85) contrast(1); }
+    50% { opacity: 1; filter: brightness(1.15) contrast(1.05); } 
 }
 
 /* ==========================================================================
    6. SECCIÓN DE GIFS COMPONENTES
    ========================================================================== */
-.galeria-gifs {
+/* ==========================================================
+   PRIMERA GALERÍA (SOLO sección CUADRICULANDO)
+   ========================================================== */
+
+/* fila principal */
+#info .galeria-gifs{
     display: flex !important;
-    flex-direction: row !important; 
-    justify-content: center !important; 
-    gap: 50px !important; 
-    width: 90% !important;
-    max-width: 1000px !important; 
-    margin: 20px auto 40px auto !important; 
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: 35px !important;
+    width: 95% !important;
+    max-width: 1600px !important;
+    margin: 20px auto 40px auto !important;
 }
 
-.gif-container {
+/* cajas negras */
+#info .gif-container{
     display: block !important;
-    max-width: 600px !important;     
-    margin: 20px auto 40px auto !important; 
-    padding: 15px !important;               
-    background-color: #0a0a0a !important;   
-    border-radius: 20px !important;         
-    overflow: hidden !important;            
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+    width: 800px !important;          /* agranda los 3 */
+    padding: 15px !important;
+    margin: 0 !important;
+
+    background-color: #0a0a0a !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 12px 32px rgba(0,0,0,.5) !important;
 }
 
-.gif-container .gif-media {
+/* gif interno */
+#info .gif-media{
     display: block !important;
     width: 100% !important;
-    height: 300px !important; 
-    object-fit: cover !important; 
-    border-radius: 12px !important; 
-    filter: brightness(0.6) contrast(1.05) !important; 
-    transition: filter 0.4s ease !important; 
+    height: 400px !important;          /* todos mismo tamaño */
+    object-fit: cover !important;
+
+    border-radius: 12px !important;
+    filter: brightness(0.6) contrast(1.05) !important;
+    transition: filter .4s ease !important;
 }
 
-.gif-container:hover .gif-media {
+#info .gif-container:hover .gif-media{
     filter: brightness(1) !important;
 }
 
+
+/* ==========================================================
+   SEGUNDA GALERÍA (NO TOCAR)
+   queda como estaba originalmente
+   ========================================================== */
+
+.galeria-gifs.fila-dos{
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: 100px !important;
+    width: 90% !important;
+    max-width: 10000px !important;
+    margin: 20px auto 40px auto !important;
+}
+
+.galeria-gifs.fila-dos .gif-container{
+    display: block !important;
+    max-width: 500px !important;
+    margin: 20px auto 40px auto !important;
+    padding: 15px !important;
+    background-color: #0a0a0a !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+.galeria-gifs.fila-dos .gif-media{
+    display: block !important;
+    width:100% !important;
+    height: 300px !important;
+    width: 200px;
+    object-fit: cover !important;
+    border-radius: 12px !important;
+    filter: brightness(0.6) contrast(1.05) !important;
+    transition: filter 0.4s ease !important;
+}
+
+.galeria-gifs.fila-dos:hover .gif-media{
+    filter: brightness(1) !important;
+}
+/* ==========================================================================
+   CONTROL DE TAMAÑOS DIFERENCIADOS POR FILA
+   ========================================================================== */
+
+/* 🟢 FILA 1 GIGANTE: Al ser solo 2, les permitimos expandirse enormemente */
+.galeria-gifs.fila-uno-gigante .gif-container {
+    flex: 1 !important;
+    max-width: 850px !important;         /* 👈 Este límite gigante los hará destacar sobre el resto */
+    padding: 20px !important;
+}
+
+/* 🔵 FILA 2 ESTÁNDAR: Mantiene el tamaño exacto que ya te gustaba en la captura */
 .galeria-gifs.fila-dos .gif-container {
-    flex: 0 1 calc(33.333% - 14px) !important;
-    max-width: calc(33.333% - 14px) !important;
+    flex: 1 !important;
+    max-width: 500px !important;         /* Se quedan compactos porque son 3 */
+    padding: 15px !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
-
 /* ==========================================================================
-   7. TABLERO GENERAL (PROPIEDADES DE JUEGO)
+   7. TABLERO GENERAL (PROPIEDADES DE JUEGO A PANTALLA COMPLETA)
    ========================================================================== */
 .body2 {
     margin: 0;
-    padding: 0;
+    padding: 24px;              /* 💡 MARGEN: Controla la separación del tablero con el borde de la pantalla */
     width: 100vw;              
     height: 100vh;             
     background-color: #1a1a1a; 
@@ -283,57 +368,52 @@ p.visible {
     top: 0;
     left: 0;
     z-index: 1;                
-    display: flex;
-    justify-content: center;   
-    align-items: center;       
     overflow: hidden;          
-}
+    box-sizing: border-box;
 
-.tablero {
+    /* El propio body2 pasa a ser la cuadrícula del tablero expansivo */
     display: grid;
-    grid-template-columns: repeat(11, 50px); 
-    grid-template-rows: repeat(11, 50px);    
-    background-color: #1e1e1e;
-    padding: 20px;
-    border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
+    grid-template-columns: repeat(11, 1fr); /* Columnas proporcionales a la pantalla */
+    grid-template-rows: repeat(11, 1fr);    /* Filas proporcionales a la pantalla */
+    gap: 0px; 
 }
 
 .casilla {
     border: 1px solid rgba(255, 255, 255, 0.25); 
     box-sizing: border-box;
+    width: 100%;
+    height: 100%;
 }
 
+/* Esquinas configuradas al 100% de la celda de la cuadrícula */
 .esquina {
     z-index: 2;
     transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
     cursor: pointer;
-    width: 70px;         
-    height: 70px;
+    width: 100%;         
+    height: 100%;
     border-radius: 8px; 
+    display: block; /* Asegura el comportamiento correcto al ser una etiqueta <a> */
 }
 
 .esquina:hover {
-    transform: scale(1.15); 
+    transform: scale(1.08); /* Escala calibrada para no recortarse en los bordes */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); 
     z-index: 3; 
 }
 
-/* --- Posiciones Individuales de Esquinas --- */
-.esquina-amarilla { grid-column: 1 !important; grid-row: 1 !important; background-color: #efc300 !important; margin: -20px; }
-.esquina-roja     { grid-column: 11 !important; grid-row: 1 !important; background-color:  #aa4d3c !important; transform: translate(0px, -20px); }
-.esquina-azul     { grid-column: 11 !important; grid-row: 11 !important; background-color: #273584 !important; transform: translate(0px, 0px); }
-.esquina-verde    { grid-column: 1 !important; grid-row: 11 !important; background-color: #74aa9f  !important; transform: translate(-20px, 0px); }
+/* Posiciones exactas y limpias en las celdas límite del Grid (Sin márgenes negativos) */
+.esquina-amarilla { grid-column: 1 !important; grid-row: 1 !important; background-color: #efc300 !important; }
+.esquina-roja     { grid-column: 11 !important; grid-row: 1 !important; background-color: #aa4d3c !important; }
+.esquina-azul     { grid-column: 11 !important; grid-row: 11 !important; background-color: #273584 !important; }
+.esquina-verde    { grid-column: 1 !important; grid-row: 11 !important; background-color: #74aa9f !important; }
 
-/* --- Paleta de Muestras del Camino --- */
 .amarillo { background-color: #efc300; }
 .rojo     { background-color: #aa4d3c; }
-.celeste  { background-color: #74aa9f ; }
-.azul     { background-color: #273584 ; }
+.celeste  { background-color: #74aa9f; }
+.azul     { background-color: #273584; }
 
-/* ==========================================================================
-   8. MATRICES INTERNAS CENTRALES
-   ========================================================================== */
+/* Distribución de las zonas de centro */
 .centro-amarillo { grid-column: 2 / 6; grid-row: 2 / 6; }
 .centro-roja     { grid-column: 7 / 11; grid-row: 2 / 6; }
 .centro-verde    { grid-column: 2 / 6; grid-row: 7 / 11; }
@@ -345,12 +425,14 @@ p.visible {
     align-items: center;
     box-sizing: border-box;
     pointer-events: none; 
+    width: 100%;
+    height: 100%;
 }
 
 .matriz-interna {
     display: none; 
-    width: 170px;  
-    height: 170px;
+    width: 85%;  
+    height: 85%;
     background-color: #e0e0e0; 
     padding: 8px;
     border-radius: 12px;
@@ -371,69 +453,26 @@ p.visible {
 .mini-casilla.activo-azul     { background-color: #273584 !important; }
 .mini-casilla.activo-verde    { background-color: #74aa9f !important; }
 
-.mostrar-matriz {
-    display: grid !important;
-}
+.mostrar-matriz { display: grid !important; }
 
-/* --- Mapeo de Filas y Columnas de Redirección --- */
-.fila-superior     { grid-column: 2 / 11; grid-row: 1; display: grid; grid-template-columns: repeat(9, 1fr); }
-.fila-medio        { grid-column: 2 / 11; grid-row: 6; display: grid; grid-template-columns: repeat(9, 1fr); }
-.fila-inferior     { grid-column: 2 / 11; grid-row: 11; display: grid; grid-template-columns: repeat(9, 1fr); }
-.columna-izquierda { grid-column: 1; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); }
-.columna-medio     { grid-column: 6; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); }
-.columna-derecha   { grid-column: 11; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); }
-
+/* Ajuste de los sub-grids de caminos al 100% de espacio asignado */
+.fila-superior     { grid-column: 2 / 11; grid-row: 1; display: grid; grid-template-columns: repeat(9, 1fr); width: 100%; height: 100%; }
+.fila-medio        { grid-column: 2 / 11; grid-row: 6; display: grid; grid-template-columns: repeat(9, 1fr); width: 100%; height: 100%; }
+.fila-inferior     { grid-column: 2 / 11; grid-row: 11; display: grid; grid-template-columns: repeat(9, 1fr); width: 100%; height: 100%; }
+.columna-izquierda { grid-column: 1; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); width: 100%; height: 100%; }
+.columna-medio     { grid-column: 6; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); width: 100%; height: 100%; }
+.columna-derecha   { grid-column: 11; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); width: 100%; height: 100%; }
 /* ==========================================================================
-   9. SECCIÓN FINAL O FOOTER
-   ========================================================================== */
-.seccion-final {
-    width: 100%;
-    height: 400px; 
-    background-color: #e1e1e1;
-    margin-top: 90px; 
-}
-
-
-
-
-
-
-
-/* ==========================================================================
-   1. ESTILOS GENERALES
-   ========================================================================== */
-body {
-    font-family: "Louis George Cafe";
-    background-color: #1e1e1e;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-     place-content: center;
-}
-
-.galeria-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    max-width: 950px;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* ==========================================================================
-   2. CONTENEDOR DE LA GALERÍA e IMÁGENES
+   8. COMPONENTES DEL CARRUSEL (Estructura interna)
    ========================================================================== */
 .carrusel-contenedor {
     position: relative;
-    width: 100%;
-    height: 520px; /* Alto general del carrusel */
+    width: 500px;        /* Congelamos el ancho para que no colapse */
+    height: 590px; 
     overflow: hidden;
     background-color: #e1e1e1;
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .slide {
@@ -447,7 +486,6 @@ body {
     display: flex;
     flex-direction: column;
     pointer-events: none;
-    
 }
 
 .slide.active {
@@ -456,13 +494,12 @@ body {
 }
 
 .slide img {
-    width: 85%;          /* <--- Cambia el 100% por un porcentaje menor */
-    height: 75%;         /* <--- Reduce el alto interno de la foto */
-    margin: 15px auto 0; /* <--- Centra la imagen y le da espacio arriba */
-    object-fit: contain; /* <--- Cambiar a 'contain' ayuda a que no se deforme al achicarla */
+    width: 85%;          
+    height: 75%;         
+    margin: 15px auto 0; 
+    object-fit: contain; 
 }
 
-/* Pie de página de letra 18 */
 .pie-pagina {
     font-size: 18px; 
     color: #1e1e1e;
@@ -473,25 +510,19 @@ body {
     height: 18%;
     box-sizing: border-box;
     font-weight: 500;
-    
 }
 
-.p3{font-size: 18px; 
+.p3 {
+    font-size: 18px; 
     color: #1e1e1e;
     font-family: "Louis George Cafe";
     text-align: center;
     margin: 0;
     padding: 20px 15px;
-
-
 }
 
-/* ==========================================================================
-   3. BOTONES DE CONTROL (Círculo y Rombo)
-   ========================================================================== */
 .btn-control {
     background-color: #e1e1e1;
-    
     border: none;
     cursor: pointer;
     display: flex;
@@ -500,77 +531,31 @@ body {
     transition: background-color 0.3s, transform 0.2s;
     flex-shrink: 0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 10;
 }
 
-
-
-.btn-control:active {
-    transform: scale(0.95);
-}
-
-/* Extremo izquierdo: Círculo */
-.btn-circulo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-
-/* Extremo derecho: Rombo */
-.btn-rombo {
-    width: 44px;
-    height: 44px;
-    transform: rotate(45deg);
-    margin-right: 6px;
-}
-
-.flecha {
-    font-size: 20px;
-    user-select: none;
-}
-
-/* Corrige la rotación interna para la flecha del rombo */
-.flecha-derecha {
-    transform: rotate(-45deg);
-}
-
+.btn-control:active { transform: scale(0.95); }
+.btn-circulo { width: 50px; height: 50px; border-radius: 50%; }
+.btn-rombo { width: 44px; height: 44px; transform: rotate(45deg); margin-right: 6px; }
+.flecha { font-size: 20px; user-select: none; }
+.flecha-derecha { transform: rotate(-45deg); }
 
 /* ==========================================================================
-   2. ESTRUCTURA DE LA CUADRÍCULA (4x4)
+   9. INTERFAZ DE TABLERO 4x4 (Juego alternativo)
    ========================================================================== */
-
-
 :root {
     --bg-cuadro: #080808;
     --linea: #e1e1e1;
 }
 
-
-/* ==========================================================================
-   CENTRADO GLOBAL (Asegura que todo quede en medio de la pantalla)
-   ========================================================================== */
-body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ==========================================================================
-   CUADRÍCULA PRINCIPAL
-   ========================================================================== */
-/* CUADRÍCULA PRINCIPAL (CORREGIDA Y CONGELADA) */
 .cuadricula-4x4 {
     display: grid;
-    /* 💡 CAMBIO: minmax(0, 1fr) evita que las columnas se estiren por el tamaño de la imagen */
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    /* 💡 NUEVO: Define y congela las filas para que midan siempre lo mismo, con o sin imagen */
     grid-template-rows: repeat(4, minmax(0, 1fr));
-    
     gap: 2px;
     width: 320px;
-    aspect-ratio: 1; /* Mantiene la proporción cuadrada automáticamente */
+    aspect-ratio: 1; 
     background-color: var(--linea);
     border: 2px solid var(--linea);
     box-shadow: 0 50px 90px rgba(15, 15, 15, 0.65);
@@ -578,72 +563,860 @@ body {
     overflow: hidden;
 }
 
-
 .cuadricula-4x4, .cuadroscuadricula {
-    transition: opacity 1s ease; /* Duración del desvanecido: 1 segundo */
+    transition: opacity 1s ease; 
     opacity: 1;
 }
 
-.fading {
-    opacity: 0 !important;
-}
+.fading { opacity: 0 !important; }
+.cuadro { background-color: var(--bg-cuadro); }
 
-
-.cuadro {
-    background-color: var(--bg-cuadro);
-}
-
-/* ==========================================================================
-   SECCIÓN DE IMÁGENES
-   ========================================================================== */
 .cuadroscuadricula {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Organiza las 8 imágenes en 2 filas de 4 */
-    gap: 2px;                              /* Mismo espacio entre cuadros que el anterior */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 2px;                                                              
     width: 320px;   
-    margin-top: 50px;                      /* Espacio de separación con la cuadrícula de arriba */
+    margin-top: 50px;                                                      
 }
 
-/* 💡 CORREGIDO: Aplica el estilo si están en la barra inferior O dentro del tablero */
 .cuadroscuadricula img, .cuadro img {
-    width: 100%;                           /* Ocupa el espacio exacto de su celda grid */
-    aspect-ratio: 1;                       /* Fuerza a que sean completamente cuadradas */
-    object-fit: cover;                     /* Evita que las imágenes se estiren o deformen */
-    display: block;                        /* Elimina espacios rebeldes de las imágenes en línea */
-    cursor: grab;                          /* Cambia el cursor a la mano para arrastrar */
+    width: 100%;                                                           
+    aspect-ratio: 1;                                                       
+    object-fit: cover;                                                     
+    display: block;                                                        
+    cursor: grab;                                                          
 }
-
-
 
 /* ==========================================================================
-VIDEOS
+   10. EXCLUSIVO: DIAGRAMACIÓN SECCIÓN MATERIALIDAD (TEXTO IZQ + CARRUSEL DER)
    ========================================================================== */
-
-.Video {
+.seccion-materialidad {
+    position: relative;
+    background: none !important;
     width: 100%;
-    max-width: 700px;        /* Controla el ancho máximo */
-    aspect-ratio: 16 / 9;    /* Mantiene la proporción clásica de video */
-    display: block;
-    margin: 20px auto;       /* Lo centra en la página */
-    border-radius: 12px;     /* Bordes redondeados modernos */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra suave */
-    object-fit: cover;       /* Evita barras negras si las proporciones varían */
-    transition: transform 0.3s ease;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 80px 0;
 }
 
-.Video:hover {
-    transform: scale(1.02);
+.seccion-materialidad::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0; /* 👈 Esto estira el fondo amarillo desde el inicio hasta el final del video automáticamente */
+    left: -50vw;
+    right: -50vw;
+    background-color: #efc300 !important; 
+    z-index: -1;
 }
 
+.seccion-materialidad .contenedor-central {
+    max-width: 1150px;
+    width: 100%;
+    margin: 0 auto !important;
+    padding: 0 20px;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    box-sizing: border-box;
+}
+
+/* FILA SUPERIOR: Junta el bloque de texto y el carrusel completo */
+.seccion-materialidad .galeria-wrapper {
+    display: flex !important;
+    flex-direction: row !important;      /* Uno al lado del otro */
+    align-items: center !important;      
+    justify-content: space-between !important;
+    gap: 90px !important;                /* 💡 ESPACIO ENTRE TEXTO E IMAGEN */
+    width: 100% !important;
+    max-width: 1100px !important;
+    margin: 0 auto 80px auto !important; /* 💡 ESPACIO VERTICAL ANTES DEL VIDEO */
+    padding: 0 !important;
+}
+
+/* Caja de Texto alineada limpiamente a la izquierda */
+.seccion-materialidad .bloque-texto-izq {
+    flex: 1 !important;
+    max-width: 550px !important;         
+    text-align: left !important;         
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Título de Materialidad a la izquierda */
+.seccion-materialidad h3 {
+    color: #ffffff !important;
+    text-align: left !important;
+    font-family: inlanders !important;
+    font-size: 60px !important;
+    margin-top: 0!important;
+    margin-bottom: 25px !important;
+    letter-spacing: 4px !important;
+    line-height: 1.1 !important;
+}
+
+/* Párrafo de la izquierda con animación restaurada */
+.seccion-materialidad .bloque-texto-izq p {
+    font-family: "Louis George Cafe" !important;
+    color: #1e1e1e !important;           
+    text-align: left !important;         
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 18px !important;
+    line-height: 1.6 !important;
+    
+    /* 🟢 ESTADO INICIAL: Oculto y abajo para la animación */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;   
+}
+
+/* 🟢 ESTADO ACTIVO: Se activa cuando JS le añade la clase .visible al hacer scroll */
+.seccion-materialidad .bloque-texto-izq p.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* 🟢 TEXTO DESCRIPTIVO INTERNO DEL CARRUSEL (Corregido para evitar que herede la animación del scroll) */
+.seccion-materialidad .pie-pagina {
+    font-family: "Louis George Cafe" !important;
+    font-size: 18px !important; 
+    color: #1e1e1e !important;
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 20px 15px !important;
+    background-color: #e1e1e1 !important;
+    height: 18% !important;
+    box-sizing: border-box !important;
+    font-weight: 500 !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Bloque contenedor del Carrusel + Flechas */
+.seccion-materialidad .carrusel-contenedor-flexible {
+    display: flex !important;
+    align-items: center !important;
+    gap: 30px !important;                /* 💡 ESPACIO ENTRE FLECHAS Y TARJETA IMAGEN */
+    flex-shrink: 0 !important;
+}
+
+/* VIDEO: GRANDE Y CENTRADO ABAJO */
 .video-container {
     display: block !important;
-    max-width: 600px !important;     
-    margin: 20px auto 40px auto !important; 
-    padding: 15px !important;               
+    width: 100% !important;        
+    max-width: 850px !important;         
+    height: auto !important;      
+    margin: 0 auto !important; 
+    padding: 15px !important;              
     background-color: #0a0a0a !important;   
     border-radius: 20px !important;         
     overflow: hidden !important;            
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4) !important;
+    box-sizing: border-box !important;
+}
+
+.Video {
+    width: 100% !important;
+    height: 480px !important;            
+    max-width: 100% !important;
+    display: block !important;
+    margin: 0 auto !important;           
+    border-radius: 12px !important;       
+    object-fit: cover !important;        
+    transition: transform 0.3s ease;
+}
+.Video:hover { transform: scale(1.02); }
+/* ==========================================================================
+   11. SECCIÓN DE COLOR CLARA / FOOTER
+   ========================================================================== */
+.seccion-color {
+    position: relative;
+    background: none !important;
+    width: 100%;
+    z-index: 1; 
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 40px 0; 
+}
+
+.seccion-color::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -50vw;
+    right: -50vw;
+    background-color: #e1e1e1 !important; 
+    z-index: -1; 
+}
+
+.seccion-color .contenedor-central {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto !important; 
+    padding: 0 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;       
+    text-align: center;        
+    position: relative;
+    z-index: 2;
+}
+
+.seccion-color h2 {
+    color: #1e1e1e !important;  
+    text-align: center !important;
+    width: 100%;
+    margin-top: 0 !important;   
+    margin-bottom: 20px !important;
+}
+
+.seccion-color p, .seccion-clara p {
+    color: #222222 !important;  
+    text-align: center !important; 
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto 30px auto !important; 
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.seccion-color .galeria-gifs {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto !important;
+}
+
+.site-footer {
+    background: #e1e1e1;
+    padding: 60px 0;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center; 
+}
+
+.footer-content {
+    width: 100%;
+    max-width: 1000px; 
+    padding: 0 40px;   
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+.footer-logos {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; 
+    gap: 40px;
+    margin-bottom: 40px;
+    width: 100%;
+    margin-top: 15px !important; 
+}
+
+.footer-logo-placeholder {
+    width: 225px;
+    height: 100px;
+    display: flex;
+    align-items: flex-end; 
+    justify-content: center;
+}
+
+.footer-logo-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.p2 {
+    font-family: "Louis George Cafe" !important;
+    color: #1e1e1e !important;
+    font-size: 18px; 
+    text-align: left !important;      
+    max-width: 650px !important;      
+    width: 100% !important;
+    padding-right: 60px !important;   
+    white-space: normal !important;   
+    box-sizing: border-box !important;
+    margin-top: -35px !important;     
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;    
+}
+
+.site-footer1 {
+    color: #e1e1e1;
+}
+
+/* ==========================================================================
+   12. DIAGRAMACIÓN EXCLUSIVA SECCIÓN "LO OCULTO" (PROHIBIDO INTERFERIR)
+   ========================================================================== */
+#seccion-oculto-blindada {
+    width: 100%;
+    display: flex !important;
+    justify-content: center !important;
+    padding: 80px 0 !important;
+    box-sizing: border-box !important;
+    background: transparent !important; /* Mantiene el fondo original oscuro de tu body */
+}
+
+/* Envoltorio interno alineado perfectamente con el wrapper de tu página */
+#seccion-oculto-blindada .oculto-wrapper-interno {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 30px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 50px !important; 
+    box-sizing: border-box !important;
+}
+
+/* FILA SUPERIOR: Mantiene la distribución original */
+#seccion-oculto-blindada .oculto-fila-superior {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important; 
+    gap: 50px !important; 
+    width: 100% !important;
+}
+
+/* COLUMNA IZQUIERDA: 🟢 AQUÍ SE CORREN LOS GIFS HACIA LA IZQUIERDA */
+#seccion-oculto-blindada .oculto-columna-gifs {
+    flex: 1.9 !important;       
+    max-width: 880px !important; 
+    width: 100% !important;
+    
+    /* 👈 Mueve SOLO la caja de los GIFs hacia la izquierda sin tocar el texto */
+    margin-left: -80px !important; 
+}
+
+/* Galería de GIFs junta y agrupada */
+#seccion-oculto-blindada .oculto-galeria-junta {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 15px !important; 
+    width: 100% !important;
+}
+
+/* Contenedores negros de cada GIF */
+#seccion-oculto-blindada .oculto-caja-gif {
+    display: block !important;
+    flex: 1 !important;
+    background-color: #0a0a0a !important;
+    border-radius: 20px !important;
+    padding: 12px !important;
+    overflow: hidden !important;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+    box-sizing: border-box !important;
+}
+
+/* Configuración del GIF interno */
+#seccion-oculto-blindada .oculto-media-gif {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 9 / 9 !important; 
+    object-fit: cover !important;
+    border-radius: 12px !important;
+    filter: brightness(0.6) contrast(1.05) !important;
+    transition: filter 0.4s ease !important;
+}
+
+#seccion-oculto-blindada .oculto-caja-gif:hover .oculto-media-gif {
+    filter: brightness(1) !important;
+}
+
+/* COLUMNA DERECHA: Título e información intactos */
+#seccion-oculto-blindada .oculto-columna-texto {
+    flex: 1 !important;
+    max-width: 480px !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: left !important;
+}
+
+/* Forzar estilos del título heredados de tus fuentes */
+#seccion-oculto-blindada h2 {
+    font-family: inlanders !important;
+    font-size: 60px !important;
+    color: #ffffff !important;
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
+    letter-spacing: 4px !important;
+    text-align: left !important;
+}
+
+/* Párrafo Superior Derecho con animación restaurada */
+#seccion-oculto-blindada p.oculto-texto-derecho {
+    font-family: "Louis George Cafe", sans-serif !important;
+    font-size: 18px !important;
+    color: #e1e1e1 !important;
+    line-height: 1.6 !important;
+    text-align: left !important; 
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    
+    /* 🟢 ANIMACIÓN RESTAURADA: Hereda de la configuración global de la sección 2 */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Párrafo Superior Derecho en estado activo */
+#seccion-oculto-blindada p.oculto-texto-derecho.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* FILA INFERIOR: Mantiene el ancho original de tu web */
+#seccion-oculto-blindada .oculto-fila-inferior {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 20px !important;
+}
+
+/* Párrafo Inferior Centrado con animación restaurada */
+#seccion-oculto-blindada p.oculto-texto-centrado {
+    font-family: "Louis George Cafe", sans-serif !important;
+    font-size: 18px !important;
+    color: #e1e1e1 !important;
+    line-height: 1.6 !important;
+    text-align: center !important; 
+    max-width: 900px !important;  
+    margin: 0 auto !important;
+    padding: 0 10px !important;
+    
+    /* 🟢 ANIMACIÓN RESTAURADA: Hereda de la configuración global de la sección 2 */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Párrafo Inferior Centrado en estado activo */
+#seccion-oculto-blindada p.oculto-texto-centrado.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* ==========================================================================
+   EFECTO LÍQUIDO LOCALIZADO (LETRA POR LETRA)
+   ========================================================================== */
+.contenedor-letras {
+    font-family: inlanders !important; /* Mantiene tu fuente original */
+    font-size: 60px !important;
+    color: #ffffff !important;
+    letter-spacing: 4px !important;
+    display: inline-block;
+    cursor: default;
+}
+
+/* Estilo para cada letra individual generado por JS */
+.contenedor-letras span {
+    display: inline-block;
+    transition: filter 0.2s ease, opacity 0.4s ease; /* Transición fluida */
+    opacity: 1;
+    filter: none;
+    white-space: pre; /* Mantiene los espacios correctos entre palabras */
+}
+
+/* 🟢 EL EFECTO: Se aplica SOLO a la letra sobre la que está el cursor */
+.contenedor-letras span.letra-activa {
+    filter: url(#deformacion-liquida) !important; /* Aplica las ondas de agua */
+    opacity: 0 !important; /* Desaparece por completo al pasar el mouse */
+    transition: filter 0.1s ease, opacity 0.1s ease; /* Desvanecimiento inmediato */
 }
 
 
+
+
+
+
+
+
+/* ==========================================================================
+   13. PERSONALIZACIÓN EXCLUSIVA DEL BOTÓN FINAL DESCUBRIR
+   ========================================================================== */
+.discover-btn-final {
+    /* Ajustes de tamaño del botón (Modifica estos valores si lo quieres aún más grande) */
+    padding: 16px 45px;          /* Espaciado interno: arriba/abajo e izquierda/derecha */
+    font-size: 18px;             /* Tamaño del texto del botón */
+    min-width: 220px;            /* Ancho mínimo asegurado para el botón */
+    
+    /* Mantiene los estilos estéticos de tus botones originales */
+    border: 2px solid #e1e1e1;
+    border-radius: 25px;
+    background: #1e1e1e;
+    color: #e1e1e1;
+    letter-spacing: 5px;
+    font-family: "Louis George Cafe", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+    text-decoration: none;
+    display: inline-flex;       
+    align-items: center;        
+    justify-content: center;    
+    text-align: center;         
+}
+
+/* Efecto Hover idéntico para mantener la línea de diseño */
+.discover-btn-final:hover {
+    background: #e1e1e1;
+    color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   14. CONFIGURACIÓN COMPLETA DEL MINIJUEGO (MALLA FLUIDA AUTOMÁTICA)
+   ========================================================================== */
+
+.escenario-juego {
+    width: 100vw !important;
+    height: 100vh !important;
+    position: relative !important;
+    overflow: hidden !important;
+    background-color: #1e1e1e !important;
+    cursor: default !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* La linterna con el haz de luz grande (160px) */
+.linterna-oscuridad {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #1e1e1e !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+    
+    mask-image: radial-gradient(circle 160px at var(--x, -500px) var(--y, -500px), transparent 100%, black 100%) !important;
+    -webkit-mask-image: radial-gradient(circle 160px at var(--x, -500px) var(--y, -500px), rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%) !important;
+}
+
+/* 🟢 LA CUADRÍCULA: Ocupa toda la pantalla y calcula las celdas automáticamente */
+.cuadricula-oculta {
+    position: absolute !important;
+    display: grid !important;
+    
+    /* 🟢 CLAVE: El navegador calcula cuántas columnas y filas entran usando un tamaño base cuadrado */
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)) !important;
+    grid-template-rows: repeat(auto-fill, minmax(50px, 1fr)) !important;
+    
+    background-color: #1a1a1a !important;
+    z-index: 1 !important;
+    box-sizing: border-box !important;
+
+    /* Estira el tablero por la pantalla completa restando el margen de 20px por lado */
+    width: calc(100vw - 40px) !important;
+    height: calc(100vh - 40px) !important;
+    overflow: hidden !important; /* Blindaje total contra scroll */
+}
+
+/* 🟢 LAS CASILLAS: Cuadrados perfectos que se adaptan al auto-fill */
+.casilla-secreta {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important; 
+    border: 1px solid rgba(255, 255, 255, 0.25) !important; /* Líneas blancas originales */
+}
+
+/* El cuadrado rojo del juego */
+.cuadrado-rojo {
+    background-color: #aa4d3c !important;
+    box-shadow: 0 0 25px rgba(170, 77, 60, 0.9) !important;
+    pointer-events: auto !important;
+    border-radius: 4px !important;
+    transition: transform 0.1s ease !important;
+}
+
+.cuadrado-rojo:active {
+    transform: scale(0.85) !important; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   15. EFECTOS FINALES: INVERSIÓN TOTAL Y COLAPSO CINEMÁTICO EN REJILLA
+   ========================================================================== */
+
+/* Inversión total de la pantalla: la linterna ahora proyecta oscuridad */
+.escenario-juego.modo-invertido {
+    background-color: #e1e1e1 !important;
+    transition: background-color 0.4s ease !important;
+}
+
+.linterna-oscuridad.linterna-invertida {
+    background-color: #e1e1e1 !important;
+    mask-image: radial-gradient(circle 160px at var(--x, -500px) var(--y, -500px), black 100%, transparent 100%) !important;
+    -webkit-mask-image: radial-gradient(circle 160px at var(--x, -500px) var(--y, -500px), rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%) !important;
+}
+
+.cuadricula-oculta.cuadricula-invertida {
+    background-color: #e1e1e1 !important;
+}
+
+.cuadricula-invertida .casilla-secreta {
+    border: 1px solid rgba(30, 30, 30, 0.15) !important;
+    perspective: 1200px !important; /* Añade más profundidad tridimensional */
+}
+
+/* 🟢 ANIMACIÓN EXTENDIDA: Ahora dura 5 segundos y tiene tres etapas físicas */
+.casilla-colapsada {
+    animation: colapsoCinematico 5.0s cubic-bezier(0.3, 0, 0.2, 1) forwards !important;
+}
+
+@keyframes colapsoCinematico {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1) rotateX(0deg);
+        opacity: 1;
+    }
+    /* 🟢 Fase 1 (Turbulencia): Flotan y se desalinean de forma caótica en el lugar */
+    25% {
+        transform: translate(calc(var(--rx) * 2), calc(var(--ry) * 2)) rotate(var(--rot)) scale(0.95) rotateX(25deg);
+        opacity: 0.9;
+    }
+    /* 🟢 Fase 2 (Vaivén/Deriva): Los cuadrados rotan en su propio eje mientras empiezan a caer */
+    55% {
+        transform: translate(calc(var(--rx) * -1.5), calc(var(--ry) * 4 + 100px)) rotate(calc(var(--rot) * -1.5)) scale(0.7) rotateY(45deg);
+        opacity: 0.7;
+    }
+    /* 🟢 Fase 3 (Desplome total): Caída libre veloz hacia el fondo de la pantalla sacándolos del plano */
+    100% {
+        transform: translate(calc(var(--rx) * 5), calc(var(--ry) * 10 + 900px)) rotate(calc(var(--rot) * 4)) scale(0) rotateX(90deg);
+        opacity: 0;
+    }
+}
+
+/* 🟢 RETRASO DE LA FRASE: Subimos el delay a 3.8s para que espere a que la rejilla se rompa casi entera */
+#mensaje-oculto-final {
+    position: absolute;
+    z-index: 5;
+    font-family: "inlanders", sans-serif;
+    font-size: 50px;
+    color: #1e1e1e;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 2.0s ease 3.8s, transform 2.0s ease 3.8s; /* Transición más lenta y majestuosa */
+    pointer-events: auto;
+}
+
+#mensaje-oculto-final.mostrar {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 🟢 Botón de flecha en la esquina superior izquierda (Más grande y estilizado) */
+#boton-regresar-tablero {
+    position: fixed;
+    left: 30px;
+    top: 30px;
+    background: transparent;
+    border: none;
+    color: #1e1e1e;
+    font-size: 55px; /* Flecha un poco más grande */
+    font-family: sans-serif;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    padding: 10px;
+    line-height: 1;
+    transform: scale(0.8);
+    transition: opacity 2.0s ease 3.8s, transform 2.0s ease 3.8s, color 0.3s ease;
+    pointer-events: auto;
+}
+
+/* Efecto hover interactivo para la flecha */
+#boton-regresar-tablero:hover {
+    color: rgba(30, 30, 30, 0.5);
+    transform: scale(1.1);
+}
+
+/* Clase de activación síncronica junto con la frase */
+#boton-regresar-tablero.mostrar {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   INTERFAZ EXCLUSIVA PARA LA PANTALLA AMARILLA (MISMO SCRIPT)
+   ========================================================================== */
+
+/* Hace que el cuadro sea amarillo cuando corre el script aquí */
+.juego-amarillo .cuadrado-rojo {
+    background-color: #ffeb3b !important;
+    box-shadow: 0 0 15px #ffeb3b !important;
+    cursor: pointer !important;
+}
+
+/* Modificación de la flecha para que aparezca INSTANTÁNEAMENTE en el sexto clic */
+.juego-amarillo #boton-regresar-tablero {
+    position: fixed !important;
+    left: 40px !important;
+    top: 40px !important;
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important; /* Blanca para que resalte en la oscuridad */
+    font-size: 60px !important;
+    font-family: sans-serif !important;
+    cursor: pointer !important;
+    z-index: 10 !important;
+    line-height: 1 !important;
+    opacity: 0;
+    transform: scale(0.8);
+    /* Sin retrasos: aparece de golpe en cuanto el script le mete la clase .mostrar */
+    transition: opacity 0.5s ease, transform 0.5s ease, color 0.3s ease !important;
+    pointer-events: auto !important;
+}
+
+/* Efecto hover interactivo para la flecha amarilla */
+.juego-amarillo #boton-regresar-tablero:hover {
+    color: rgba(255, 255, 255, 0.6) !important;
+    transform: scale(1.1) !important;
+}
+
+/* Clase que gatilla tu script.js automáticamente al llegar al sexto clic */
+.juego-amarillo #boton-regresar-tablero.mostrar {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+
+
+
+
+/* ==========================================================================
+   18. CONFIGURACIÓN EXCLUSIVA PARA EL JUEGO AMARILLO (RESTABLECIDO)
+   ========================================================================== */
+
+.juego-amarillo .casilla-secreta {
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.juego-amarillo .cuadrado-amarillo {
+    background-color: #ffeb3b !important;
+    box-shadow: 0 0 20px #ffeb3b, 0 0 10px #ffeb3b !important;
+    cursor: pointer !important;
+    display: block !important;
+    border-radius: 8px !important;
+}
+
+.juego-amarillo #boton-regresar-tablero {
+    position: fixed !important;
+    left: 40px !important;
+    top: 40px !important;
+    background: transparent !important;
+    border: none !important;
+    color: #1e1e1e !important;
+    font-size: 60px !important;
+    cursor: pointer !important;
+    z-index: 9999 !important;
+    opacity: 0;
+    transition: opacity 0.3s ease !important;
+    pointer-events: auto !important;
+}
+/* Ajuste de color para que la flecha sea más clara */
+.juego-amarillo #boton-regresar-tablero {
+    color: #e0e0e0 !important; /* Un gris claro muy elegante */
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important; /* Añadimos una pequeña sombra para que no se pierda si el fondo es muy brillante */
+}
+
+#capa-negra {
+    background: radial-gradient(circle 100px at var(--x, 50%) var(--y, 50%), transparent 0%, rgba(0,0,0,0.95) 80%);
+}
+
+
+
+Fila de cuadros/
+/* Contenedor de la galería */
+.contenedor-galeria {
+    display: flex;
+    justify-content: center;   /* centra horizontalmente */
+    align-items: center;       /* alinea verticalmente */
+    gap: 20px;
+    flex-wrap: wrap;           /* evita que se rompa en pantallas pequeñas */
+
+    width: 100%;
+    margin: 40px auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Imágenes */
+.contenedor-galeria img {
+    width: 120px;              /* mejor fijo que 10% */
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.contenedor-galeria img:hover {
+    transform: scale(1.1);
+}

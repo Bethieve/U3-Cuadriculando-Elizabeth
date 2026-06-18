@@ -310,6 +310,205 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+window.addEventListener('DOMContentLoaded', () => {
+    const buttonGroup = document.querySelector('.buttons-group');
+    if (!buttonGroup) return;
+
+    // Buscamos SOLO los botones reales de texto dentro del grupo (evita tocar imágenes)
+    const links = buttonGroup.querySelectorAll('a, button, .buttons-group1, .discover-btn');
+
+    // Cambiamos el contenedor padre a "static" para que no arrastre nada de forma nativa
+    buttonGroup.style.position = 'static';
+
+    // Guardamos la posición original en la que nacen tus botones en el diseño
+    const originalTop = buttonGroup.getBoundingClientRect().top + window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY >= originalTop - 40) {
+            // Cuando pasas el punto, el script mueve SOLO los enlaces/botones uno a uno
+            links.forEach((btn, index) => {
+                btn.style.position = 'fixed';
+                btn.style.right = '40px';
+                // Los apila verticalmente calculando el espacio dinámico de cada uno (top + separación)
+                btn.style.top = `${40 + (index * 75)}px`; 
+                btn.style.zIndex = '9999';
+            });
+        } else {
+            // Al volver arriba, los botones regresan a su flujo y caja original
+            links.forEach((btn) => {
+                btn.style.position = 'static';
+            });
+        }
+    });
+});
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const titulo = document.getElementById("titulo-interactivo");
+
+    if (titulo) {
+        // 1. Separamos el texto original en letras individuales envueltas en <span>
+        const textoOriginal = titulo.textContent;
+        titulo.innerHTML = ""; // Vaciamos el contenedor
+
+        [...textoOriginal].forEach(letra => {
+            const span = document.createElement("span");
+            span.textContent = letra;
+            titulo.appendChild(span);
+
+            // 2. Evento: Cuando el mouse entra a ESTA letra específica
+            span.addEventListener("mouseenter", () => {
+                span.classList.add("letra-activa");
+            });
+
+            // 3. Opcional: Cuando el mouse se aleja, la letra vuelve a aparecer normal
+            // Si quieres que se queden borradas para siempre, borra las líneas de abajo
+            span.addEventListener("mouseleave", () => {
+                setTimeout(() => {
+                    span.classList.remove("letra-activa");
+                }, 300); // Tardará 300ms en volver a aparecer suavemente tras quitar el mouse
+            });
+        });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+// ==========================================================================
+// 5. LÓGICA DEL MINIJUEGO - LINTERNA GEOMÉTRICA (CON RETROCESO Y REINICIO)
+// ==========================================================================
+const capaNegra = document.getElementById('capa-negra');
+const rejilla = document.getElementById('tablero-rejilla');
+const mensajeFinal = document.getElementById('mensaje-oculto-final');
+const botonRegresar = document.getElementById('boton-regresar-tablero');
+
+let contadorClics = 0;
+const MAX_INTENTOS = 6;
+
+function inicializarTableroEstructural() {
+    if (!rejilla) return;
+    rejilla.innerHTML = '';
+
+    const anchoRejilla = rejilla.clientWidth;
+    const altoRejilla = rejilla.clientHeight;
+    const tamanoCuadro = 50; 
+
+    const columnasCalculadas = Math.floor(anchoRejilla / tamanoCuadro);
+    const filasCalculadas = Math.floor(altoRejilla / tamanoCuadro);
+    const totalCasillasDinamicas = columnasCalculadas * filasCalculadas;
+
+    for (let i = 0; i < totalCasillasDinamicas; i++) {
+        const casilla = document.createElement('div');
+        casilla.classList.add('casilla-secreta');
+        rejilla.appendChild(casilla);
+    }
+}
+
+function moverObjetivo() {
+    if (!rejilla) return;
+    const objetivoActual = document.querySelector('.cuadrado-rojo');
+    if (objetivoActual) {
+        objetivoActual.classList.remove('cuadrado-rojo');
+        objetivoActual.removeEventListener('click', gestionarClicObjetivo);
+    }
+
+    const casillasDisponibles = rejilla.querySelectorAll('.casilla-secreta:not(.cuadrado-rojo)');
+    if (casillasDisponibles.length > 0) {
+        const indiceAleatorio = Math.floor(Math.random() * casillasDisponibles.length);
+        const nuevoObjetivo = casillasDisponibles[indiceAleatorio];
+        nuevoObjetivo.classList.add('cuadrado-rojo');
+        nuevoObjetivo.addEventListener('click', gestionarClicObjetivo);
+    }
+}
+
+function gestionarClicObjetivo(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    contadorClics++;
+    
+    if (contadorClics < MAX_INTENTOS) {
+        moverObjetivo();
+    } else {
+        this.classList.remove('cuadrado-rojo');
+        this.removeEventListener('click', gestionarClicObjetivo);
+        
+        document.body.classList.add('modo-invertido');
+        if (capaNegra) capaNegra.classList.add('linterna-invertida');
+        if (rejilla) rejilla.classList.add('cuadricula-invertida');
+
+        const todasLasCasillas = rejilla.querySelectorAll('.casilla-secreta');
+        todasLasCasillas.forEach(casilla => {
+            const ramdX = (Math.random() * 160 - 80) + "px";
+            const ramdY = (Math.random() * 160 - 80) + "px";
+            const ramdRot = (Math.random() * 180 - 90) + "deg";
+
+            casilla.style.setProperty('--rx', ramdX);
+            casilla.style.setProperty('--ry', ramdY);
+            casilla.style.setProperty('--rot', ramdRot);
+            casilla.classList.add('casilla-colapsada');
+        });
+
+        // Muestra la frase final
+        if (mensajeFinal) {
+            mensajeFinal.style.display = 'block';
+            setTimeout(() => { mensajeFinal.classList.add('mostrar'); }, 50);
+        }
+
+        // 🟢 Muestra la flecha de retroceso al mismo tiempo
+        if (botonRegresar) {
+            botonRegresar.style.display = 'block';
+            setTimeout(() => { botonRegresar.classList.add('mostrar'); }, 50);
+        }
+    }
+}
+
+// 🟢 FUNCIÓN DE REDIRECCIÓN AL PRESIONAR LA FLECHA DE RETROCEDER
+if (botonRegresar) {
+    botonRegresar.addEventListener('click', () => {
+        // Redirecciona instantáneamente de vuelta a tu página principal
+        window.location.href = 'tablero.html';
+    });
+}
+
+window.addEventListener('mousemove', (e) => {
+    if (capaNegra) {
+        capaNegra.style.setProperty('--x', `${e.clientX}px`);
+        capaNegra.style.setProperty('--y', `${e.clientY}px`);
+    }
+});
+
+inicializarTableroEstructural();
+moverObjetivo();
+
+window.addEventListener('resize', () => {
+    if (contadorClics < MAX_INTENTOS) {
+        inicializarTableroEstructural();
+        moverObjetivo();
+    }
+});
+
+
+
+
+
+
+
+
+
 
 
 
