@@ -34,47 +34,157 @@ body {
     margin: 0 auto;
 }
 
-h2 {
-    font-family: inlanders;
-    font-size: 60px;
-    color: white;
-    margin-top: 80px; 
-    letter-spacing: 4px;
-}
-
-/* El título H3 que pediste estrictamente a la izquierda */
-h3 {
-    font-family: inlanders;
-    font-size: 60px;
-    color: white;
-    margin-top: 80px; 
-    letter-spacing: 4px;
-    text-align: left !important;  /* Forzado a la izquierda */
-    width: 100%;                  /* Ocupa todo el ancho para poder alinearse */
+/* ==========================================================================
+   ESTILOS PARA EL TÍTULO TEXTUAL EN MOVIMIENTO (CUADRI)
+   ========================================================================== */
+div.cuadri {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh; /* Ocupa el 100% del alto de la pantalla de inicio */
+   
+    /* Centrado absoluto perfecto */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+   
+    text-align: center;
+    
+    /* 🟢 RESTAURADO: Capa baja para que las imágenes (que tienen z-index superior) pasen por encima */
+    z-index: 5 !important; 
+    
+    pointer-events: none;
     box-sizing: border-box;
 }
 
+div.cuadri h1 {
+    font-family: 'inlanders', sans-serif;
+    font-size: 140px;
+    color: #e1e1e1;
+    margin: 0;
+    padding: 0 20px;
+    letter-spacing: 6px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+h2 {
+    font-family: inlanders;
+    font-size: 60px;
+    color: #1e1e1e;
+    margin-top: 80px;
+    letter-spacing: 4px;
+}
+
+h4 {
+    font-family: "Louis George Cafe";
+    font-size: 23px;              
+    color: #273584;   
+    margin-top: -10px;  
+    text-align: left !important; /* 🟢 Cambia solo este título a la izquierda */
+}
+
+/* ==========================================================================
+   LÍNEA CON MEDIDA FIJA E INDEPENDIENTE PARA TÍTULOS
+   ========================================================================== */
+
+.linea-titulo {
+    position: relative;       
+    display: inline-block;    
+    padding-bottom: 15px;     /* Espacio vertical entre texto y línea */
+    margin-bottom: 30px;      
+    
+    /* 🟢 Evita que herede distorsiones si el título tiene efectos de escala o movimiento */
+    transform: translateZ(0); 
+    backface-visibility: hidden;
+}
+
+.linea-titulo::after {
+    content: "";              
+    position: absolute;
+    bottom: 0;                
+    left: 50%;                
+    transform: translateX(-50%); 
+    
+    /* CONTROL DE MEDIDA FIJA: */
+    width: 1150px;             /* Aquí manejas el largo a tu gusto */
+    
+    /* 🟢 CONFIGURACIÓN ULTRA NITIDEZ: Fija 1px real sin importar la resolución */
+    height: 1px;              
+    background-color: #1e1e1e; 
+    
+    /* 🟢 SOLUCIÓN AL SUBPIXEL RENDERING: Obliga al navegador a renderizar bordes limpios */
+    image-rendering: pixelated;
+    shape-rendering: crispEdges;
+}
 /* ==========================================================================
    2. TEXTOS Y ANIMACIONES DE PÁRRAFO
    ========================================================================== */
-p { 
+
+p {
     font-family: "Louis George Cafe";
-    font-size: 18px;
-    color: #e1e1e1;               
-    line-height: 1.6; 
-    margin: 40px auto 80px auto; 
-    text-align: center;      
-    max-width: 800px;      
-    padding: 0 30px;
+    font-size: 23px;              
+    color: #1e1e1e;              
+    line-height: 1.6;
+    margin: 40px auto 80px auto;
+    text-align: left;            
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;   
+    
+    /* Mantiene las líneas largas que te gustaron */
+    width: 75vw;                 
+    max-width: 1600px;           
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%) translateY(30px); /* 🟢 Un poco más abajo al inicio */
+    padding: 0;                  
+
+    /* Configuración de 2 columnas */
+    columns: 2;                  
+    column-gap: 110px;           
+    text-wrap: pretty;           
+
+    /* 🟢 Transición suave para que funcione al subir y bajar */
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-p.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* 🟢 Modificado: Ahora el texto de autor también se prepara oculto para animarse */
+/* ==========================================================================
+   TEXTO AUTOR (UNA SOLA COLUMNA REAL Y CONTINUA)
+   ========================================================================== */
+.texto-autor { 
+    font-family: "Louis George Cafe";
+    font-size: 23px;              
+    color: #1e1e1e;              
+    line-height: 1.6;
+    margin: 40px auto 80px auto;
+    
+    /* 🟢 EL REMEDIO REAL: Fuerza a comportarse como un bloque único y continuo */
+    display: block;               
+    text-align: center;           /* Alinea las letras al centro */
+    
+    /* 🟢 ANULA CUALQUIER DIVISIÓN DE COLUMNAS HEREDADA DEL PADRE */
+    column-count: 1 !important;   
+    columns: 1 !important;
+    
+    /* Tu estructura de movimiento original intacta */
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%) translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    opacity: 0;
 }
+
+/* El estado visible para la animación (Exactamente como lo tenías) */
+p.visible,
+.texto-autor.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); 
+}
+
+
+
+
+
 
 /* ==========================================================================
    3. ESTRUCTURA DE PANTALLAS Y NAVEGACIÓN
@@ -103,68 +213,77 @@ p.visible {
 }
 
 /* ==========================================================================
-   4. BOTONES Y COMPONENTES INTERACTIVOS
+   4. PESTAÑA DE NAVEGACIÓN SUPERIOR FIJA (CORREGIDA SIN INTERFERENCIAS)
    ========================================================================== */
 .buttons-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;                  /* Distancia menor entre ellos (antes 30px) */
-    margin-bottom: 120px; 
-    width: 160px;               /* Ancho fijo del contenedor */
-    position: absolute;
-    right: 40px;                /* Se queda en su posición original a la derecha */
-    z-index: 20;               
-}
-
-.buttons-group1 {
-    padding: 5px 10px;
-    border-radius: 25px;
-    background: #1e1e1e;
-    color: white;
-    font-size: 10px;
-    letter-spacing: 4px;
-    font-family: "Louis George Cafe", sans-serif;
-    cursor: pointer;
-    transition: .3s;
-    text-decoration: none;
-    display: inline-flex;       
-    align-items: center;        
-    justify-content: center;    
-    text-align: center;         
-}
-
-.discover-btn {
-    /* 🟢 AQUÍ ESTÁ EL CAMBIO CLAVE */
-    width: 130px !important;    /* Fuerza el ancho exacto de 'MATERIALIDAD' a todos por igual */
-    max-width: 160px !important;/* Evita estrictamente que se estiren por el ancho de la pantalla */
-    box-sizing: border-box !important; /* Mantiene el padding dentro de los 160px */
+    display: flex !important;
+    flex-direction: row !important;   
+    justify-content: center !important; 
+    align-items: center !important;
+    gap: 24px !important;             
     
-    padding: 8px 12px;          
-    border: 2px solid #e1e1e1;
-    border-radius: 25px;
-    background: #1e1e1e;
-    color: #e1e1e1;
-    font-size: 12px;            /* Letra más pequeña para no interferir */
-    letter-spacing: 2px;        
+    /* Pestaña fija arriba */
+    position: fixed !important;       
+    top: 0 !important;                
+    left: 0 !important;               
+    width: 100vw !important;          
+    height: 65px !important;          
+    background-color: #e1e1e1 !important; 
+    
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05); 
+    z-index: 99999 !important; /* Capa suprema para la barra */
+    box-sizing: border-box !important;
+    padding: 0 20px !important;
+    margin: 0 !important;             
+}
+
+/* 🟢 ELIMINAMOS EL ::AFTER VIEJO QUE EMPUJA EL CONTENIDO AL INFINITO */
+
+/* Botones estáticos horizontales */
+.discover-btn {
+    display: inline-flex !important;       
+    align-items: center !important;        
+    justify-content: center !important;    
+    text-align: center !important;         
+    white-space: nowrap !important;        
+    
+    padding: 8px 18px !important;          
+    border: 2px solid #1e1e1e !important;      
+    border-radius: 25px !important;            
+    background: #1e1e1e !important;
+    color: #ffffff !important;
+    
     font-family: "Louis George Cafe", sans-serif;
+    font-size: 11px;            
+    letter-spacing: 2px;        
+    text-decoration: none !important;
     cursor: pointer;
-    transition: .3s;
-    text-decoration: none;
-    display: inline-flex;       
-    align-items: center;        
-    justify-content: center;    
-    text-align: center;         
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .discover-btn:hover {
-    background: #e1e1e1;
-    color: black;
+    background: #ffffff !important;          
+    color: #1e1e1e !important;               
+    border-color: #1e1e1e !important;        
 }
 
-.discover-btn-2:hover {
-    background-color: #1e1e1e;
-    color: #e1e1e1;
+
+
+/* ==========================================================================
+   COMPENSACIÓN DE SCROLL PARA ENLACES ANCLA (EVITA QUE LA PESTAÑA TAPE TÍTULOS)
+   ========================================================================== */
+#seccion-info,
+#seccion-concepto,
+#seccion-Pix,
+#seccion-materialidad {
+    /* 🟢 Le dice al navegador que se detenga 95px antes del borde de la sección.
+       Como tu pestaña mide 65px, el título quedará con 30px libres por debajo, 
+       mostrándose completo y con aire para que se vea impecable. */
+    scroll-margin-top: 95px !important;
 }
+
+
+
 
 .back-arrow {
     position: fixed;
@@ -187,8 +306,8 @@ p.visible {
 .espaciador-inferior {
     display: block;
     width: 100%;
-    height: 300px; 
-    pointer-events: none; 
+    height: 300px;
+    pointer-events: none;
 }
 
 /* ==========================================================================
@@ -201,12 +320,12 @@ p.visible {
     top: 200px;
     left: 0;
     right: 0;
-    margin: 0 auto; 
-    text-align: center; 
+    margin: 0 auto;
+    text-align: center;
     z-index: 1;
 }
 
-.img-01, .img-02, .img-03, .img-04, 
+.img-01, .img-02, .img-03, .img-04,
 .img-001, .img-002, .img-003, .img-004,
 .img-001-1, .img-002-1, .img-003-1, .img-004-1, .img-003-2 {
     position: absolute;
@@ -245,116 +364,481 @@ p.visible {
 
 @keyframes pulsoEsperaSeguro {
     0%, 100% { opacity: 0.9; filter: brightness(0.85) contrast(1); }
-    50% { opacity: 1; filter: brightness(1.15) contrast(1.05); } 
+    50% { opacity: 1; filter: brightness(1.15) contrast(1.05); }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   PRIMERA GALERIA DE GIFS
+   ========================================================================== */
+
+
+/* 1. Contenedor general invisible (Se mantiene igual) */
+.seccion-bloques-gifs {
+    display: flex;            
+    justify-content: center;  
+    align-items: center;      
+    gap: 25px;                /* Aumentamos un poco la separación para acompañar el nuevo tamaño */
+    width: 100%;
+    margin: 40px auto;        
+}
+
+/* 2. Cajas contenedoras negras individuales (Actualizadas para ser más grandes y simétricas) */
+.caja-gif {
+    background-color: #000000;
+    padding: 12px;            
+    border-radius: 15px;      
+    box-sizing: border-box;
+    
+    /* 🟢 TAMAÑO MÁS GRANDE E IDÉNTICO PARA TODAS */
+    width: 350px;             /* 💡 Incrementado de 140px a 180px para que se vean más grandes */
+    height: 350px;            /* 💡 Altura fija idéntica al ancho para asegurar que sean del mismo tamaño */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;         /* Evita que cualquier sobrante de la imagen se salga de la caja */
+}
+
+
+/* 3. Ajuste de las imágenes (GIFs) dentro de sus cajas */
+.caja-gif .gif-media {
+    width: 100%;              
+    height: 100%;             
+    object-fit: cover;        
+    border-radius: 8px;       
+    display: block;
+
+    /* 🟢 CAPA OSCURA POR DEFECTO */
+    filter: brightness(0.5);  /* Reduce el brillo al 50% para que se vean oscuros */
+    
+    /* EFECTO DE TRANSICIÓN SUAVE */
+    transition: filter 0.4s ease; /* Hace que el cambio de oscuridad a luz sea fluido */
+}
+
+/* 🟢 EFECTO AL PASAR EL CURSOR (HOVER) */
+.caja-gif:hover .gif-media {
+    filter: brightness(1);    /* Devuelve el brillo al 100% (se ilumina) al pasar el cursor */
+}
+
+
+
+
+
+/* ==========================================================================
+   NUEVA GALERÍA ACORDEÓN DE IMPACTO VISUAL
+   ========================================================================== */
+
+.galeria-acordeon-impacto {
+    display: flex;
+    width: 100%;
+    max-width: 1150px;           /* Se expande casi al límite del main-wrapper (1200px) */
+    height: 500px;              /* Altura generosa para apreciar los detalles del juego */
+    gap: 10px;                  /* Separación sutil entre paneles */
+    margin: 50px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Estructura individual de cada panel */
+.panel-componente {
+    flex: 1;                    /* Todos los paneles ocupan inicialmente el mismo ancho distributivo */
+    height: 100%;
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Curva de animación ultra fluida y elástica */
+    border-radius: 16px;
+    overflow: hidden;           /* Mantiene las esquinas redondeadas impecables */
+}
+
+/* La caja contenedora negra interna que protege la imagen */
+.panel-componente .caja-fondo-negro {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #e1e1e1;
+    padding: 10px;              /* Espesor del marco negro */
+    box-sizing: border-box;
+    border-radius: 16px;
+}
+
+/* Imagen de fondo del panel */
+.panel-componente img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    
+    /* 🟢 CAPA OSCURA POR DEFECTO: Bastante pronunciada para dar misterio */
+    filter: brightness(0.3) grayscale(0.2);
+    transition: filter 0.5s ease;
+}
+
+/* Contenedor del título y pie de foto */
+.panel-componente .contenido-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.95) 60%); /* Degradado negro inferior para legibilidad */
+    
+    /* Ocultamos el texto por defecto mientras el panel está cerrado */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Título interno del componente */
+.panel-componente .contenido-panel h3 {
+    font-family: "Louis George Cafe", sans-serif;
+    color: #ffeb3b;             /* Amarillo interactivo para destacar el título */
+    font-size: 24px;
+    margin: 0 0 10px 0;
+}
+
+/* 🟢 CONFIGURACIÓN EXCLUSIVA PARA EL TEXTO P3 (UNA SOLA COLUMNA CONTROLADA) */
+.panel-componente .contenido-panel p3 {
+    font-family: "Louis George Cafe", sans-serif;
+    font-size: 18px;
+    color: #e1e1e1;
+    line-height: 1.5;
+    text-align: left;
+    display: block;
+    width: 100%;
+    margin: 0;
+    
+    /* Garantiza una sola columna ignorando los párrafos generales */
+    columns: 1 !important; 
+}
+
+
+/* ==========================================================================
+   INTERACCIÓN DINÁMICA (HOVER)
+   ========================================================================== */
+
+/* 🟢 EL IMPACTO: Cuando pasas el cursor, el panel seleccionado se vuelve gigante */
+.galeria-acordeon-impacto:hover .panel-componente:hover {
+    flex: 5;                    /* Crece 5 veces más en comparación a sus hermanos */
+}
+
+/* Al abrirse el panel, la imagen se ilumina por completo */
+.panel-componente:hover img {
+    filter: brightness(1) grayscale(0);
+}
+
+/* Al abrirse el panel, el texto aparece mágicamente flotando desde abajo */
+.panel-componente:hover .contenido-panel {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.15s;    /* Espera una fracción de segundo a que se abra el panel para mostrar el texto */
+}
+
+
+/* ==========================================================================
+   ADAPTACIÓN RESPONSIVA (CELULARES)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .galeria-acordeon-impacto {
+        flex-direction: column; /* Cambia a formato vertical en pantallas pequeñas */
+        height: auto;
+        gap: 15px;
+    }
+    .panel-componente {
+        height: 200px;
+        flex: none !important;  /* Apaga el sistema expandible horizontal */
+    }
+    .panel-componente:hover {
+        height: 320px;          /* En celulares se expande hacia abajo */
+    }
+    .panel-componente .contenido-panel {
+        opacity: 1;
+        transform: translateY(0);
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.9) 30%);
+    }
+    .panel-componente img {
+        filter: brightness(0.6);
+    }
+}
+
+
+
+
+
+
+
+/* ==========================================================================
+   CONTENEDOR DE VIDEO INTERACTIVO (CON FILTROS Y ESCALA)
+   ========================================================================== */
+
+/* La caja negra exterior con bordes redondeados */
+.caja-video-contenedor {
+    background-color: #000000;   
+    padding: 12px;               
+    border-radius: 16px;         
+    display: block;              /* Cambiado a block para un centrado más cómodo */
+    overflow: hidden;            
+    width: 100%;
+    margin: 40px auto;           
+    
+    /* 🟢 1. CONTROL DE TAMAÑO: Modifica este número a tu antojo */
+    max-width: 750px;            /* 💡 Cambia este valor (ej: 500px, 800px) para agrandar o achicar el video */
+
+    /* Animación fluida para el tamaño y los filtros */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease; 
+    
+    /* 🟢 2. CAPA OSCURA POR DEFECTO */
+    filter: brightness(0.6);     /* Reduce el brillo al 60% para que se vea opaco inicialmente */
+}
+
+/* Ajuste del elemento de video nativo por dentro */
+.caja-video-contenedor video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;          
 }
 
 /* ==========================================================================
-   6. SECCIÓN DE GIFS COMPONENTES
+   INTERACCIÓN (HOVER)
    ========================================================================== */
-/* ==========================================================
-   PRIMERA GALERÍA (SOLO sección CUADRICULANDO)
-   ========================================================== */
 
-/* fila principal */
-#info .galeria-gifs{
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-    gap: 35px !important;
-    width: 95% !important;
-    max-width: 1600px !important;
-    margin: 20px auto 40px auto !important;
-}
-
-/* cajas negras */
-#info .gif-container{
-    display: block !important;
-    width: 800px !important;          /* agranda los 3 */
-    padding: 15px !important;
-    margin: 0 !important;
-
-    background-color: #0a0a0a !important;
-    border-radius: 20px !important;
-    overflow: hidden !important;
-    box-shadow: 0 12px 32px rgba(0,0,0,.5) !important;
-}
-
-/* gif interno */
-#info .gif-media{
-    display: block !important;
-    width: 100% !important;
-    height: 400px !important;          /* todos mismo tamaño */
-    object-fit: cover !important;
-
-    border-radius: 12px !important;
-    filter: brightness(0.6) contrast(1.05) !important;
-    transition: filter .4s ease !important;
-}
-
-#info .gif-container:hover .gif-media{
-    filter: brightness(1) !important;
+/* 🟢 3. EFECTO AL PASAR EL CURSOR: Se agranda y se ilumina a la vez */
+.caja-video-contenedor:hover {
+    transform: scale(1.04);      /* Se agranda un 4% */
+    filter: brightness(1);       /* Recupera el 100% de su brillo (se ilumina) */
 }
 
 
-/* ==========================================================
-   SEGUNDA GALERÍA (NO TOCAR)
-   queda como estaba originalmente
-   ========================================================== */
 
-.galeria-gifs.fila-dos{
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-    gap: 100px !important;
-    width: 90% !important;
-    max-width: 10000px !important;
-    margin: 20px auto 40px auto !important;
-}
 
-.galeria-gifs.fila-dos .gif-container{
-    display: block !important;
-    max-width: 500px !important;
-    margin: 20px auto 40px auto !important;
-    padding: 15px !important;
-    background-color: #0a0a0a !important;
-    border-radius: 20px !important;
-    overflow: hidden !important;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
-}
-
-.galeria-gifs.fila-dos .gif-media{
-    display: block !important;
-    width:100% !important;
-    height: 300px !important;
-    width: 200px;
-    object-fit: cover !important;
-    border-radius: 12px !important;
-    filter: brightness(0.6) contrast(1.05) !important;
-    transition: filter 0.4s ease !important;
-}
-
-.galeria-gifs.fila-dos:hover .gif-media{
-    filter: brightness(1) !important;
-}
 /* ==========================================================================
-   CONTROL DE TAMAÑOS DIFERENCIADOS POR FILA
+   CONTENEDOR PARA IFRAME INTERACTIVO (PIX)
    ========================================================================== */
 
-/* 🟢 FILA 1 GIGANTE: Al ser solo 2, les permitimos expandirse enormemente */
-.galeria-gifs.fila-uno-gigante .gif-container {
-    flex: 1 !important;
-    max-width: 850px !important;         /* 👈 Este límite gigante los hará destacar sobre el resto */
-    padding: 20px !important;
+.caja-iframe-contenedor {
+    background-color: #000000;   /* Fondo negro del contenedor */
+    padding: 15px;               /* Grosor del marco negro */
+    border-radius: 16px;         /* Bordes redondeados */
+    margin: 40px auto;           /* Centrado horizontal en la pantalla */
+    overflow: hidden;            /* Corta las esquinas del iframe para que no sobresalgan */
+    box-sizing: border-box;
+
+    /* 🟢 MODIFICA AQUÍ EL ANCHO A TU ANTOJO */
+    width: 100%;                 
+    max-width: 900px;            /* 💡 Cambia este número (ej: 800px, 1050px) para el ancho total */
+
+    /* Animación elástica para el tamaño y el filtro */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+
+    /* CAPA OSCURA POR DEFECTO (Igual que tus otros elementos) */
+    filter: brightness(0.6);     
 }
 
-/* 🔵 FILA 2 ESTÁNDAR: Mantiene el tamaño exacto que ya te gustaba en la captura */
-.galeria-gifs.fila-dos .gif-container {
-    flex: 1 !important;
-    max-width: 500px !important;         /* Se quedan compactos porque son 3 */
-    padding: 15px !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+/* Ajuste del iframe interno */
+.caja-iframe-contenedor iframe {
+    width: 100%;
+    display: block;
+    border-radius: 8px;          /* Bordes suavizados para el contenido de Pix */
+    
+    /* 🟢 MODIFICA AQUÍ EL ALTO A TU ANTOJO */
+    height: 600px;               /* 💡 Cambia este número (ej: 500px, 700px) para darle más o menos altura */
 }
+
+/* ==========================================================================
+   INTERACCIÓN (HOVER)
+   ========================================================================== */
+
+/* Se agranda un poquito y se ilumina al pasar el cursor por encima */
+.caja-iframe-contenedor:hover {
+    transform: scale(1.02);      /* Se agranda un 2% (un toque sutil para no perder el foco del interactivo) */
+    filter: brightness(1);       /* Se ilumina al 100% */
+}
+
+
+
+/* ==========================================================================
+   SEGUNDO GRUPO DE GIFS FIJOS (MEDIDAS INDEPENDIENTES)
+   ========================================================================== */
+
+/* 1. Contenedor general invisible para alinear y centrar este segundo par */
+.contenedor-bloques-secundario {
+    display: flex;            
+    justify-content: center;  
+    align-items: center;      
+    gap: 20px;                /* Espacio de separación entre estas dos cajas */
+    width: 100%;
+    margin: 40px auto;        
+    flex-wrap: wrap;          /* Permite que bajen en celulares si no caben */
+}
+
+/* 2. Cajas contenedoras negras individuales para Video 4 y 5 */
+.caja-gif-secundaria {
+    background-color: #000000;/* Fondo negro independiente */
+    padding: 12px;            /* Espacio de marco negro interno */
+    border-radius: 15px;      /* Bordes redondeados de la caja */
+    box-sizing: border-box;
+    
+    /* 🟢 MODIFICA AQUÍ EL TAMAÑO DE ESTAS DOS CAJAS A TU ANTOJO */
+    width: 380px;             /* 💡 Ancho de la caja (ajústalo con el número que quieras) */
+    height: 380px;            /* 💡 Altura de la caja (mantenla igual al ancho para que sean cuadrados) */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;         
+    
+    /* Animación fluida para cuando pases el cursor encima */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 3. Ajuste de las imágenes dentro de sus cajas secundarias */
+.caja-gif-secundaria .gif-media {
+    width: 100%;              
+    height: 100%;             
+    object-fit: cover;        /* Se adapta al tamaño cuadrado sin deformarse */
+    border-radius: 8px;       
+    display: block;
+
+    /* CAPA OSCURA POR DEFECTO */
+    filter: brightness(0.5);  /* Ajusta la oscuridad inicial aquí (0.5 = 50% de brillo) */
+    transition: filter 0.4s ease;
+}
+
+/* ==========================================================================
+   INTERACCIÓN (HOVER EXCLUSIVO)
+   ========================================================================= */
+
+/* Al pasar el cursor sobre la caja, esta se agranda y la imagen se ilumina */
+.caja-gif-secundaria:hover {
+    transform: scale(1.04);    /* Se agranda un 4% de forma sutil */
+}
+
+.caja-gif-secundaria:hover .gif-media {
+    filter: brightness(1);    /* Recupera su brillo original */
+}
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   FILA DE CUADROS INTERACTIVOS (SIN CONTENEDOR Y MÁS LENTO)
+   ========================================================================== */
+
+/* Contenedor principal para alinear los cuadros en fila */
+.contenedor-cuadros-color {
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    gap: 20px;                /* Espacio de separación entre cada imagen */
+    width: 100%;
+    margin: 40px auto;
+    flex-wrap: wrap;          
+}
+
+/* Caja individual para cada cuadro (Ahora invisible, sin fondo negro ni padding) */
+.contenedor-cuadros-color .caja-cuadro {
+    background: transparent;  /* 🟢 Eliminado el contenedor negro */
+    padding: 0;               /* 🟢 Eliminado el espacio interno para que se vea la imagen directa */
+    box-sizing: border-box;
+    
+    /* 💡 MODIFICA AQUÍ EL TAMAÑO A TU ANTOJO */
+    width: 110px;             /* Ancho de cada cuadro */
+    height: 150px;            /* Alto de cada cuadro */
+
+    /* Estado inicial: Completamente visible y tamaño normal */
+    transform: scale(1);
+    opacity: 1;
+
+    /* Transición al RETIRAR el cursor: Vuelve a aparecer de forma suave y elegante */
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+/* Ajuste de las imágenes */
+.contenedor-cuadros-color .caja-cuadro img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;        
+    border-radius: 12px;      /* El borde redondeado se aplica directo a tu imagen */
+}
+
+/* ==========================================================================
+   INTERACCIÓN (HOVER EN SECUENCIA LENTA)
+   ========================================================================== */
+
+/* 🟢 AL PASAR EL CURSOR: Se agranda y luego se desvanece pausadamente */
+.contenedor-cuadros-color .caja-cuadro:hover {
+    transform: scale(1.15);   /* Se agranda un 15% */
+    opacity: 0;               /* Se desvanece por completo */
+    
+    /* Control de tiempos al ENTRAR el cursor:
+       - El tamaño cambia en 0.4 segundos de forma fluida.
+       - La opacidad tarda 1.2 segundos en desaparecer (mucho más lento).
+       - transition-delay: El '0s' es para el tamaño y el '0.3s' hace que el 
+         desvanecimiento espere a que la imagen ya se haya agrandado para empezar a actuar. */
+    transition-property: transform, opacity;
+    transition-duration: 0.2s, 1.0s;
+    transition-delay: 0s, 0.1s;
+    transition-timing-function: ease;
+}
+
+
+
+/* ==========================================================================
+   SECCIÓN DE FONDO COMPLETO DE EXTREMO A EXTREMO
+   ========================================================================== */
+
+.franja-fondo {
+    width: 100%;                  
+    box-sizing: border-box;
+    background-color: #ffffff;    /* Tu color de fondo */
+    padding: 60px 0;              
+    margin: 40px 0;               
+
+    /* Solución exclusiva para el fondo de extremo a extremo sin mover nada */
+    box-shadow: 0 0 0 100vw #ffffff;
+    clip-path: inset(0 -100vw);
+}
+
+/* Forzamos que la estructura interna mantenga el ancho y centrado original del sitio */
+.franja-fondo .main-wrapper {
+    width: 100%;
+    max-width: 1100px;            /* Calza esta medida con el ancho máximo de tu página */
+    margin: 0 auto;               /* Centra perfectamente el bloque del contenido */
+    padding: 0 20px;              
+    box-sizing: border-box;
+}
+
+/* 🟢 CORRECCIÓN: Fuerza a los títulos H2 de esta sección a volver a estar centrados */
+.franja-fondo h2 {
+    text-align: center !important; /* Devuelve el título a su posición centrada original */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ==========================================================================
    7. TABLERO GENERAL (PROPIEDADES DE JUEGO A PANTALLA COMPLETA)
    ========================================================================== */
@@ -362,8 +846,8 @@ p.visible {
     margin: 0;
     padding: 24px;              /* 💡 MARGEN: Controla la separación del tablero con el borde de la pantalla */
     width: 100vw;              
-    height: 100vh;             
-    background-color: #1a1a1a; 
+    height: 100vh;            
+    background-color: #1a1a1a;
     position: fixed;
     top: 0;
     left: 0;
@@ -375,11 +859,11 @@ p.visible {
     display: grid;
     grid-template-columns: repeat(11, 1fr); /* Columnas proporcionales a la pantalla */
     grid-template-rows: repeat(11, 1fr);    /* Filas proporcionales a la pantalla */
-    gap: 0px; 
+    gap: 0px;
 }
 
 .casilla {
-    border: 1px solid rgba(255, 255, 255, 0.25); 
+    border: 1px solid rgba(255, 255, 255, 0.25);
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -390,16 +874,16 @@ p.visible {
     z-index: 2;
     transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
     cursor: pointer;
-    width: 100%;         
+    width: 100%;        
     height: 100%;
-    border-radius: 8px; 
+    border-radius: 8px;
     display: block; /* Asegura el comportamiento correcto al ser una etiqueta <a> */
 }
 
 .esquina:hover {
     transform: scale(1.08); /* Escala calibrada para no recortarse en los bordes */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); 
-    z-index: 3; 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+    z-index: 3;
 }
 
 /* Posiciones exactas y limpias en las celdas límite del Grid (Sin márgenes negativos) */
@@ -424,16 +908,16 @@ p.visible {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    pointer-events: none; 
+    pointer-events: none;
     width: 100%;
     height: 100%;
 }
 
 .matriz-interna {
-    display: none; 
+    display: none;
     width: 85%;  
     height: 85%;
-    background-color: #e0e0e0; 
+    background-color: #e0e0e0;
     padding: 8px;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
@@ -444,7 +928,7 @@ p.visible {
 }
 
 .mini-casilla {
-    background-color: #ffffff; 
+    background-color: #ffffff;
     border-radius: 4px;
 }
 
@@ -462,84 +946,6 @@ p.visible {
 .columna-izquierda { grid-column: 1; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); width: 100%; height: 100%; }
 .columna-medio     { grid-column: 6; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); width: 100%; height: 100%; }
 .columna-derecha   { grid-column: 11; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); width: 100%; height: 100%; }
-/* ==========================================================================
-   8. COMPONENTES DEL CARRUSEL (Estructura interna)
-   ========================================================================== */
-.carrusel-contenedor {
-    position: relative;
-    width: 500px;        /* Congelamos el ancho para que no colapse */
-    height: 590px; 
-    overflow: hidden;
-    background-color: #e1e1e1;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    pointer-events: none;
-}
-
-.slide.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.slide img {
-    width: 85%;          
-    height: 75%;         
-    margin: 15px auto 0; 
-    object-fit: contain; 
-}
-
-.pie-pagina {
-    font-size: 18px; 
-    color: #1e1e1e;
-    text-align: center;
-    margin: 0;
-    padding: 20px 15px;
-    background-color: #e1e1e1;
-    height: 18%;
-    box-sizing: border-box;
-    font-weight: 500;
-}
-
-.p3 {
-    font-size: 18px; 
-    color: #1e1e1e;
-    font-family: "Louis George Cafe";
-    text-align: center;
-    margin: 0;
-    padding: 20px 15px;
-}
-
-.btn-control {
-    background-color: #e1e1e1;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s, transform 0.2s;
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    position: relative;
-    z-index: 10;
-}
-
-.btn-control:active { transform: scale(0.95); }
-.btn-circulo { width: 50px; height: 50px; border-radius: 50%; }
-.btn-rombo { width: 44px; height: 44px; transform: rotate(45deg); margin-right: 6px; }
-.flecha { font-size: 20px; user-select: none; }
-.flecha-derecha { transform: rotate(-45deg); }
 
 /* ==========================================================================
    9. INTERFAZ DE TABLERO 4x4 (Juego alternativo)
@@ -555,7 +961,7 @@ p.visible {
     grid-template-rows: repeat(4, minmax(0, 1fr));
     gap: 2px;
     width: 320px;
-    aspect-ratio: 1; 
+    aspect-ratio: 1;
     background-color: var(--linea);
     border: 2px solid var(--linea);
     box-shadow: 0 50px 90px rgba(15, 15, 15, 0.65);
@@ -564,7 +970,7 @@ p.visible {
 }
 
 .cuadricula-4x4, .cuadroscuadricula {
-    transition: opacity 1s ease; 
+    transition: opacity 1s ease;
     opacity: 1;
 }
 
@@ -573,163 +979,20 @@ p.visible {
 
 .cuadroscuadricula {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 2px;                                                              
-    width: 320px;   
-    margin-top: 50px;                                                      
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;                                                                                                       
+    width: 320px;  
+    margin-top: 50px;                                                                                                   
 }
 
 .cuadroscuadricula img, .cuadro img {
-    width: 100%;                                                           
-    aspect-ratio: 1;                                                       
-    object-fit: cover;                                                     
-    display: block;                                                        
-    cursor: grab;                                                          
+    width: 100%;                                                                                                          
+    aspect-ratio: 1;                                                                                                      
+    object-fit: cover;                                                                                                    
+    display: block;                                                                                                        
+    cursor: grab;                                                                                                          
 }
 
-/* ==========================================================================
-   10. EXCLUSIVO: DIAGRAMACIÓN SECCIÓN MATERIALIDAD (TEXTO IZQ + CARRUSEL DER)
-   ========================================================================== */
-.seccion-materialidad {
-    position: relative;
-    background: none !important;
-    width: 100%;
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-    box-sizing: border-box;
-    padding: 80px 0;
-}
-
-.seccion-materialidad::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0; /* 👈 Esto estira el fondo amarillo desde el inicio hasta el final del video automáticamente */
-    left: -50vw;
-    right: -50vw;
-    background-color: #efc300 !important; 
-    z-index: -1;
-}
-
-.seccion-materialidad .contenedor-central {
-    max-width: 1150px;
-    width: 100%;
-    margin: 0 auto !important;
-    padding: 0 20px;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    box-sizing: border-box;
-}
-
-/* FILA SUPERIOR: Junta el bloque de texto y el carrusel completo */
-.seccion-materialidad .galeria-wrapper {
-    display: flex !important;
-    flex-direction: row !important;      /* Uno al lado del otro */
-    align-items: center !important;      
-    justify-content: space-between !important;
-    gap: 90px !important;                /* 💡 ESPACIO ENTRE TEXTO E IMAGEN */
-    width: 100% !important;
-    max-width: 1100px !important;
-    margin: 0 auto 80px auto !important; /* 💡 ESPACIO VERTICAL ANTES DEL VIDEO */
-    padding: 0 !important;
-}
-
-/* Caja de Texto alineada limpiamente a la izquierda */
-.seccion-materialidad .bloque-texto-izq {
-    flex: 1 !important;
-    max-width: 550px !important;         
-    text-align: left !important;         
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-/* Título de Materialidad a la izquierda */
-.seccion-materialidad h3 {
-    color: #ffffff !important;
-    text-align: left !important;
-    font-family: inlanders !important;
-    font-size: 60px !important;
-    margin-top: 0!important;
-    margin-bottom: 25px !important;
-    letter-spacing: 4px !important;
-    line-height: 1.1 !important;
-}
-
-/* Párrafo de la izquierda con animación restaurada */
-.seccion-materialidad .bloque-texto-izq p {
-    font-family: "Louis George Cafe" !important;
-    color: #1e1e1e !important;           
-    text-align: left !important;         
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    font-size: 18px !important;
-    line-height: 1.6 !important;
-    
-    /* 🟢 ESTADO INICIAL: Oculto y abajo para la animación */
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;   
-}
-
-/* 🟢 ESTADO ACTIVO: Se activa cuando JS le añade la clase .visible al hacer scroll */
-.seccion-materialidad .bloque-texto-izq p.visible {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-}
-
-/* 🟢 TEXTO DESCRIPTIVO INTERNO DEL CARRUSEL (Corregido para evitar que herede la animación del scroll) */
-.seccion-materialidad .pie-pagina {
-    font-family: "Louis George Cafe" !important;
-    font-size: 18px !important; 
-    color: #1e1e1e !important;
-    text-align: center !important;
-    margin: 0 !important;
-    padding: 20px 15px !important;
-    background-color: #e1e1e1 !important;
-    height: 18% !important;
-    box-sizing: border-box !important;
-    font-weight: 500 !important;
-    opacity: 1 !important;
-    transform: none !important;
-}
-
-/* Bloque contenedor del Carrusel + Flechas */
-.seccion-materialidad .carrusel-contenedor-flexible {
-    display: flex !important;
-    align-items: center !important;
-    gap: 30px !important;                /* 💡 ESPACIO ENTRE FLECHAS Y TARJETA IMAGEN */
-    flex-shrink: 0 !important;
-}
-
-/* VIDEO: GRANDE Y CENTRADO ABAJO */
-.video-container {
-    display: block !important;
-    width: 100% !important;        
-    max-width: 850px !important;         
-    height: auto !important;      
-    margin: 0 auto !important; 
-    padding: 15px !important;              
-    background-color: #0a0a0a !important;   
-    border-radius: 20px !important;         
-    overflow: hidden !important;            
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4) !important;
-    box-sizing: border-box !important;
-}
-
-.Video {
-    width: 100% !important;
-    height: 480px !important;            
-    max-width: 100% !important;
-    display: block !important;
-    margin: 0 auto !important;           
-    border-radius: 12px !important;       
-    object-fit: cover !important;        
-    transition: transform 0.3s ease;
-}
-.Video:hover { transform: scale(1.02); }
 /* ==========================================================================
    11. SECCIÓN DE COLOR CLARA / FOOTER
    ========================================================================== */
@@ -737,11 +1000,11 @@ p.visible {
     position: relative;
     background: none !important;
     width: 100%;
-    z-index: 1; 
+    z-index: 1;
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    padding: 40px 0; 
+    padding: 40px 0;
 }
 
 .seccion-color::before {
@@ -751,19 +1014,19 @@ p.visible {
     bottom: 0;
     left: -50vw;
     right: -50vw;
-    background-color: #e1e1e1 !important; 
-    z-index: -1; 
+    background-color: #e1e1e1 !important;
+    z-index: -1;
 }
 
 .seccion-color .contenedor-central {
     max-width: 1000px;
     width: 100%;
-    margin: 0 auto !important; 
+    margin: 0 auto !important;
     padding: 0 40px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;       
+    align-items: center;      
     text-align: center;        
     position: relative;
     z-index: 2;
@@ -773,16 +1036,16 @@ p.visible {
     color: #1e1e1e !important;  
     text-align: center !important;
     width: 100%;
-    margin-top: 0 !important;   
+    margin-top: 0 !important;  
     margin-bottom: 20px !important;
 }
 
 .seccion-color p, .seccion-clara p {
     color: #222222 !important;  
-    text-align: center !important; 
+    text-align: center !important;
     max-width: 800px;
     width: 100%;
-    margin: 0 auto 30px auto !important; 
+    margin: 0 auto 30px auto !important;
     font-size: 18px;
     line-height: 1.5;
 }
@@ -804,35 +1067,35 @@ p.visible {
     margin-right: calc(-50vw + 50%);
     box-sizing: border-box;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .footer-content {
     width: 100%;
-    max-width: 1000px; 
-    padding: 0 40px;   
+    max-width: 1000px;
+    padding: 0 40px;  
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
 }
 
 .footer-logos {
     display: flex;
     justify-content: center;
-    align-items: flex-end; 
+    align-items: flex-end;
     gap: 40px;
     margin-bottom: 40px;
     width: 100%;
-    margin-top: 15px !important; 
+    margin-top: 15px !important;
 }
 
 .footer-logo-placeholder {
     width: 225px;
     height: 100px;
     display: flex;
-    align-items: flex-end; 
+    align-items: flex-end;
     justify-content: center;
 }
 
@@ -846,14 +1109,14 @@ p.visible {
 .p2 {
     font-family: "Louis George Cafe" !important;
     color: #1e1e1e !important;
-    font-size: 18px; 
+    font-size: 18px;
     text-align: left !important;      
     max-width: 650px !important;      
     width: 100% !important;
-    padding-right: 60px !important;   
-    white-space: normal !important;   
+    padding-right: 60px !important;  
+    white-space: normal !important;  
     box-sizing: border-box !important;
-    margin-top: -35px !important;     
+    margin-top: -35px !important;    
     margin-bottom: 0 !important;
     margin-left: 0 !important;
     margin-right: auto !important;    
@@ -861,159 +1124,6 @@ p.visible {
 
 .site-footer1 {
     color: #e1e1e1;
-}
-
-/* ==========================================================================
-   12. DIAGRAMACIÓN EXCLUSIVA SECCIÓN "LO OCULTO" (PROHIBIDO INTERFERIR)
-   ========================================================================== */
-#seccion-oculto-blindada {
-    width: 100%;
-    display: flex !important;
-    justify-content: center !important;
-    padding: 80px 0 !important;
-    box-sizing: border-box !important;
-    background: transparent !important; /* Mantiene el fondo original oscuro de tu body */
-}
-
-/* Envoltorio interno alineado perfectamente con el wrapper de tu página */
-#seccion-oculto-blindada .oculto-wrapper-interno {
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 30px;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 50px !important; 
-    box-sizing: border-box !important;
-}
-
-/* FILA SUPERIOR: Mantiene la distribución original */
-#seccion-oculto-blindada .oculto-fila-superior {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important; 
-    gap: 50px !important; 
-    width: 100% !important;
-}
-
-/* COLUMNA IZQUIERDA: 🟢 AQUÍ SE CORREN LOS GIFS HACIA LA IZQUIERDA */
-#seccion-oculto-blindada .oculto-columna-gifs {
-    flex: 1.9 !important;       
-    max-width: 880px !important; 
-    width: 100% !important;
-    
-    /* 👈 Mueve SOLO la caja de los GIFs hacia la izquierda sin tocar el texto */
-    margin-left: -80px !important; 
-}
-
-/* Galería de GIFs junta y agrupada */
-#seccion-oculto-blindada .oculto-galeria-junta {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 15px !important; 
-    width: 100% !important;
-}
-
-/* Contenedores negros de cada GIF */
-#seccion-oculto-blindada .oculto-caja-gif {
-    display: block !important;
-    flex: 1 !important;
-    background-color: #0a0a0a !important;
-    border-radius: 20px !important;
-    padding: 12px !important;
-    overflow: hidden !important;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
-    box-sizing: border-box !important;
-}
-
-/* Configuración del GIF interno */
-#seccion-oculto-blindada .oculto-media-gif {
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;
-    aspect-ratio: 9 / 9 !important; 
-    object-fit: cover !important;
-    border-radius: 12px !important;
-    filter: brightness(0.6) contrast(1.05) !important;
-    transition: filter 0.4s ease !important;
-}
-
-#seccion-oculto-blindada .oculto-caja-gif:hover .oculto-media-gif {
-    filter: brightness(1) !important;
-}
-
-/* COLUMNA DERECHA: Título e información intactos */
-#seccion-oculto-blindada .oculto-columna-texto {
-    flex: 1 !important;
-    max-width: 480px !important; 
-    display: flex !important;
-    flex-direction: column !important;
-    text-align: left !important;
-}
-
-/* Forzar estilos del título heredados de tus fuentes */
-#seccion-oculto-blindada h2 {
-    font-family: inlanders !important;
-    font-size: 60px !important;
-    color: #ffffff !important;
-    margin-top: 0 !important;
-    margin-bottom: 20px !important;
-    letter-spacing: 4px !important;
-    text-align: left !important;
-}
-
-/* Párrafo Superior Derecho con animación restaurada */
-#seccion-oculto-blindada p.oculto-texto-derecho {
-    font-family: "Louis George Cafe", sans-serif !important;
-    font-size: 18px !important;
-    color: #e1e1e1 !important;
-    line-height: 1.6 !important;
-    text-align: left !important; 
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    
-    /* 🟢 ANIMACIÓN RESTAURADA: Hereda de la configuración global de la sección 2 */
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-/* Párrafo Superior Derecho en estado activo */
-#seccion-oculto-blindada p.oculto-texto-derecho.visible {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-}
-
-/* FILA INFERIOR: Mantiene el ancho original de tu web */
-#seccion-oculto-blindada .oculto-fila-inferior {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    margin-top: 20px !important;
-}
-
-/* Párrafo Inferior Centrado con animación restaurada */
-#seccion-oculto-blindada p.oculto-texto-centrado {
-    font-family: "Louis George Cafe", sans-serif !important;
-    font-size: 18px !important;
-    color: #e1e1e1 !important;
-    line-height: 1.6 !important;
-    text-align: center !important; 
-    max-width: 900px !important;  
-    margin: 0 auto !important;
-    padding: 0 10px !important;
-    
-    /* 🟢 ANIMACIÓN RESTAURADA: Hereda de la configuración global de la sección 2 */
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-/* Párrafo Inferior Centrado en estado activo */
-#seccion-oculto-blindada p.oculto-texto-centrado.visible {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
 }
 
 /* ==========================================================================
@@ -1044,13 +1154,6 @@ p.visible {
     transition: filter 0.1s ease, opacity 0.1s ease; /* Desvanecimiento inmediato */
 }
 
-
-
-
-
-
-
-
 /* ==========================================================================
    13. PERSONALIZACIÓN EXCLUSIVA DEL BOTÓN FINAL DESCUBRIR
    ========================================================================== */
@@ -1059,7 +1162,7 @@ p.visible {
     padding: 16px 45px;          /* Espaciado interno: arriba/abajo e izquierda/derecha */
     font-size: 18px;             /* Tamaño del texto del botón */
     min-width: 220px;            /* Ancho mínimo asegurado para el botón */
-    
+   
     /* Mantiene los estilos estéticos de tus botones originales */
     border: 2px solid #e1e1e1;
     border-radius: 25px;
@@ -1071,10 +1174,10 @@ p.visible {
     cursor: pointer;
     transition: .3s;
     text-decoration: none;
-    display: inline-flex;       
+    display: inline-flex;      
     align-items: center;        
     justify-content: center;    
-    text-align: center;         
+    text-align: center;        
 }
 
 /* Efecto Hover idéntico para mantener la línea de diseño */
@@ -1083,20 +1186,9 @@ p.visible {
     color: black;
 }
 
-
-
-
-
-
-
-
-
-
-
 /* ==========================================================================
    14. CONFIGURACIÓN COMPLETA DEL MINIJUEGO (MALLA FLUIDA AUTOMÁTICA)
    ========================================================================== */
-
 .escenario-juego {
     width: 100vw !important;
     height: 100vh !important;
@@ -1119,7 +1211,7 @@ p.visible {
     background-color: #1e1e1e !important;
     z-index: 10 !important;
     pointer-events: none !important;
-    
+   
     mask-image: radial-gradient(circle 160px at var(--x, -500px) var(--y, -500px), transparent 100%, black 100%) !important;
     -webkit-mask-image: radial-gradient(circle 160px at var(--x, -500px) var(--y, -500px), rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%) !important;
 }
@@ -1128,11 +1220,11 @@ p.visible {
 .cuadricula-oculta {
     position: absolute !important;
     display: grid !important;
-    
+   
     /* 🟢 CLAVE: El navegador calcula cuántas columnas y filas entran usando un tamaño base cuadrado */
     grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)) !important;
     grid-template-rows: repeat(auto-fill, minmax(50px, 1fr)) !important;
-    
+   
     background-color: #1a1a1a !important;
     z-index: 1 !important;
     box-sizing: border-box !important;
@@ -1148,7 +1240,7 @@ p.visible {
     box-sizing: border-box !important;
     width: 100% !important;
     height: 100% !important;
-    aspect-ratio: 1 / 1 !important; 
+    aspect-ratio: 1 / 1 !important;
     border: 1px solid rgba(255, 255, 255, 0.25) !important; /* Líneas blancas originales */
 }
 
@@ -1162,29 +1254,12 @@ p.visible {
 }
 
 .cuadrado-rojo:active {
-    transform: scale(0.85) !important; 
+    transform: scale(0.85) !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ==========================================================================
    15. EFECTOS FINALES: INVERSIÓN TOTAL Y COLAPSO CINEMÁTICO EN REJILLA
    ========================================================================== */
-
 /* Inversión total de la pantalla: la linterna ahora proyecta oscuridad */
 .escenario-juego.modo-invertido {
     background-color: #e1e1e1 !important;
@@ -1286,27 +1361,9 @@ p.visible {
     transform: scale(1);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ==========================================================================
    INTERFAZ EXCLUSIVA PARA LA PANTALLA AMARILLA (MISMO SCRIPT)
    ========================================================================== */
-
 /* Hace que el cuadro sea amarillo cuando corre el script aquí */
 .juego-amarillo .cuadrado-rojo {
     background-color: #ffeb3b !important;
@@ -1346,14 +1403,9 @@ p.visible {
     transform: scale(1) !important;
 }
 
-
-
-
-
 /* ==========================================================================
    18. CONFIGURACIÓN EXCLUSIVA PARA EL JUEGO AMARILLO (RESTABLECIDO)
    ========================================================================== */
-
 .juego-amarillo .casilla-secreta {
     width: 50px;
     height: 50px;
@@ -1383,6 +1435,7 @@ p.visible {
     transition: opacity 0.3s ease !important;
     pointer-events: auto !important;
 }
+
 /* Ajuste de color para que la flecha sea más clara */
 .juego-amarillo #boton-regresar-tablero {
     color: #e0e0e0 !important; /* Un gris claro muy elegante */
@@ -1395,28 +1448,71 @@ p.visible {
 
 
 
-Fila de cuadros/
-/* Contenedor de la galería */
-.contenedor-galeria {
-    display: flex;
-    justify-content: center;   /* centra horizontalmente */
-    align-items: center;       /* alinea verticalmente */
-    gap: 20px;
-    flex-wrap: wrap;           /* evita que se rompa en pantallas pequeñas */
+/* ==========================================================================
+   ESTILO PARA EL OBJETIVO DEL MINIJUEGO VERDE (BORDES REDONDEADOS)
+   ========================================================================== */
 
-    width: 100%;
-    margin: 40px auto;
-    padding: 20px;
-    box-sizing: border-box;
+.casilla-secreta.cuadrado-verde {
+    background-color: #74aa9f !important; /* Color verde de tu paleta */
+    cursor: pointer;                      
+    z-index: 10;                          
+    opacity: 1 !important;                
+    
+    /* 🟢 BORDES UN POQUITO REDONDEADOS */
+    border-radius: 6px;                   /* 💡 Ajusta a 4px si lo quieres menos redondo, o a 8px si lo quieres más blando */
+    
+    /* El destello místico en la oscuridad */
+    box-shadow: 0 0 15px #00ff66;
+}
+/* Estilo del escenario durante la revelación */
+.modo-revelacion-final {
+    background-color: #050505; /* Un negro más profundo */
+    transition: background-color 1.5s ease;
 }
 
-/* Imágenes */
-.contenedor-galeria img {
-    width: 120px;              /* mejor fijo que 10% */
-    height: auto;
-    transition: transform 0.3s ease;
+/* La rejilla se prepara para el desvanecimiento regular */
+.cuadricula-oculta.rejilla-revelada {
+    background-color: transparent;
+    border: 1px solid rgba(0, 255, 102, 0.15); /* Deja ver un rastro sutil de la matriz */
+    box-shadow: 0 0 40px rgba(0, 255, 102, 0.05);
+    transition: all 1s ease;
 }
 
-.contenedor-galeria img:hover {
-    transform: scale(1.1);
+/* Cambiamos el comportamiento de colapso por uno de desintegración limpia */
+.casilla-secreta {
+    /* Asegúrate de que tus casillas tengan una transición base suave */
+    transition: background-color 0.2s ease, opacity 0.5s ease, transform 0.5s ease;
+}
+
+
+
+
+
+/* ==========================================================================
+   ESTILO PARA EL OBJETIVO DEL MINIJUEGO AZUL
+   ========================================================================== */
+.casilla-secreta.cuadrado-azul {
+    background-color: #273584!important; /* 🔵 Un azul cyan brillante o el de tu paleta */
+    cursor: pointer;                      
+    z-index: 10;                          
+    opacity: 1 !important;                
+    border-radius: 6px;                   /* Bordes sutilmente redondeados */
+    box-shadow: 0 0 15px #00d2ff;         /* Destello místico azul */
+}
+/* Escenario durante la implosión */
+.modo-implosion-final {
+    background-color: #020617; /* Un fondo azul noche ultra profundo, casi negro */
+    transition: background-color 1s ease;
+}
+
+/* La rejilla se prepara para la distorsión del vórtice */
+.cuadricula-oculta.rejilla-vortice {
+    background-color: transparent;
+    transition: all 0.5s ease;
+}
+
+/* Asegura un comportamiento de transformación limpio en las casillas */
+.casilla-secreta {
+    transform-origin: center center;
+    backface-visibility: hidden;
 }

@@ -18,16 +18,13 @@ const imagenes = [
     { elemento: document.querySelector(".img-001-1"), rotacion: 80, velocidad: 0.7, direccionX: 0.5 }
 ];
 
-// Mapeo dinámico del scroll
+// Mapeo dinámico del scroll (RESTAURADO: Movimiento original y freno del título)
 window.addEventListener("scroll", () => {
     const scroll = window.scrollY;
-    const botones = document.querySelector(".buttons-group");
-    let limiteFreno = Infinity;
-
-    if (botones) {
-        const posicionBotones = botones.getBoundingClientRect().top + window.scrollY;
-        limiteFreno = posicionBotones - 250;
-    }
+    
+    // 🟢 ESTABLECE AQUÍ EL FRENO DEL TÍTULO: 
+    // Pon los píxeles exactos de scroll donde quieres que el título se congele (ej: 400, 500, etc.)
+    const limiteFreno = 1800; 
 
     imagenes.forEach(img => {
         if (!img.elemento) return;
@@ -35,9 +32,12 @@ window.addEventListener("scroll", () => {
         let moverY = scroll * img.velocidad;
         const moverX = scroll * img.direccionX;
 
-        // Lógica de congelamiento para la cuadricula contenedora
+        // 🟢 RESTAURADO: Lógica de congelamiento exclusiva para el título (.cuadri)
         if (img.elemento.classList.contains("cuadri")) {
+            // El título usaba una velocidad de -1, por lo que su cálculo original era:
             const posicionActualY = 200 - moverY; 
+            
+            // Si pasa el límite establecido, congelamos su posición en seco
             if (posicionActualY >= limiteFreno) {
                 moverY = -(limiteFreno - 200);
             }
@@ -46,7 +46,6 @@ window.addEventListener("scroll", () => {
         img.elemento.style.transform = `translate(${moverX}px, ${-moverY}px) rotate(${img.rotacion}deg)`;
     });
 });
-
 // ==========================================================================
 // 2. COMPORTAMIENTO MOUSE INTERACTIVO (AGITAR Y DESAPARECER)
 // ==========================================================================
@@ -203,7 +202,7 @@ const botonSiguiente = document.getElementById('siguiente');
 let indexActual = 0;
 
 function cambiarSlide(nuevoIndex) {
-    if (slides.length === 0) return; // Seguridad si no hay slides
+    if (slides.length === 0) return; 
     slides[indexActual].classList.remove('active');
 
     if (nuevoIndex >= slides.length) {
@@ -217,7 +216,6 @@ function cambiarSlide(nuevoIndex) {
     slides[indexActual].classList.add('active');
 }
 
-// 💡 CORREGIDO CON FILTROS 'IF' PARA EVITAR QUE EL SCRIPT SE ROMPA EN ESTA PÁGINA
 if (botonAnterior) {
     botonAnterior.addEventListener('click', () => {
         cambiarSlide(indexActual - 1);
@@ -272,11 +270,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 const imagenesRestantes = contenedorOriginal.querySelectorAll('img').length;
                 if (imagenesRestantes === 0) {
                     setTimeout(() => {
-                        // 1. Inicia el efecto visual de desvanecerse (opacidad a 0)
                         if (cuadricula) cuadricula.classList.add('fading');
                         if (contenedorOriginal) contenedorOriginal.classList.add('fading');
 
-                        // 2. Al terminar el segundo de animación, los borra por completo del flujo
                         setTimeout(() => {
                             if (cuadricula) cuadricula.style.display = 'none';
                             if (contenedorOriginal) contenedorOriginal.style.display = 'none';
@@ -287,7 +283,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 3. Permitir devolver las imágenes a la barra de abajo si te arrepientes
     if (contenedorOriginal) {
         contenedorOriginal.addEventListener('dragover', e => {
             e.preventDefault();
@@ -303,89 +298,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// ==========================================================================
+// COMPORTAMIENTO DE LETRAS INTERACTIVAS (TÍTULO INICIAL Y TÍTULO FINAL)
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    
+    function aplicarEfectoLetras(idElemento) {
+        const titulo = document.getElementById(idElemento);
 
+        if (titulo) {
+            const textoOriginal = titulo.textContent;
+            titulo.innerHTML = ""; 
 
+            [...textoOriginal].forEach(letra => {
+                const span = document.createElement("span");
+                span.textContent = letra;
+                titulo.appendChild(span);
 
+                span.addEventListener("mouseenter", () => {
+                    span.classList.add("letra-activa");
+                });
 
-
-
-
-window.addEventListener('DOMContentLoaded', () => {
-    const buttonGroup = document.querySelector('.buttons-group');
-    if (!buttonGroup) return;
-
-    // Buscamos SOLO los botones reales de texto dentro del grupo (evita tocar imágenes)
-    const links = buttonGroup.querySelectorAll('a, button, .buttons-group1, .discover-btn');
-
-    // Cambiamos el contenedor padre a "static" para que no arrastre nada de forma nativa
-    buttonGroup.style.position = 'static';
-
-    // Guardamos la posición original en la que nacen tus botones en el diseño
-    const originalTop = buttonGroup.getBoundingClientRect().top + window.scrollY;
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY >= originalTop - 40) {
-            // Cuando pasas el punto, el script mueve SOLO los enlaces/botones uno a uno
-            links.forEach((btn, index) => {
-                btn.style.position = 'fixed';
-                btn.style.right = '40px';
-                // Los apila verticalmente calculando el espacio dinámico de cada uno (top + separación)
-                btn.style.top = `${40 + (index * 75)}px`; 
-                btn.style.zIndex = '9999';
-            });
-        } else {
-            // Al volver arriba, los botones regresan a su flujo y caja original
-            links.forEach((btn) => {
-                btn.style.position = 'static';
+                span.addEventListener("mouseleave", () => {
+                    setTimeout(() => {
+                        span.classList.remove("letra-activa");
+                    }, 300); 
+                });
             });
         }
-    });
-});
-
-
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const titulo = document.getElementById("titulo-interactivo");
-
-    if (titulo) {
-        // 1. Separamos el texto original en letras individuales envueltas en <span>
-        const textoOriginal = titulo.textContent;
-        titulo.innerHTML = ""; // Vaciamos el contenedor
-
-        [...textoOriginal].forEach(letra => {
-            const span = document.createElement("span");
-            span.textContent = letra;
-            titulo.appendChild(span);
-
-            // 2. Evento: Cuando el mouse entra a ESTA letra específica
-            span.addEventListener("mouseenter", () => {
-                span.classList.add("letra-activa");
-            });
-
-            // 3. Opcional: Cuando el mouse se aleja, la letra vuelve a aparecer normal
-            // Si quieres que se queden borradas para siempre, borra las líneas de abajo
-            span.addEventListener("mouseleave", () => {
-                setTimeout(() => {
-                    span.classList.remove("letra-activa");
-                }, 300); // Tardará 300ms en volver a aparecer suavemente tras quitar el mouse
-            });
-        });
     }
+
+    aplicarEfectoLetras("titulo-inicial-interactivo");
+    aplicarEfectoLetras("titulo-interactivo");
 });
-
-
-
-
-
-
-
-
-
 
 // ==========================================================================
 // 5. LÓGICA DEL MINIJUEGO - LINTERNA GEOMÉTRICA (CON RETROCESO Y REINICIO)
@@ -397,6 +342,7 @@ const botonRegresar = document.getElementById('boton-regresar-tablero');
 
 let contadorClics = 0;
 const MAX_INTENTOS = 6;
+let juegoTerminado = false; 
 
 function inicializarTableroEstructural() {
     if (!rejilla) return;
@@ -443,12 +389,16 @@ function gestionarClicObjetivo(e) {
     if (contadorClics < MAX_INTENTOS) {
         moverObjetivo();
     } else {
+        juegoTerminado = true; 
         this.classList.remove('cuadrado-rojo');
         this.removeEventListener('click', gestionarClicObjetivo);
         
         document.body.classList.add('modo-invertido');
-        if (capaNegra) capaNegra.classList.add('linterna-invertida');
         if (rejilla) rejilla.classList.add('cuadricula-invertida');
+
+        if (capaNegra) {
+            capaNegra.style.display = 'none'; 
+        }
 
         const todasLasCasillas = rejilla.querySelectorAll('.casilla-secreta');
         todasLasCasillas.forEach(casilla => {
@@ -462,13 +412,11 @@ function gestionarClicObjetivo(e) {
             casilla.classList.add('casilla-colapsada');
         });
 
-        // Muestra la frase final
         if (mensajeFinal) {
             mensajeFinal.style.display = 'block';
             setTimeout(() => { mensajeFinal.classList.add('mostrar'); }, 50);
         }
 
-        // 🟢 Muestra la flecha de retroceso al mismo tiempo
         if (botonRegresar) {
             botonRegresar.style.display = 'block';
             setTimeout(() => { botonRegresar.classList.add('mostrar'); }, 50);
@@ -476,16 +424,14 @@ function gestionarClicObjetivo(e) {
     }
 }
 
-// 🟢 FUNCIÓN DE REDIRECCIÓN AL PRESIONAR LA FLECHA DE RETROCEDER
 if (botonRegresar) {
     botonRegresar.addEventListener('click', () => {
-        // Redirecciona instantáneamente de vuelta a tu página principal
         window.location.href = 'tablero.html';
     });
 }
 
 window.addEventListener('mousemove', (e) => {
-    if (capaNegra) {
+    if (capaNegra && !juegoTerminado) {
         capaNegra.style.setProperty('--x', `${e.clientX}px`);
         capaNegra.style.setProperty('--y', `${e.clientY}px`);
     }
@@ -501,15 +447,20 @@ window.addEventListener('resize', () => {
     }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
+// ==========================================================================
+// ANIMACIÓN INTERACTIVA DE LETRAS (SÓLO TÍTULO FINAL)
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    const tituloFinal = document.getElementById("titulo-interactivo");
+    if (tituloFinal) {
+        const textoOriginal = tituloFinal.textContent;
+        tituloFinal.innerHTML = ""; 
+        [...textoOriginal].forEach(letra => {
+            const span = document.createElement("span");
+            span.textContent = letra === " " ? "\u00A0" : letra;
+            tituloFinal.appendChild(span);
+            span.addEventListener("mouseenter", () => { span.classList.add("letra-activa"); });
+            span.addEventListener("mouseleave", () => { setTimeout(() => { span.classList.remove("letra-activa"); }, 300); });
+        });
+    }
+});
