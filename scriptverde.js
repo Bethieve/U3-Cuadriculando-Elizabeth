@@ -7,7 +7,7 @@ const mensajeFinal = document.getElementById('mensaje-oculto-final');
 const botonRegresar = document.getElementById('boton-regresar-tablero');
 
 let contadorClics = 0;
-const MAX_INTENTOS = 6;
+const MAX_INTENTOS = 4;
 let juegoTerminado = false; 
 
 // 1. Inicializa la estructura física de la cuadrícula oculta

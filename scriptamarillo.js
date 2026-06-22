@@ -4,7 +4,7 @@
     const botonRegresar = document.getElementById('boton-regresar-tablero');
 
     let contadorClics = 0;
-    const MAX_INTENTOS = 6;
+    const MAX_INTENTOS = 4;
 
     function inicializarTableroAmarillo() {
         if (!rejilla) return;

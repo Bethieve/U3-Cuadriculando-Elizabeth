@@ -3,7 +3,8 @@
    ========================================================================== */
 @font-face {
     font-family: "Louis George Cafe";
-    src: url("../fonts/LouisGeorgeCafe.ttf");
+    src: url("Fonts/LouisGeorgeCafe.ttf");
+    src: url("Fonts/InlandersDemo.otf");
 }
 
 html {
@@ -77,7 +78,7 @@ h2 {
 }
 
 h4 {
-    font-family: "Louis George Cafe";
+    font-family: "Louis George Cafe", sans-serif;
     font-size: 23px;              
     color: #efc300;   
     margin-top: -10px;  
@@ -128,14 +129,15 @@ p {
     line-height: 1.6;
     margin: 40px auto 80px auto;
     text-align: left;            
-    opacity: 0;
     
-    /* Mantiene las líneas largas que te gustaron */
+    /* 🔴 ESTADO INICIAL: Oculto y un poco más abajo */
+    opacity: 0;
+    transform: translateX(-50%) translateY(30px); 
+    
     width: 75vw;                 
     max-width: 1600px;           
     position: relative;
     left: 50%;
-    transform: translateX(-50%) translateY(30px); /* 🟢 Un poco más abajo al inicio */
     padding: 0;                  
 
     /* Configuración de 2 columnas */
@@ -143,8 +145,14 @@ p {
     column-gap: 110px;           
     text-wrap: pretty;           
 
-    /* 🟢 Transición suave para que funcione al subir y bajar */
+    /* 🟢 Transición suave para que funcione en ambas direcciones */
     transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* 🟢 ESTADO VISIBLE: Esta clase se pondrá al bajar y se quitará al subir */
+p.parrafo-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); /* Vuelve a su altura original */
 }
 
 /* 🟢 Modificado: Ahora el texto de autor también se prepara oculto para animarse */
@@ -379,39 +387,42 @@ p.visible,
 
 
 /* ==========================================================================
-   PRIMERA GALERIA DE GIFS
+   PRIMERA GALERIA DE GIFS (CON MARGEN INFERIOR AMPLIADO)
    ========================================================================== */
 
-
-/* 1. Contenedor general invisible (Se mantiene igual) */
+/* 1. Contenedor general invisible */
 .seccion-bloques-gifs {
     display: flex;            
     justify-content: center;  
     align-items: center;      
-    gap: 25px;                /* Aumentamos un poco la separación para acompañar el nuevo tamaño */
+    gap: 25px;                /* Separación entre las cajas de gifs */
     width: 100%;
-    margin: 40px auto;        
+    
+    /* 🟢 CORRECCIÓN: Separamos el margen para darle más espacio abajo e impulsar el título */
+    margin-top: 40px;         /* Espacio con lo que está arriba */
+    margin-bottom: 90px;      /* 💡 Aumentado para que el título de abajo no quede pegado */
+    margin-left: auto;
+    margin-right: auto;       /* Mantiene el contenedor centrado horizontalmente */
 }
 
-/* 2. Cajas contenedoras negras individuales (Actualizadas para ser más grandes y simétricas) */
+/* 2. Cajas contenedoras negras individuales (Se mantienen igual) */
 .caja-gif {
     background-color: #000000;
     padding: 12px;            
     border-radius: 15px;      
     box-sizing: border-box;
     
-    /* 🟢 TAMAÑO MÁS GRANDE E IDÉNTICO PARA TODAS */
-    width: 350px;             /* 💡 Incrementado de 140px a 180px para que se vean más grandes */
-    height: 350px;            /* 💡 Altura fija idéntica al ancho para asegurar que sean del mismo tamaño */
+    /* Tamaño simétrico */
+    width: 350px;             
+    height: 350px;            
     
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;         /* Evita que cualquier sobrante de la imagen se salga de la caja */
+    overflow: hidden;         
 }
 
-
-/* 3. Ajuste de las imágenes (GIFs) dentro de sus cajas */
+/* 3. Ajuste de las imágenes (GIFs) dentro de sus cajas (Se mantienen igual) */
 .caja-gif .gif-media {
     width: 100%;              
     height: 100%;             
@@ -419,17 +430,421 @@ p.visible,
     border-radius: 8px;       
     display: block;
 
-    /* 🟢 CAPA OSCURA POR DEFECTO */
-    filter: brightness(0.5);  /* Reduce el brillo al 50% para que se vean oscuros */
+    /* Capa oscura por defecto */
+    filter: brightness(0.5);  
     
-    /* EFECTO DE TRANSICIÓN SUAVE */
-    transition: filter 0.4s ease; /* Hace que el cambio de oscuridad a luz sea fluido */
+    /* Efecto de transición suave */
+    transition: filter 0.4s ease; 
 }
 
-/* 🟢 EFECTO AL PASAR EL CURSOR (HOVER) */
+/* Efecto al pasar el cursor (Hover) */
 .caja-gif:hover .gif-media {
-    filter: brightness(1);    /* Devuelve el brillo al 100% (se ilumina) al pasar el cursor */
+    filter: brightness(1);    
 }
+
+
+
+/* ==========================================================================
+   COMPONENTES TÉCNICOS LINEALES (CARRUSEL / FILA DE RULETAS)
+   ========================================================================== */
+
+/* Contenedor principal del módulo individual */
+.caja-componente-tecnico {
+    width: 240px;                     /* Tamaño compacto para colocar 3 o 4 en fila */
+    background-color: #1e1e1e;        /* Fondo negro puro/oscuro técnico */
+    border: 1px solid #e1e1e1;        /* Línea exterior blanca muy delgada */
+    border-radius: 4px;               /* Esquinas ligeramente suavizadas, no circulares */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Área superior donde habita el gráfico de la ruleta */
+.ruleta-tecnica-contenedor {
+    width: 100%;
+    padding: 25px 0;                  /* Aire arriba y abajo para centrar visualmente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #e1e1e1; /* Línea divisoria técnica entre gráfico y texto */
+}
+
+/* El SVG adaptativo */
+.ruleta-svg {
+    width: 170px;                     /* Dimensión equilibrada dentro de la caja */
+    height: 170px;
+}
+
+/* Estilo estricto para las líneas del plano */
+.linea-tecnica {
+    fill: none;
+    stroke: #e1e1e1;                  /* Color lineal blanco */
+    stroke-width: 1px;                /* Grosor mínimo y limpio */
+}
+
+/* Estilo tipográfico para los números internos */
+.texto-tecnico-numero {
+    fill: #e1e1e1;
+    font-family: "Louis George Cafe", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-anchor: middle;              /* Centra horizontalmente el texto en su coordenada */
+    dominant-baseline: middle;        /* Centra verticalmente el texto en su coordenada */
+}
+
+/* Área inferior de información */
+.espacio-texto-tecnico {
+    padding: 15px;
+    background-color: #1a1a1a;        /* Un tono apenas sutil para diferenciar el fondo */
+    color: #e1e1e1;
+    font-family: "Louis George Cafe", sans-serif;
+}
+
+.espacio-texto-tecnico h3 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    letter-spacing: 2px;              /* Estilo técnico expandido */
+    font-weight: bold;
+}
+
+.espacio-texto-tecnico p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #a0a0a0;                   /* Blanco suavizado para legibilidad del párrafo */
+    width: 100% !important;           /* Ignora los anchos globales de tus otros párrafos */
+    max-width: 100% !important;
+    transform: none !important;       /* Evita heredar la animación de desplazamiento */
+    opacity: 1 !important;            /* Siempre visible */
+    left: 0 !important;
+    columns: 1 !important;            /* Columna única obligatoria aquí adentro */
+}
+
+/* ==========================================================================
+   ANIMACIÓN DE ROTACIÓN PARA LA RULETA COMPLETAMENTE INTEGRADA (EJE FIJO)
+   ========================================================================== */
+
+/* 1. Forzamos al navegador a usar el centro geométrico del objeto vectorial */
+.ruleta-svg {
+    transform-origin: center center;     /* Obliga a girar sobre su propio eje central */
+    transform-box: fill-box;             /* 🟢 CLAVE: Mantiene el centro estricto dentro de su caja SVG */
+    transition: transform 0.8s ease-out; /* Desaceleración suave al quitar el cursor */
+}
+
+/* 2. Al pasar el cursor por la tarjeta, toda la estructura del SVG gira */
+.caja-componente-tecnico:hover .ruleta-svg {
+    animation: girarRuletaCompleta 8s linear infinite;
+}
+
+/* 3. Definición del bucle de giro continuo de 0 a 360 grados */
+@keyframes girarRuletaCompleta {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+/* ==========================================================================
+   COMPONENTES TÉCNICOS LINEALES - ADICIÓN DE FICHA
+   ========================================================================== */
+
+/* Comparte las mismas propiedades estructurales que la ruleta (.caja-componente-tecnico) */
+
+/* Área superior donde habita el gráfico de la ficha */
+.grafico-tecnico-contenedor {
+    width: 100%;
+    padding: 25px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+/* El SVG adaptativo de la ficha */
+.ficha-svg {
+    width: 170px;
+    height: 170px;
+}
+
+/* Líneas de ejes o guías de plano técnico (Efecto punteado sutil) */
+.linea-guia-tecnica {
+    fill: none;
+    stroke: #555555;                  /* Un blanco muy oscuro / gris para que sea discreto */
+    stroke-width: 1px;
+    stroke-dasharray: 4 4;            /* Crea el patrón técnico intermitente */
+}
+
+/* ==========================================================================
+   ANIMACIÓN DE SACUDIDA PARA EL PEÓN (HOVER EFFECT)
+   ========================================================================== */
+
+/* 1. Definimos la base del peón como el punto de pivote para el movimiento */
+.ficha-svg {
+    transform-origin: bottom center;     /* El eje se queda fijo abajo para simular balanceo */
+    transform-box: fill-box;
+    transition: transform 0.2s ease;
+}
+
+/* 2. Cuando el cursor entra a la tarjeta del peón, se activa la sacudida continua */
+.caja-componente-tecnico:hover .ficha-svg {
+    animation: sacudirPeonTecnico 0.4s ease-in-out infinite;
+}
+
+/* 3. Definición de los micropasos del movimiento (rotación rápida de lado a lado) */
+@keyframes sacudirPeonTecnico {
+    0%   { transform: rotate(0deg) translate(0, 0); }
+    20%  { transform: rotate(-3deg) translate(-0.5px, 0); }
+    40%  { transform: rotate(2deg) translate(0.5px, 0); }
+    60%  { transform: rotate(-2deg) translate(-0.5px, 0); }
+    80%  { transform: rotate(1deg) translate(0.5px, 0); }
+    100% { transform: rotate(0deg) translate(0, 0); }
+}
+
+/* ==========================================================================
+   COMPONENTES TÉCNICOS LINEALES - ADICIÓN DE CARTA
+   ========================================================================== */
+
+/* Ajuste dimensional para el SVG de la carta */
+.carta-svg {
+    width: 170px;
+    height: 170px;
+}
+
+/* Tipografía: Título de juego superior (Muy pequeño y espaciado) */
+.texto-carta-sub {
+    fill: #888888;                     /* Gris sutil */
+    font-family: "Louis George Cafe", sans-serif;
+    font-size: 7px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-anchor: middle;
+}
+
+/* Tipografía: Título principal de la carta (Marcado y técnico) */
+.texto-carta-titulo {
+    fill: #e1e1e1;
+    font-family: "Louis George Cafe", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-anchor: middle;
+}
+
+/* Tipografía: Cuerpo explicativo general */
+.texto-carta-cuerpo {
+    fill: #a0a0a0;
+    font-family: "Louis George Cafe", sans-serif;
+    font-size: 9px;
+    text-anchor: middle;
+}
+
+/* Tipografía: El valor numérico de los puntos (Destacado en el centro) */
+.texto-carta-resaltado {
+    fill: #e1e1e1;
+    font-family: "Louis George Cafe", sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-anchor: middle;
+}
+
+/* ==========================================================================
+   ANIMACIÓN DE ESCALA PARA LA CARTA (HOVER EFFECT)
+   ========================================================================== */
+
+/* 1. Preparamos el SVG de la carta con transiciones suaves de transformación y filtro */
+.carta-svg {
+    transform-origin: center center;
+    transform-box: fill-box;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s ease;
+    will-change: transform; /* Optimiza la renderización en el navegador */
+}
+
+/* 2. Cuando el cursor entra a la tarjeta de la carta, esta se agranda y gana relieve */
+.caja-componente-tecnico:hover .carta-svg {
+    transform: scale(1.1); /* Se agranda un 10% de su tamaño original */
+    
+    /* Añade un resplandor técnico sutil blanco que simula una sombra proyectada minimalista */
+    filter: drop-shadow(0px 0px 8px rgba(225, 225, 225, 0.15)); 
+}
+
+
+
+/* ==========================================================================
+   ALINEACIÓN EN FILA ESTRICTA (SCOLL HORIZONTAL SIN PERDER TAMAÑO)
+   ========================================================================== */
+.contenedor-ruletas-fila {
+    display: flex;                  /* Activa el comportamiento en fila */
+    flex-direction: row;            /* Fuerza a los elementos a ir uno al lado del otro */
+    gap: 25px;                      /* Distancia de separación exacta entre cajas */
+    justify-content: flex-start;    /* Alinea al inicio para permitir el recorrido horizontal */
+    align-items: stretch;           /* Misma altura para todas las tarjetas */
+    
+    /* 🟢 Las dos líneas clave para evitar que se bajen y activar el scroll: */
+    flex-wrap: nowrap !important;   /* PROHIBE rotundamente que las cajas bajen a la siguiente línea */
+    overflow-x: auto;               /* Activa el scroll horizontal solo si no caben en pantalla */
+    
+    padding: 20px 10px;             /* Margen interno para que las líneas blancas no se peguen al borde */
+    margin: 40px auto;
+    width: 100%;
+    box-sizing: border-box;
+
+    /* Estilizado opcional para que la barra de scroll sea sutil y minimalista */
+    scrollbar-width: thin;
+    scrollbar-color: #555555 #1e1e1e;
+}
+
+/* Opcional: Estilo de la barra de scroll para navegadores Chrome/Safari */
+.contenedor-ruletas-fila::-webkit-scrollbar {
+    height: 6px;
+}
+.contenedor-ruletas-fila::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+.contenedor-ruletas-fila::-webkit-scrollbar-thumb {
+    background-color: #555555;
+    border-radius: 3px;
+}
+
+/* ==========================================================================
+   COMPONENTES TÉCNICOS LINEALES - ADICIÓN DE TABLERO
+   ========================================================================== */
+
+/* Ajuste dimensional para el gráfico vectorial del tablero */
+.tablero-svg {
+    width: 170px;
+    height: 170px;
+}
+
+/* ==========================================================================
+   ANIMACIÓN DE ESCALA SIMÉTRICA PARA EL TABLERO (HOVER EFFECT)
+   ========================================================================== */
+
+/* 1. Configuramos el SVG para que crezca desde su centro matemático */
+.tablero-svg {
+    transform-origin: center center;     /* 🟢 CAMBIO: Ahora crece de forma simétrica */
+    transform-box: fill-box;
+    
+    /* Transición suave e idéntica a la de los otros componentes */
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+/* 2. Cuando el cursor entra a la tarjeta, todo el tablero se agranda un 10% */
+.caja-componente-tecnico:hover .tablero-svg {
+    transform: scale(1.1);               /* 🟢 Se expande un 10% sin desplazarse */
+}
+
+/* ==========================================================================
+   COMPONENTES TÉCNICOS LINEALES - ADICIÓN DE CUADRÍCULA
+   ========================================================================== */
+
+/* Ajuste dimensional para el gráfico de la cuadrícula */
+.cuadrula-svg {
+    width: 170px;
+    height: 170px;
+}
+/* Tipografía micro para los números del borde (Gris sutil) */
+.texto-matriz-num {
+    fill: #666666;                     
+    font-family: "Louis George Cafe", sans-serif;
+    font-size: 7px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+/* Tipografía micro para el centro del núcleo (Blanco técnico puro) */
+.texto-matriz-num-centro {
+    fill: #e1e1e1;                     
+    font-family: "Louis George Cafe", sans-serif;
+    font-size: 7.5px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+/* ==========================================================================
+   ANIMACIÓN DE ENCAJE MODULAR PARA LA CUADRÍCULA (HOVER EFFECT)
+   ========================================================================== */
+
+/* 1. Preparamos los elementos del SVG con transiciones limpias */
+.cuadrula-svg rect,
+.cuadrula-svg path,
+.cuadrula-svg circle {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                opacity 0.4s ease;
+}
+
+/* 2. Seleccionamos el cuadrado equivalente mediante su posición original en el SVG 
+      (x="145", y="87.5") y lo configuramos como el bloque móvil */
+.cuadrula-svg rect[x="145"] {
+    transform-origin: 145px 87.5px;
+    transform-box: fill-box;
+    will-change: transform;
+}
+
+/* 3. AL PASAR EL CURSOR: El cuadrado se desplaza exactamente a la tercera casilla de la segunda fila */
+.caja-componente-tecnico:hover .cuadrula-svg rect[x="145"] {
+    /* -50px lo mueve horizontalmente a la celda del centro (número 20 de la derecha) 
+       y le da un leve realce en su trazo */
+    transform: translateX(-50px);
+    stroke: #ffcc00; /* Se vuelve amarillo junto con el resto de la interacción */
+}
+
+/* 4. AL PASAR EL CURSOR: Ocultamos la línea de cota que los conectaba para limpiar el plano */
+.caja-componente-tecnico:hover .cuadrula-svg .linea-guia-tecnica,
+.caja-componente-tecnico:hover .cuadrula-svg circle[fill="#e1e1e1"] {
+    opacity: 0;
+}
+
+
+
+/* ==========================================================================
+   INTERACCIÓN HOVER: EFECTO AMARILLO TÉCNICO EN DIBUJOS
+   ========================================================================== */
+
+/* 1. Definimos una transición suave para que el cambio de color no sea brusco */
+.linea-tecnica, 
+.texto-tecnico-numero,
+.texto-matriz-num-centro,
+.ficha-svg circle[fill="#e1e1e1"], /* El punto central de la ruleta */
+.ruleta-svg circle[fill="#e1e1e1"],
+.texto-carta-titulo,
+.texto-carta-resaltado {
+    transition: stroke 0.3s ease, fill 0.3s ease;
+}
+
+/* 2. Al pasar el cursor por la tarjeta, cambiamos las líneas a amarillo */
+.caja-componente-tecnico:hover .linea-tecnica {
+    stroke: #efc300;  ; /* Amarillo técnico/industrial */
+}
+
+/* 3. Al pasar el cursor por la tarjeta, cambiamos los textos y rellenos internos clave a amarillo */
+.caja-componente-tecnico:hover .texto-tecnico-numero,
+.caja-componente-tecnico:hover .texto-matriz-num-centro,
+.caja-componente-tecnico:hover .texto-carta-titulo,
+.caja-componente-tecnico:hover .texto-carta-resaltado {
+    fill: #efc300;  ;
+}
+
+/* 4. Cambiamos también el punto del eje central de la ruleta */
+.caja-componente-tecnico:hover .ruleta-svg circle[fill="#e1e1e1"] {
+    fill: #efc300;  ;
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -464,7 +879,7 @@ p.visible,
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: #e1e1e1;
+    background-color: #a8a8a8;
     padding: 10px;              /* Espesor del marco negro */
     box-sizing: border-box;
     border-radius: 16px;

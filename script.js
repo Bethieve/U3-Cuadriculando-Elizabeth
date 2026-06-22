@@ -18,12 +18,9 @@ const imagenes = [
     { elemento: document.querySelector(".img-001-1"), rotacion: 80, velocidad: 0.7, direccionX: 0.5 }
 ];
 
-// Mapeo dinámico del scroll (RESTAURADO: Movimiento original y freno del título)
+// Mapeo dinámico del scroll (Movimiento original y freno del título)
 window.addEventListener("scroll", () => {
     const scroll = window.scrollY;
-    
-    // 🟢 ESTABLECE AQUÍ EL FRENO DEL TÍTULO: 
-    // Pon los píxeles exactos de scroll donde quieres que el título se congele (ej: 400, 500, etc.)
     const limiteFreno = 1800; 
 
     imagenes.forEach(img => {
@@ -32,12 +29,9 @@ window.addEventListener("scroll", () => {
         let moverY = scroll * img.velocidad;
         const moverX = scroll * img.direccionX;
 
-        // 🟢 RESTAURADO: Lógica de congelamiento exclusiva para el título (.cuadri)
+        // Lógica de congelamiento exclusiva para el título (.cuadri)
         if (img.elemento.classList.contains("cuadri")) {
-            // El título usaba una velocidad de -1, por lo que su cálculo original era:
             const posicionActualY = 200 - moverY; 
-            
-            // Si pasa el límite establecido, congelamos su posición en seco
             if (posicionActualY >= limiteFreno) {
                 moverY = -(limiteFreno - 200);
             }
@@ -46,6 +40,7 @@ window.addEventListener("scroll", () => {
         img.elemento.style.transform = `translate(${moverX}px, ${-moverY}px) rotate(${img.rotacion}deg)`;
     });
 });
+
 // ==========================================================================
 // 2. COMPORTAMIENTO MOUSE INTERACTIVO (AGITAR Y DESAPARECER)
 // ==========================================================================
@@ -96,27 +91,28 @@ fichas.forEach(ficha => {
 });
 
 // ==========================================================================
-// 3. EVENTOS DE PÁRRAFOS INTERACTIVOS (APARECER CON SCROLL)
+// 3. EVENTOS DE PÁRRAFOS INTERACTIVOS (ANIMACIÓN CONTINUA AL SUBIR Y BAJAR)
 // ==========================================================================
 const todosLosParrafos = document.querySelectorAll("p");
 
-const opcionesObersver = {
-    root: null,        // Usa la pantalla del navegador como referencia
-    rootMargin: "0px",
-    threshold: 0.15    // Se activa cuando el 15% del párrafo ya asoma en la pantalla
+const opcionesObserver = {
+    root: null,        
+    rootMargin: "0px 0px -50px 0px", // Se calibra para que actúe justo antes de entrar por abajo
+    threshold: 0.10    
 };
 
-const scrollObserver = new IntersectionObserver((entries, observer) => {
+const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        // Si el párrafo entra en el mapa visual
         if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target); // 💡 Clave: Deja de vigilarlo para que se quede fijo
+            // Activa la animación al entrar en pantalla
+            entry.target.classList.add("parrafo-visible");
+        } else {
+            // 🟢 Quita la clase al salir de pantalla para que funcione siempre en bucle al subir/bajar
+            entry.target.classList.remove("parrafo-visible");
         }
     });
-}, opcionesObersver);
+}, opcionesObserver);
 
-// Activamos el observador en cada párrafo
 todosLosParrafos.forEach(parrafo => {
     scrollObserver.observe(parrafo);
 });
@@ -172,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             contenedorCentro.appendChild(matriz);
 
-            // Controladores de expansión Hoover & Render de matrices
+            // Controladores de expansión Hover & Render de matrices
             esquina.addEventListener('mouseenter', () => {
                 esquina.style.scale = "1.15"; 
                 esquina.style.zIndex = "10";
@@ -194,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================================================
-// LÓGICA DE CONTROL DEL CARRUSEL
+// 5. LÓGICA DE CONTROL DEL CARRUSEL
 // ==========================================================================
 const slides = document.querySelectorAll('.slide');
 const botonAnterior = document.getElementById('anterior');
@@ -229,13 +225,13 @@ if (botonSiguiente) {
 }
 
 // ==========================================================================
-// LÓGICA DE ARRASTRAR Y SOLTAR (DRAG AND DROP)
+// 6. LÓGICA DE ARRASTRAR Y SOLTAR (DRAG AND DROP)
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
     const contenedorOriginal = document.querySelector('.cuadroscuadricula');
     const cuadricula = document.querySelector('.cuadricula-4x4');
 
-    // 1. Configurar las imágenes
+    // Configurar las imágenes
     document.querySelectorAll('.cuadroscuadricula img').forEach((img, index) => {
         img.draggable = true;
         img.id = `img-${index}`; 
@@ -246,9 +242,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 2. Configurar los casilleros de la cuadrícula
+    // Configurar los casilleros de la cuadrícula
     document.querySelectorAll('.cuadro').forEach(cuadro => {
-        
         cuadro.addEventListener('dragover', e => {
             e.preventDefault();
             e.dataTransfer.dropEffect = 'move'; 
@@ -299,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================================================
-// COMPORTAMIENTO DE LETRAS INTERACTIVAS (TÍTULO INICIAL Y TÍTULO FINAL)
+// 7. COMPORTAMIENTO DE LETRAS INTERACTIVAS (TÍTULOS)
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
     
@@ -312,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             [...textoOriginal].forEach(letra => {
                 const span = document.createElement("span");
-                span.textContent = letra;
+                span.textContent = letra === " " ? "\u00A0" : letra;
                 titulo.appendChild(span);
 
                 span.addEventListener("mouseenter", () => {
@@ -333,7 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================================================
-// 5. LÓGICA DEL MINIJUEGO - LINTERNA GEOMÉTRICA (CON RETROCESO Y REINICIO)
+// 8. LÓGICA DEL MINIJUEGO - LINTERNA GEOMÉTRICA (CON RETROCESO Y REINICIO)
 // ==========================================================================
 const capaNegra = document.getElementById('capa-negra');
 const rejilla = document.getElementById('tablero-rejilla');
@@ -341,7 +336,7 @@ const mensajeFinal = document.getElementById('mensaje-oculto-final');
 const botonRegresar = document.getElementById('boton-regresar-tablero');
 
 let contadorClics = 0;
-const MAX_INTENTOS = 6;
+const MAX_INTENTOS = 4;
 let juegoTerminado = false; 
 
 function inicializarTableroEstructural() {
@@ -448,44 +443,20 @@ window.addEventListener('resize', () => {
 });
 
 // ==========================================================================
-// ANIMACIÓN INTERACTIVA DE LETRAS (SÓLO TÍTULO FINAL)
+// 9. LÓGICA DEL BOTÓN INTERACTIVO DESPLEGABLE (IFRAME DEL PIX)
 // ==========================================================================
-document.addEventListener("DOMContentLoaded", () => {
-    const tituloFinal = document.getElementById("titulo-interactivo");
-    if (tituloFinal) {
-        const textoOriginal = tituloFinal.textContent;
-        tituloFinal.innerHTML = ""; 
-        [...textoOriginal].forEach(letra => {
-            const span = document.createElement("span");
-            span.textContent = letra === " " ? "\u00A0" : letra;
-            tituloFinal.appendChild(span);
-            span.addEventListener("mouseenter", () => { span.classList.add("letra-activa"); });
-            span.addEventListener("mouseleave", () => { setTimeout(() => { span.classList.remove("letra-activa"); }, 300); });
-        });
-    }
-});
+document.addEventListener("DOMContentLoaded", function() {
+    const boton = document.getElementById("btn-desplegar-iframe");
+    const contenedor = document.getElementById("mi-iframe-desplegable");
 
-
-
-
-
-
-
-
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const boton = document.getElementById("btn-desplegar-iframe");
-        const contenedor = document.getElementById("mi-iframe-desplegable");
-
+    if (boton && contenedor) {
         boton.addEventListener("click", function() {
             if (contenedor.classList.contains("iframe-oculto")) {
                 contenedor.classList.remove("iframe-oculto");
                 contenedor.classList.add("iframe-visible");
                 boton.textContent = "OCULTAR EL PIX";
 
-                /* 🟢 ALINEACIÓN CENTRADA SUAVE:
-                   Cambiamos 'start' por 'center' para que el iframe se acomode
-                   en medio de la pantalla, dejando espacio libre arriba y abajo */
+                // Desplazamiento centrado y suave automático
                 setTimeout(() => {
                     contenedor.scrollIntoView({ 
                         behavior: 'smooth', 
@@ -499,4 +470,5 @@ document.addEventListener("DOMContentLoaded", () => {
                 boton.textContent = "VER EL PIX";
             }
         });
-    });
+    }
+});
