@@ -67,7 +67,7 @@ div.cuadri {
 }
 
 div.cuadri h1 {
-    font-family: 'inlanders', sans-serif;
+    font-family: 'Inlanders', sans-serif;
     font-size: 140px;
     color: #e1e1e1;
     margin: 0;
@@ -77,7 +77,7 @@ div.cuadri h1 {
 }
 
 h2 {
-    font-family: inlanders;
+    font-family: 'Inlanders';
     font-size: 60px;
     color: #e1e1e1;
     margin-top: 80px;
@@ -85,7 +85,7 @@ h2 {
 }
 
 h4 {
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe', sans-serif;
     font-size: 23px;              
     color: #efc300;   
     margin-top: -10px;  
@@ -130,7 +130,7 @@ h4 {
    ========================================================================== */
 
 p {
-    font-family: "Louis George Cafe";
+    font-family: 'Louis George Cafe';
     font-size: 23px;              
     color: #e1e1e1;              
     line-height: 1.6;
@@ -167,7 +167,7 @@ p.parrafo-visible {
    TEXTO AUTOR (UNA SOLA COLUMNA REAL Y CONTINUA)
    ========================================================================== */
 .texto-autor { 
-    font-family: "Louis George Cafe";
+    font-family: 'Louis George Cafe';
     font-size: 23px;              
     color: #e1e1e1;              
     line-height: 1.6;
