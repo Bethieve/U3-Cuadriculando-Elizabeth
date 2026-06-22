@@ -464,3 +464,39 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+
+
+
+
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const boton = document.getElementById("btn-desplegar-iframe");
+        const contenedor = document.getElementById("mi-iframe-desplegable");
+
+        boton.addEventListener("click", function() {
+            if (contenedor.classList.contains("iframe-oculto")) {
+                contenedor.classList.remove("iframe-oculto");
+                contenedor.classList.add("iframe-visible");
+                boton.textContent = "OCULTAR EL PIX";
+
+                /* 🟢 ALINEACIÓN CENTRADA SUAVE:
+                   Cambiamos 'start' por 'center' para que el iframe se acomode
+                   en medio de la pantalla, dejando espacio libre arriba y abajo */
+                setTimeout(() => {
+                    contenedor.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }, 50);
+
+            } else {
+                contenedor.classList.remove("iframe-visible");
+                contenedor.classList.add("iframe-oculto");
+                boton.textContent = "VER EL PIX";
+            }
+        });
+    });

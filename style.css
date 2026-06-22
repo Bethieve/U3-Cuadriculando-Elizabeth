@@ -71,7 +71,7 @@ div.cuadri h1 {
 h2 {
     font-family: inlanders;
     font-size: 60px;
-    color: #1e1e1e;
+    color: #e1e1e1;
     margin-top: 80px;
     letter-spacing: 4px;
 }
@@ -79,7 +79,7 @@ h2 {
 h4 {
     font-family: "Louis George Cafe";
     font-size: 23px;              
-    color: #273584;   
+    color: #efc300;   
     margin-top: -10px;  
     text-align: left !important; /* 🟢 Cambia solo este título a la izquierda */
 }
@@ -111,7 +111,7 @@ h4 {
     
     /* 🟢 CONFIGURACIÓN ULTRA NITIDEZ: Fija 1px real sin importar la resolución */
     height: 1px;              
-    background-color: #1e1e1e; 
+    background-color: #e1e1e1; 
     
     /* 🟢 SOLUCIÓN AL SUBPIXEL RENDERING: Obliga al navegador a renderizar bordes limpios */
     image-rendering: pixelated;
@@ -124,7 +124,7 @@ h4 {
 p {
     font-family: "Louis George Cafe";
     font-size: 23px;              
-    color: #1e1e1e;              
+    color: #e1e1e1;              
     line-height: 1.6;
     margin: 40px auto 80px auto;
     text-align: left;            
@@ -154,7 +154,7 @@ p {
 .texto-autor { 
     font-family: "Louis George Cafe";
     font-size: 23px;              
-    color: #1e1e1e;              
+    color: #e1e1e1;              
     line-height: 1.6;
     margin: 40px auto 80px auto;
     
@@ -620,7 +620,22 @@ p.visible,
 
 
 
+/* ==========================================================================
+   ESTADOS DE CONTROL PARA EL DESPLEGABLE INTERACTIVO
+   ========================================================================== */
 
+/* El contenedor inicia totalmente escondido y colapsado */
+.iframe-oculto {
+    display: none !important;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* Esta clase se activará dinámicamente con JS para mostrarlo */
+.iframe-visible {
+    display: block !important;
+    opacity: 1;
+}
 /* ==========================================================================
    CONTENEDOR PARA IFRAME INTERACTIVO (PIX)
    ========================================================================== */
@@ -804,7 +819,7 @@ p.visible,
 .franja-fondo {
     width: 100%;                  
     box-sizing: border-box;
-    background-color: #ffffff;    /* Tu color de fondo */
+    background-color: #1e1e1e;    /* Tu color de fondo */
     padding: 60px 0;              
     margin: 40px 0;               
 
