@@ -443,7 +443,7 @@ p.visible,
     display: flex;
     width: 100%;
     max-width: 1150px;           /* Se expande casi al límite del main-wrapper (1200px) */
-    height: 500px;              /* Altura generosa para apreciar los detalles del juego */
+    height: 400px;              /* Altura generosa para apreciar los detalles del juego */
     gap: 10px;                  /* Separación sutil entre paneles */
     margin: 50px auto;
     padding: 0 20px;
@@ -1515,4 +1515,57 @@ p.visible,
 .casilla-secreta {
     transform-origin: center center;
     backface-visibility: hidden;
+}
+
+
+
+
+
+
+/* ==========================================================================
+   CARRUSEL SUPREMO: ROMPE CONTENEDORES Y VA DE EXTREMO A EXTREMO
+   ========================================================================== */
+.contenedor-animacion-cuadros {
+    position: relative;
+    
+    /* 1. ESTO ROMPE CUALQUIER CAJA PADRE: Fuerza a que mida el ancho real del monitor */
+    width: 100vw !important;         
+    
+    /* 2. ESTO LO CENTRA AL MONITOR, ignorando si el diseño general está centrado */
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;  
+    
+    overflow: hidden !important;     /* Esconde los cuadros antes de que entren y al salir */
+    background: transparent;      
+    padding: 15px 0;
+    display: flex !important;
+}
+
+.grupo-cuadros {
+    display: flex !important;
+    gap: 60px !important;            /* Distancia entre tus cuadritos */
+    
+    /* 🟢 VELOCIDAD MEDIA CALIBRADA: 
+       A esta velocidad (12s) se desplazan de forma constante sin ir lentos ni apurados. */
+    animation: desfileContinuoMedio 12s linear infinite !important;
+}
+
+.cuadro-animado {
+    width: 50px !important;          /* Tamaño pequeño idéntico */
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+/* 🟢 LA MATEMÁTICA DEL RECORRIDO DE EXTREMO A EXTREMO REAL (Izquierda a Derecha)
+   Usamos left con porcentajes de pantalla (vw) para garantizar que cruce TODO tu monitor,
+   sin importar lo grande o chico que sea, y reinicie al instante sin esperar. */
+@keyframes desfileContinuoMedio {
+    0% {
+        transform: translateX(-100%); /* Empieza justo pegado al borde izquierdo exterior */
+    }
+    100% {
+        transform: translateX(0%);    /* Camina hacia la derecha enganchando con la copia */
+    }
 }
