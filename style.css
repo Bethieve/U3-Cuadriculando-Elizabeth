@@ -3,13 +3,13 @@
    ========================================================================== */
 @font-face {
     font-family: 'Louis George Cafe';
-    src: url('Fonts/LouisGeorgeCafe.ttf');
+    src: url('./Fonts/LouisGeorgeCafe.ttf') format('truetype');
      
 }
 
 @font-face {
     font-family: 'Inlanders';
-    src: url('Fonts/InlandersDemo.otf');
+    src: url('./Fonts/InlandersDemo.otf') format('truetype');
      
 }
 
