@@ -333,7 +333,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
 // ==========================================================================
 // SCRIPT GENERAL UNIFICADO - CON SELECTOR DE 2, 3 O 4 CONSTELACIONES
 // ==========================================================================
@@ -365,83 +364,52 @@ document.addEventListener("DOMContentLoaded", () => {
     let TOTAL_CONSTELACIONES = 4;
 
     function mostrarSelectorConstelaciones() {
-        const textoAyuda = document.getElementById('instruccion-juego');
-        if (textoAyuda) textoAyuda.style.display = 'none';
 
-        if (rejilla) {
-            rejilla.innerHTML = '';
-            rejilla.style.setProperty('opacity', '0', 'important');
-            rejilla.style.setProperty('visibility', 'hidden', 'important');
-            rejilla.style.setProperty('pointer-events', 'none', 'important');
-        }
+    const selector = document.getElementById('selector-constelaciones');
+    if (!selector) return;
 
-        if (capaNegra) {
-            capaNegra.style.setProperty('opacity', '0', 'important');
-            capaNegra.style.setProperty('visibility', 'hidden', 'important');
-        }
+    const textoAyuda = document.getElementById('instruccion-juego');
+    if (textoAyuda) textoAyuda.style.display = 'none';
 
-        const selector = document.createElement('div');
-        selector.id = 'selector-constelaciones';
-
-        selector.style.position = 'absolute';
-        selector.style.top = '50%';
-        selector.style.left = '50%';
-        selector.style.transform = 'translate(-50%, -50%)';
-        selector.style.zIndex = '9999';
-        selector.style.background = '#1e1e1e';
-        selector.style.border = '1px solid rgba(255,255,255,0.35)';
-        selector.style.borderRadius = '24px';
-        selector.style.padding = '36px 46px';
-        selector.style.textAlign = 'center';
-        selector.style.fontFamily = "'Louis George Cafe', sans-serif";
-        selector.style.color = 'white';
-        selector.style.boxShadow = '0 0 40px rgba(0,0,0,0.5)';
-
-        selector.innerHTML = `
-            <h2 style="margin:0 0 24px 0; font-size:22px; letter-spacing:1px; font-weight:400;">
-                ¿Cuántas formas quieres encontrar?
-            </h2>
-
-            <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-                <button class="boton-cantidad-formas" data-total="2">2 formas</button>
-                <button class="boton-cantidad-formas" data-total="3">3 formas</button>
-                <button class="boton-cantidad-formas" data-total="4">4 formas</button>
-            </div>
-        `;
-
-        document.body.appendChild(selector);
-
-        selector.querySelectorAll('.boton-cantidad-formas').forEach(boton => {
-            boton.style.padding = '14px 22px';
-            boton.style.borderRadius = '18px';
-            boton.style.border = '1px solid white';
-            boton.style.background = 'transparent';
-            boton.style.color = 'white';
-            boton.style.cursor = 'pointer';
-            boton.style.fontFamily = "'Louis George Cafe', sans-serif";
-            boton.style.fontSize = '15px';
-            boton.style.letterSpacing = '1px';
-            boton.style.transition = '0.3s ease';
-
-            boton.addEventListener('mouseenter', () => {
-                boton.style.background = 'white';
-                boton.style.color = '#1e1e1e';
-            });
-
-            boton.addEventListener('mouseleave', () => {
-                boton.style.background = 'transparent';
-                boton.style.color = 'white';
-            });
-
-            boton.addEventListener('click', () => {
-                TOTAL_CONSTELACIONES = parseInt(boton.dataset.total);
-
-                selector.remove();
-                iniciarJuegoElegido();
-            });
-        });
+    // Ocultar el tablero mientras el usuario elige
+    if (rejilla) {
+        rejilla.innerHTML = '';
+        rejilla.style.setProperty('opacity', '0', 'important');
+        rejilla.style.setProperty('visibility', 'hidden', 'important');
+        rejilla.style.setProperty('pointer-events', 'none', 'important');
     }
 
+    // Ocultar la linterna
+    if (capaNegra) {
+        capaNegra.style.setProperty('opacity', '0', 'important');
+        capaNegra.style.setProperty('visibility', 'hidden', 'important');
+    }
+
+    // Mostrar el selector
+    selector.style.display = 'flex';
+
+    // Agregar el evento a los botones (evita duplicarlos si vuelves a abrir el selector)
+    selector.querySelectorAll('.boton-cantidad-formas').forEach(boton => {
+
+        boton.replaceWith(boton.cloneNode(true));
+
+    });
+
+    selector.querySelectorAll('.boton-cantidad-formas').forEach(boton => {
+
+        boton.addEventListener('click', () => {
+
+            TOTAL_CONSTELACIONES = parseInt(boton.dataset.total);
+
+            selector.style.display = 'none';
+
+            iniciarJuegoElegido();
+
+        });
+
+    });
+
+}
     function iniciarJuegoElegido() {
         contadorClics = 0;
         juegoTerminado = false;
@@ -955,13 +923,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
-
-
-
-
-
-
 
 
 
