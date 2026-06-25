@@ -6,15 +6,47 @@
     <title>Minijuego - Linterna Geométrica</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="escenario-juego">
+
+    <p id="instruccion-juego">
+        ENCUENTRA LOS CUADROS DE COLOR CORRESPONDIENTES AL JUEGO
+    </p>
+
+    <!-- VENTANA INICIAL -->
+    <div id="selector-constelaciones">
+
+        <h2>¿Cuántas formas quieres encontrar?</h2>
+
+        <div class="selector-botones">
+
+            <button class="boton-cantidad-formas" data-total="2">
+                2 formas
+            </button>
+
+            <button class="boton-cantidad-formas" data-total="3">
+                3 formas
+            </button>
+
+            <button class="boton-cantidad-formas" data-total="4">
+                4 formas
+            </button>
+
+        </div>
+
+    </div>
 
     <div class="linterna-oscuridad" id="capa-negra"></div>
 
     <div class="cuadricula-oculta" id="tablero-rejilla"></div>
 
-    <div id="mensaje-oculto-final" style="display: none;">Revelando lo oculto</div>
+    <button id="boton-regresar-tablero" style="display:none;">
+        ←
+    </button>
 
-    <button id="boton-regresar-tablero" style="display: none;">←</button>
+    <div id="contenedor-linea-final"></div>
+
     <script src="script.js"></script>
+
 </body>
 </html>

@@ -16,6 +16,7 @@
 
 html {
     scroll-behavior: smooth;
+    
 }
 
 /* Limpieza total y única del body */
@@ -135,7 +136,7 @@ p {
     color: #e1e1e1;              
     line-height: 1.6;
     margin: 40px auto 80px auto;
-    text-align: left;            
+    text-align: center;            
     
     /* 🔴 ESTADO INICIAL: Oculto y un poco más abajo */
     opacity: 0;
@@ -148,7 +149,7 @@ p {
     padding: 0;                  
 
     /* Configuración de 2 columnas */
-    columns: 2;                  
+    columns: 1;                  
     column-gap: 110px;           
     text-wrap: pretty;           
 
@@ -163,6 +164,13 @@ p.parrafo-visible {
 }
 
 /* 🟢 Modificado: Ahora el texto de autor también se prepara oculto para animarse */
+
+
+
+
+
+
+
 /* ==========================================================================
    TEXTO AUTOR (UNA SOLA COLUMNA REAL Y CONTINUA)
    ========================================================================== */
@@ -195,6 +203,8 @@ p.visible,
     opacity: 1;
     transform: translateX(-50%) translateY(0); 
 }
+
+
 
 
 
@@ -387,32 +397,91 @@ p.visible,
 
 
 
-
-
-
-
-
-
 /* ==========================================================================
-   PRIMERA GALERIA DE GIFS (CON MARGEN INFERIOR AMPLIADO)
+   NUEVOS BOTONES ESTÁTICOS CON EFECTO DE ESCALA
    ========================================================================== */
 
-/* 1. Contenedor general invisible */
+/* Contenedor para alinearlos al centro y separarlos entre sí */
+.grupo-botones-estaticos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px; /* Espacio de separación entre cada botón */
+    margin: 30px 0;
+    width: 100%;
+    
+}
+
+.btn-estatico-escala {
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 !important; 
+    width: 100px !important;  
+    height: 35px !important; 
+    font-family: 'Louis George Cafe', sans-serif !important;
+    font-size: 15px !important; 
+    text-align: center;
+    letter-spacing: normal !important;
+
+    /* ==========================================================================
+       🟢 CORRECCIÓN: ELIMINAR LA NEGRITA Y DEJAR LA LETRA FINITA
+       ========================================================================== */
+    font-weight: normal !important; /* 💡 Esto le quita el grosor "bold" por completo */
+    /* text-transform: none !important; */ /* Opcional: Descomenta esto si tampoco quieres que esté todo en mayúsculas */
+}
+
+/* 🟢 INTERACCIÓN: Se agranda un poquito (5%) al pasar el mouse por encima */
+.btn-estatico-escala:hover {
+    transform: scale(1.09) !important;
+}
+
+/* Evitamos que el navegador haga un salto abrupto al hacerles clic */
+.btn-estatico-escala:active {
+    transform: scale(1.02) !important; 
+}
+
+
+/* Fondo para el primer botón (BOTÓN 01) */
+.grupo-botones-estaticos .btn-estatico-escala:nth-child(1) {
+    background-color:  #aa4d3c !important; /* Tu color de fondo */
+    color: #ffffff !important;            /* Fuerza el texto a blanco para que contraste */
+}
+
+/* Fondo para el segundo botón (BOTÓN 02) */
+.grupo-botones-estaticos .btn-estatico-escala:nth-child(2) {
+    background-color: #74aa9f !important; /* Tu color de fondo */
+    color: #ffffff !important;
+}
+
+/* Fondo para el tercer botón (BOTÓN 03) */
+.grupo-botones-estaticos .btn-estatico-escala:nth-child(3) {
+    background-color: #273584 !important; /* Tu color de fondo */
+    color: #ffffff !important;
+}
+ 
+
+/* ==========================================================================
+   PRIMERA GALERIA DE GIFS (CON EFECTO DE ESCALA EN HOVER)
+   ========================================================================== */
+
+/* 1. Contenedor general invisible (Se mantiene igual) */
 .seccion-bloques-gifs {
     display: flex;            
     justify-content: center;  
     align-items: center;      
-    gap: 25px;                /* Separación entre las cajas de gifs */
+    gap: 25px;                
     width: 100%;
     
-    /* 🟢 CORRECCIÓN: Separamos el margen para darle más espacio abajo e impulsar el título */
-    margin-top: 40px;         /* Espacio con lo que está arriba */
-    margin-bottom: 90px;      /* 💡 Aumentado para que el título de abajo no quede pegado */
+    margin-top: 40px;         
+    margin-bottom: 90px;      
     margin-left: auto;
-    margin-right: auto;       /* Mantiene el contenedor centrado horizontalmente */
+    margin-right: auto;       
 }
 
-/* 2. Cajas contenedoras negras individuales (Se mantienen igual) */
+/* 2. Cajas contenedoras negras individuales MODIFICADAS */
 .caja-gif {
     background-color: #000000;
     padding: 12px;            
@@ -427,9 +496,30 @@ p.visible,
     justify-content: center;
     align-items: center;
     overflow: hidden;         
+
+    /* 🟢 CORRECCIÓN PARA EL EFECTO:
+       Agregamos una transición a la caja completa para que el agrandado sea suave.
+       Usamos cubic-bezier para que se sienta más cinemático, igual que tus botones. */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+    
+    /* Asegura que la caja esté por encima de otras si se solapan al agrandar */
+    position: relative;
+    z-index: 1;
 }
 
-/* 3. Ajuste de las imágenes (GIFs) dentro de sus cajas (Se mantienen igual) */
+/* 🟢 NUEVO: Efecto al pasar el cursor sobre LA CAJA COMPLETA */
+.caja-gif:hover {
+    /* Se agranda un 5% (1.05). Es un cambio sutil pero notorio. */
+    transform: scale(1.05);
+    
+    /* Opcional: Agregamos una sombra suave para darle profundidad al "levitar" */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    
+    /* Sube el z-index en hover para que no quede detrás de la caja vecina */
+    z-index: 2; 
+}
+
+/* 3. Ajuste de los GIFs dentro de sus cajas MODIFICADAS */
 .caja-gif .gif-media {
     width: 100%;              
     height: 100%;             
@@ -440,15 +530,14 @@ p.visible,
     /* Capa oscura por defecto */
     filter: brightness(0.5);  
     
-    /* Efecto de transición suave */
+    /* Mantenemos la transición suave del brillo */
     transition: filter 0.4s ease; 
 }
 
-/* Efecto al pasar el cursor (Hover) */
+/* Efecto de brillo al pasar el cursor (Se mantiene igual, se activa junto con la escala) */
 .caja-gif:hover .gif-media {
     filter: brightness(1);    
 }
-
 
 
 /* ==========================================================================
@@ -493,39 +582,43 @@ p.visible,
 /* Estilo tipográfico para los números internos */
 .texto-tecnico-numero {
     fill: #e1e1e1;
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe', sans-serif;
     font-size: 18px;
     font-weight: bold;
     text-anchor: middle;              /* Centra horizontalmente el texto en su coordenada */
-    dominant-baseline: middle;        /* Centra verticalmente el texto en su coordenada */
+    dominant-baseline: middle;  
+    text-align: left;      /* Centra verticalmente el texto en su coordenada */
 }
 
 /* Área inferior de información */
 .espacio-texto-tecnico {
     padding: 15px;
-    background-color: #1a1a1a;        /* Un tono apenas sutil para diferenciar el fondo */
+    background-color: #1e1e1e;        /* Un tono apenas sutil para diferenciar el fondo */
     color: #e1e1e1;
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe', sans-serif;
+    text-align: left;  
 }
 
 .espacio-texto-tecnico h3 {
     margin: 0 0 5px 0;
     font-size: 14px;
     letter-spacing: 2px;              /* Estilo técnico expandido */
-    font-weight: bold;
+    font-family: 'Louis George Cafe', sans-serif;
 }
 
 .espacio-texto-tecnico p {
     margin: 0;
     font-size: 15px;
     line-height: 1.4;
-    color: #a0a0a0;                   /* Blanco suavizado para legibilidad del párrafo */
+    color: #e1e1e1;                   /* Blanco suavizado para legibilidad del párrafo */
     width: 100% !important;           /* Ignora los anchos globales de tus otros párrafos */
     max-width: 100% !important;
     transform: none !important;       /* Evita heredar la animación de desplazamiento */
     opacity: 1 !important;            /* Siempre visible */
     left: 0 !important;
     columns: 1 !important;            /* Columna única obligatoria aquí adentro */
+    text-align: left;  
+    margin-top: 15px;
 }
 
 /* ==========================================================================
@@ -581,7 +674,7 @@ p.visible,
 /* Líneas de ejes o guías de plano técnico (Efecto punteado sutil) */
 .linea-guia-tecnica {
     fill: none;
-    stroke: #555555;                  /* Un blanco muy oscuro / gris para que sea discreto */
+    stroke: #e1e1e1;                  /* Un blanco muy oscuro / gris para que sea discreto */
     stroke-width: 1px;
     stroke-dasharray: 4 4;            /* Crea el patrón técnico intermitente */
 }
@@ -624,7 +717,7 @@ p.visible,
 
 /* Tipografía: Título de juego superior (Muy pequeño y espaciado) */
 .texto-carta-sub {
-    fill: #888888;                     /* Gris sutil */
+    fill: #e1e1e1;                     /* Gris sutil */
     font-family: "Louis George Cafe", sans-serif;
     font-size: 7px;
     font-weight: bold;
@@ -644,7 +737,7 @@ p.visible,
 
 /* Tipografía: Cuerpo explicativo general */
 .texto-carta-cuerpo {
-    fill: #a0a0a0;
+    fill: #e1e1e1;
     font-family: "Louis George Cafe", sans-serif;
     font-size: 9px;
     text-anchor: middle;
@@ -703,7 +796,7 @@ p.visible,
 
     /* Estilizado opcional para que la barra de scroll sea sutil y minimalista */
     scrollbar-width: thin;
-    scrollbar-color: #555555 #1e1e1e;
+    scrollbar-color: #e1e1e1 #1e1e1e;
 }
 
 /* Opcional: Estilo de la barra de scroll para navegadores Chrome/Safari */
@@ -714,7 +807,7 @@ p.visible,
     background: #1e1e1e;
 }
 .contenedor-ruletas-fila::-webkit-scrollbar-thumb {
-    background-color: #555555;
+    background-color: #e1e1e1;
     border-radius: 3px;
 }
 
@@ -758,7 +851,7 @@ p.visible,
 }
 /* Tipografía micro para los números del borde (Gris sutil) */
 .texto-matriz-num {
-    fill: #666666;                     
+    fill: #e1e1e1;                     
     font-family: "Louis George Cafe", sans-serif;
     font-size: 7px;
     font-weight: bold;
@@ -800,7 +893,7 @@ p.visible,
     /* -50px lo mueve horizontalmente a la celda del centro (número 20 de la derecha) 
        y le da un leve realce en su trazo */
     transform: translateX(-50px);
-    stroke: #ffcc00; /* Se vuelve amarillo junto con el resto de la interacción */
+    stroke: #efc300; /* Se vuelve amarillo junto con el resto de la interacción */
 }
 
 /* 4. AL PASAR EL CURSOR: Ocultamos la línea de cota que los conectaba para limpiar el plano */
@@ -1057,6 +1150,7 @@ p.visible,
 .iframe-visible {
     display: block !important;
     opacity: 1;
+    scroll-margin-top: 85px;
 }
 /* ==========================================================================
    CONTENEDOR PARA IFRAME INTERACTIVO (PIX)
@@ -1103,67 +1197,99 @@ p.visible,
 
 
 
+
 /* ==========================================================================
-   SEGUNDO GRUPO DE GIFS FIJOS (MEDIDAS INDEPENDIENTES)
+   DESPLAZAMIENTO FORZADO DEL PÁRRAFO HACIA LA IZQUIERDA
    ========================================================================== */
 
-/* 1. Contenedor general invisible para alinear y centrar este segundo par */
-.contenedor-bloques-secundario {
-    display: flex;            
-    justify-content: center;  
-    align-items: center;      
-    gap: 20px;                /* Espacio de separación entre estas dos cajas */
+/* 1. Mantenemos el contenedor como una fila para los dos elementos */
+.seccion-mixta-oculto {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 50px;
     width: 100%;
-    margin: 40px auto;        
-    flex-wrap: wrap;          /* Permite que bajen en celulares si no caben */
+    box-sizing: border-box;
 }
 
-/* 2. Cajas contenedoras negras individuales para Video 4 y 5 */
+/* 2. 🟢 MODIFICACIÓN DIRECTA DEL MARGEN PARA MOVER EL TEXTO */
+.texto-columna-izquierda {
+    /* 1. Mantenemos tus configuraciones de movimiento hacia la izquierda */
+    flex: 1;                      
+    text-align: left;             
+    margin: 0;                    
+    margin-left: -210px; 
+    
+    /* 2. Definimos el largo de las líneas de letras */
+    max-width: 650px;             /* Sube o baja este número para cambiar la longitud de las líneas */
+    
+    /* 3. 🟢 CORRECCIÓN CLAVE: Empuja los GIFs para que no se muevan de su sitio */
+    margin-right: auto;           /* 💡 Absorbe todo el espacio sobrante a la derecha del texto, creando el aire */
+    
+    /* Tipografía */
+    font-family: "Louis George Cafe", sans-serif;
+    color: #e1e1e1;
+    font-size: 23px;
+    line-height: 1.6;             
+}
+
+/* ==========================================================================
+   🟢 CONTROL DE ESPACIADO PARA EL SEGUNDO PÁRRAFO
+   ========================================================================== */
+.texto-interactivo-ajuste {
+    align-self: flex-start;       /* Mantiene el anclaje arriba para un cálculo limpio */
+    margin-top: 50px !important; /* Ahora sí se va a aplicar de inmediato */
+}
+
+/* 3. Columna de GIFs (Se mantiene fija a la derecha del texto) */
+.contenedor-bloques-secundario {
+    display: flex;            
+    flex-direction: column;       
+    gap: 20px;                    
+    flex-shrink: 0;               
+    width: 350px;      
+               
+}
+
+/* 4. Cajas contenedoras negras individuales (Mismo tamaño que tenías) */
 .caja-gif-secundaria {
-    background-color: #000000;/* Fondo negro independiente */
-    padding: 12px;            /* Espacio de marco negro interno */
-    border-radius: 15px;      /* Bordes redondeados de la caja */
+    background-color: #000000;
+    padding: 12px;            
+    border-radius: 15px;      
     box-sizing: border-box;
     
-    /* 🟢 MODIFICA AQUÍ EL TAMAÑO DE ESTAS DOS CAJAS A TU ANTOJO */
-    width: 380px;             /* 💡 Ancho de la caja (ajústalo con el número que quieras) */
-    height: 380px;            /* 💡 Altura de la caja (mantenla igual al ancho para que sean cuadrados) */
-    
+    width: 340px;             
+    height: 300px;            
+    margin-left: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;         
-    
-    /* Animación fluida para cuando pases el cursor encima */
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* 3. Ajuste de las imágenes dentro de sus cajas secundarias */
+/* 5. Ajuste de las imágenes dentro de sus cajas secundarias */
 .caja-gif-secundaria .gif-media {
     width: 100%;              
     height: 100%;             
-    object-fit: cover;        /* Se adapta al tamaño cuadrado sin deformarse */
+    object-fit: cover;        
     border-radius: 8px;       
     display: block;
-
-    /* CAPA OSCURA POR DEFECTO */
-    filter: brightness(0.5);  /* Ajusta la oscuridad inicial aquí (0.5 = 50% de brillo) */
+    filter: brightness(0.5);  
     transition: filter 0.4s ease;
 }
 
 /* ==========================================================================
    INTERACCIÓN (HOVER EXCLUSIVO)
    ========================================================================= */
-
-/* Al pasar el cursor sobre la caja, esta se agranda y la imagen se ilumina */
 .caja-gif-secundaria:hover {
-    transform: scale(1.04);    /* Se agranda un 4% de forma sutil */
+    transform: scale(1.04);    
 }
 
 .caja-gif-secundaria:hover .gif-media {
-    filter: brightness(1);    /* Recupera su brillo original */
+    filter: brightness(1);    
 }
-
 
 
 
@@ -1194,14 +1320,14 @@ p.visible,
     
     /* 💡 MODIFICA AQUÍ EL TAMAÑO A TU ANTOJO */
     width: 110px;             /* Ancho de cada cuadro */
-    height: 150px;            /* Alto de cada cuadro */
+    height: 100px;            /* Alto de cada cuadro */
 
     /* Estado inicial: Completamente visible y tamaño normal */
     transform: scale(1);
     opacity: 1;
 
     /* Transición al RETIRAR el cursor: Vuelve a aparecer de forma suave y elegante */
-    transition: transform 0.6s ease, opacity 0.6s ease;
+    transition: transform 1.9s ease, opacity 0.3s ease;
 }
 
 /* Ajuste de las imágenes */
@@ -1227,12 +1353,103 @@ p.visible,
        - transition-delay: El '0s' es para el tamaño y el '0.3s' hace que el 
          desvanecimiento espere a que la imagen ya se haya agrandado para empezar a actuar. */
     transition-property: transform, opacity;
-    transition-duration: 0.2s, 1.0s;
+    transition-duration: 0.2s, 0.5s;
     transition-delay: 0s, 0.1s;
     transition-timing-function: ease;
 }
 
+/* Contenedor para alinear el texto y la cuadrícula uno al lado del otro */
+.contenedor-interactivo {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Separación entre el texto y el juego */
+    width: 100%;
+    margin: 20px 0;
+}
 
+/* El texto ocupa el espacio restante */
+.texto-acompanante {
+    flex: 1;
+    font-family: 'Louis George Cafe', sans-serif;
+    font-size: 15px;
+    color: #ffffff; /* Ajusta a tu color de texto */
+}
+
+/* ==========================================================================
+   CUADRÍCULA ORIGINAL RECTIFICADA (SÓLO LO QUE PEDISTE)
+   ========================================================================== */
+
+.cuadricula-miniatura {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    
+    /* 🟢 MODIFICACIÓN 1 y 2: El nuevo tamaño de la cuadrícula (Ancho y Alto) */
+    width: 300px;  /* 💡 Cambia este valor al tamaño que quieras (Ej: 300px, 400px) */
+    height: 300px; /* 💡 Debe ser exactamente igual al ancho para mantener el cuadrado */
+    
+    box-sizing: border-box;
+    position: relative;
+    flex-shrink: 0; 
+    
+    background-color: #111111; 
+    background-image: 
+        linear-gradient(to right, #e1e1e1 2px, transparent 2px),
+        linear-gradient(to bottom, #e1e1e1 2px, transparent 2px);
+
+    /* 🟢 MODIFICACIÓN 3: El tamaño de cada celda del fondo */
+    /* 💡 REGLA MATEMÁTICA: Divide el ancho de arriba por 4. 
+       Si usas 300px -> 300 / 4 = 75px. 
+       Si usaras 400px -> 400 / 4 = 100px. */
+    background-size: 75px 75px; 
+
+    box-shadow: inset 0px 0px 0px 2px #e1e1e1; 
+}
+
+/* El cuadro amarillo se adapta automáticamente al nuevo tamaño de celda */
+.cuadro-amarillo {
+    background-color: #ffd32a; 
+    cursor: pointer;
+    border-radius: 4px; 
+    
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 2; 
+    
+    transform: scale(0.80); 
+    transition: transform 0.1s ease;
+}
+
+.cuadro-amarillo:hover {
+    transform: scale(0.96); 
+}
+
+.cuadro-amarillo:active {
+    transform: scale(0.85);
+}
+
+/* ==========================================================================
+   NUEVO CONTENEDOR NEGRO PARA LA CUADRÍCULA
+   ========================================================================== */
+.contenedor-negro-juego {
+    background-color: #000000;    
+    padding: 20px;                
+    border-radius: 15px;          
+    box-sizing: border-box;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* 🟢 MODIFICACIÓN EXTRA: El tamaño del contenedor negro */
+    /* 💡 REGLA MATEMÁTICA: Suma el nuevo tamaño de tu cuadrícula + los 40px del padding (20px de cada lado).
+       Si tu cuadrícula mide 300px -> 300 + 40 = 340px. */
+    width: 340px;                 
+    height: 340px;                
+    flex-shrink: 0;
+
+    margin-top: 30px;
+}
 
 /* ==========================================================================
    SECCIÓN DE FONDO COMPLETO DE EXTREMO A EXTREMO
@@ -1265,236 +1482,57 @@ p.visible,
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 /* ==========================================================================
-   7. TABLERO GENERAL (PROPIEDADES DE JUEGO A PANTALLA COMPLETA)
+   NUEVO CONTENEDOR NEGRO PARA LA CUADRÍCULA
    ========================================================================== */
-.body2 {
-    margin: 0;
-    padding: 24px;              /* 💡 MARGEN: Controla la separación del tablero con el borde de la pantalla */
-    width: 100vw;              
-    height: 100vh;            
-    background-color: #1a1a1a;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;                
-    overflow: hidden;          
+.contenedor-negro-juego {
+    background-color: #000000;    
+    padding: 20px;                
+    border-radius: 15px;          
     box-sizing: border-box;
-
-    /* El propio body2 pasa a ser la cuadrícula del tablero expansivo */
-    display: grid;
-    grid-template-columns: repeat(11, 1fr); /* Columnas proporcionales a la pantalla */
-    grid-template-rows: repeat(11, 1fr);    /* Filas proporcionales a la pantalla */
-    gap: 0px;
-}
-
-.casilla {
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-}
-
-/* Esquinas configuradas al 100% de la celda de la cuadrícula */
-.esquina {
-    z-index: 2;
-    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
-    cursor: pointer;
-    width: 100%;        
-    height: 100%;
-    border-radius: 8px;
-    display: block; /* Asegura el comportamiento correcto al ser una etiqueta <a> */
-}
-
-.esquina:hover {
-    transform: scale(1.08); /* Escala calibrada para no recortarse en los bordes */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-    z-index: 3;
-}
-
-/* Posiciones exactas y limpias en las celdas límite del Grid (Sin márgenes negativos) */
-.esquina-amarilla { grid-column: 1 !important; grid-row: 1 !important; background-color: #efc300 !important; }
-.esquina-roja     { grid-column: 11 !important; grid-row: 1 !important; background-color: #aa4d3c !important; }
-.esquina-azul     { grid-column: 11 !important; grid-row: 11 !important; background-color: #273584 !important; }
-.esquina-verde    { grid-column: 1 !important; grid-row: 11 !important; background-color: #74aa9f !important; }
-
-.amarillo { background-color: #efc300; }
-.rojo     { background-color: #aa4d3c; }
-.celeste  { background-color: #74aa9f; }
-.azul     { background-color: #273584; }
-
-/* Distribución de las zonas de centro */
-.centro-amarillo { grid-column: 2 / 6; grid-row: 2 / 6; }
-.centro-roja     { grid-column: 7 / 11; grid-row: 2 / 6; }
-.centro-verde    { grid-column: 2 / 6; grid-row: 7 / 11; }
-.centro-azul     { grid-column: 7 / 11; grid-row: 7 / 11; }
-
-.zona-centro {
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
-    pointer-events: none;
-    width: 100%;
-    height: 100%;
+    
+    width: 340px;                 
+    height: 340px;                
+    flex-shrink: 0;
+    margin-top: 0px; /* Tu margen para moverlo a tu antojo hacia arriba o abajo */
+
+    /* 🟢 CLAVE: Permite colgar el texto abajo de forma independiente */
+    position: relative; 
 }
-
-.matriz-interna {
-    display: none;
-    width: 85%;  
-    height: 85%;
-    background-color: #e0e0e0;
-    padding: 8px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 4px;
-    box-sizing: border-box;
-}
-
-.mini-casilla {
-    background-color: #ffffff;
-    border-radius: 4px;
-}
-
-.mini-casilla.activo-amarillo { background-color: #efc300 !important; }
-.mini-casilla.activo-rojo     { background-color: #aa4d3c !important; }
-.mini-casilla.activo-azul     { background-color: #273584 !important; }
-.mini-casilla.activo-verde    { background-color: #74aa9f !important; }
-
-.mostrar-matriz { display: grid !important; }
-
-/* Ajuste de los sub-grids de caminos al 100% de espacio asignado */
-.fila-superior     { grid-column: 2 / 11; grid-row: 1; display: grid; grid-template-columns: repeat(9, 1fr); width: 100%; height: 100%; }
-.fila-medio        { grid-column: 2 / 11; grid-row: 6; display: grid; grid-template-columns: repeat(9, 1fr); width: 100%; height: 100%; }
-.fila-inferior     { grid-column: 2 / 11; grid-row: 11; display: grid; grid-template-columns: repeat(9, 1fr); width: 100%; height: 100%; }
-.columna-izquierda { grid-column: 1; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); width: 100%; height: 100%; }
-.columna-medio     { grid-column: 6; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); width: 100%; height: 100%; }
-.columna-derecha   { grid-column: 11; grid-row: 2 / 11; display: grid; grid-template-rows: repeat(9, 1fr); width: 100%; height: 100%; }
 
 /* ==========================================================================
-   9. INTERFAZ DE TABLERO 4x4 (Juego alternativo)
+   🟢 ESTILO PARA EL TEXTO INFERIOR (SIN AFECTAR EL FLUJO)
    ========================================================================== */
-:root {
-    --bg-cuadro: #080808;
-    --linea: #e1e1e1;
+.texto-prueba-interaccion {
+    position: absolute;
+    bottom: -35px; /* 💡 Empuja el texto hacia afuera de la caja negra, justo abajo */
+    left: 50%;
+    transform: translateX(-50%); /* Lo centra perfectamente respecto a la cuadrícula */
+    white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
+    
+    /* Tu tipografía limpia */
+    font-family: 'Louis George Cafe', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    color: #e1e1e1;
+    text-align: center;
 }
 
-.cuadricula-4x4 {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-template-rows: repeat(4, minmax(0, 1fr));
-    gap: 2px;
-    width: 320px;
-    aspect-ratio: 1;
-    background-color: var(--linea);
-    border: 2px solid var(--linea);
-    box-shadow: 0 50px 90px rgba(15, 15, 15, 0.65);
-    border-radius: 4px;
-    overflow: hidden;
-}
 
-.cuadricula-4x4, .cuadroscuadricula {
-    transition: opacity 1s ease;
-    opacity: 1;
-}
 
-.fading { opacity: 0 !important; }
-.cuadro { background-color: var(--bg-cuadro); }
 
-.cuadroscuadricula {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;                                                                                                       
-    width: 320px;  
-    margin-top: 50px;                                                                                                   
-}
 
-.cuadroscuadricula img, .cuadro img {
-    width: 100%;                                                                                                          
-    aspect-ratio: 1;                                                                                                      
-    object-fit: cover;                                                                                                    
-    display: block;                                                                                                        
-    cursor: grab;                                                                                                          
-}
+
+
+
 
 /* ==========================================================================
    11. SECCIÓN DE COLOR CLARA / FOOTER
    ========================================================================== */
-.seccion-color {
-    position: relative;
-    background: none !important;
-    width: 100%;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    box-sizing: border-box;
-    padding: 40px 0;
-}
-
-.seccion-color::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -50vw;
-    right: -50vw;
-    background-color: #e1e1e1 !important;
-    z-index: -1;
-}
-
-.seccion-color .contenedor-central {
-    max-width: 1000px;
-    width: 100%;
-    margin: 0 auto !important;
-    padding: 0 40px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;      
-    text-align: center;        
-    position: relative;
-    z-index: 2;
-}
-
-.seccion-color h2 {
-    color: #1e1e1e !important;  
-    text-align: center !important;
-    width: 100%;
-    margin-top: 0 !important;  
-    margin-bottom: 20px !important;
-}
-
-.seccion-color p, .seccion-clara p {
-    color: #222222 !important;  
-    text-align: center !important;
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto 30px auto !important;
-    font-size: 18px;
-    line-height: 1.5;
-}
-
-.seccion-color .galeria-gifs {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto !important;
-}
-
 .site-footer {
     background: #e1e1e1;
     padding: 60px 0;
@@ -1544,9 +1582,9 @@ p.visible,
 }
 
 .p2 {
-    font-family: "Louis George Cafe" !important;
+    font-family: 'Louis George Cafe' !important;
     color: #1e1e1e !important;
-    font-size: 18px;
+    font-size: 15px;
     text-align: left !important;      
     max-width: 650px !important;      
     width: 100% !important;
@@ -1557,6 +1595,11 @@ p.visible,
     margin-bottom: 0 !important;
     margin-left: 0 !important;
     margin-right: auto !important;    
+
+    /* 🟢 APAGAR ANIMACIONES HEREDADAS */
+   
+    transition: none;
+   
 }
 
 .site-footer1 {
@@ -1591,6 +1634,80 @@ p.visible,
     transition: filter 0.1s ease, opacity 0.1s ease; /* Desvanecimiento inmediato */
 }
 
+
+/* ==========================================================================
+   NUEVA TRANSICIÓN: DESAPARICIÓN ALEATORIA Y PARPADEO
+   ========================================================================== */
+
+/* Cortina que se va a negro */
+.capa-transicion-negra {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.capa-transicion-negra.activa {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Esfumar las letras con un sutil desenfoque */
+.letra-esfumada {
+    opacity: 0 !important;
+    filter: blur(4px) !important;
+    transition: opacity 0.3s ease, filter 0.3s ease !important;
+}
+
+/* Parpadeo rápido del botón */
+@keyframes parpadeoTenso {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+}
+
+.boton-parpadeo-activo {
+    animation: parpadeoTenso 0.2s ease-in-out infinite !important;
+    pointer-events: none;
+}
+
+
+/* ==========================================================================
+   ANIMACIÓN DE ENTRADA SUAVE PARA el juego
+   ========================================================================== */
+
+/* La cortina cubre todo al cargar y se desvanece de forma lenta y elegante */
+.cortina-entrada-negra {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    z-index: 99999; /* Por encima de absolutamente todo */
+    pointer-events: none; /* No bloquea clics mientras desaparece */
+    
+    /* 🟢 Aquí controlas qué tan lento aparece la nueva página (1.2 segundos) */
+    animation: desvanecerEntrada 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* El motor de la animación: va de opaco (negro) a transparente */
+@keyframes desvanecerEntrada {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden; /* Se apaga por completo al terminar */
+    }
+}
+
+
 /* ==========================================================================
    13. PERSONALIZACIÓN EXCLUSIVA DEL BOTÓN FINAL DESCUBRIR
    ========================================================================== */
@@ -1623,6 +1740,16 @@ p.visible,
     color: black;
 }
 
+
+
+
+
+
+
+
+
+
+
 /* ==========================================================================
    14. CONFIGURACIÓN COMPLETA DEL MINIJUEGO (MALLA FLUIDA AUTOMÁTICA)
    ========================================================================== */
@@ -1636,6 +1763,7 @@ p.visible,
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
+    perspective: 1000px !important;
 }
 
 /* La linterna con el haz de luz grande (160px) */
@@ -1648,37 +1776,33 @@ p.visible,
     background-color: #1e1e1e !important;
     z-index: 10 !important;
     pointer-events: none !important;
-   
+    
     mask-image: radial-gradient(circle 160px at var(--x, -500px) var(--y, -500px), transparent 100%, black 100%) !important;
     -webkit-mask-image: radial-gradient(circle 160px at var(--x, -500px) var(--y, -500px), rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%) !important;
 }
 
-/* 🟢 LA CUADRÍCULA: Ocupa toda la pantalla y calcula las celdas automáticamente */
+/* 🟢 LA CUADRÍCULA */
 .cuadricula-oculta {
     position: absolute !important;
     display: grid !important;
-   
-    /* 🟢 CLAVE: El navegador calcula cuántas columnas y filas entran usando un tamaño base cuadrado */
     grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)) !important;
     grid-template-rows: repeat(auto-fill, minmax(50px, 1fr)) !important;
-   
     background-color: #1a1a1a !important;
     z-index: 1 !important;
     box-sizing: border-box !important;
-
-    /* Estira el tablero por la pantalla completa restando el margen de 20px por lado */
     width: calc(100vw - 40px) !important;
     height: calc(100vh - 40px) !important;
-    overflow: hidden !important; /* Blindaje total contra scroll */
+    overflow: hidden !important;
 }
 
-/* 🟢 LAS CASILLAS: Cuadrados perfectos que se adaptan al auto-fill */
+/* 🟢 LAS CASILLAS */
 .casilla-secreta {
     box-sizing: border-box !important;
     width: 100% !important;
     height: 100% !important;
     aspect-ratio: 1 / 1 !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important; /* Líneas blancas originales */
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease !important;
 }
 
 /* El cuadrado rojo del juego */
@@ -1687,17 +1811,228 @@ p.visible,
     box-shadow: 0 0 25px rgba(170, 77, 60, 0.9) !important;
     pointer-events: auto !important;
     border-radius: 4px !important;
-    transition: transform 0.1s ease !important;
+    z-index: 20 !important;
+    transition: transform 0.2s ease, opacity 0.5s ease !important;
+}
+.cuadrado-rojo:active { transform: scale(0.85) !important; }
+
+/* El cuadrado verde del juego */
+.cuadrado-verde {
+    background-color: #2e7d32 !important;
+    box-shadow: 0 0 25px rgba(46, 125, 50, 0.9) !important;
+    pointer-events: auto !important;
+    border-radius: 4px !important;
+    z-index: 20 !important;
+    transition: transform 0.2s ease, opacity 0.5s ease !important;
+}
+.cuadrado-verde:active { transform: scale(0.85) !important; }
+
+/* El cuadrado amarillo del juego */
+.cuadrado-amarillo {
+    background-color: #fbc02d !important;
+    box-shadow: 0 0 25px rgba(251, 192, 45, 0.9) !important;
+    pointer-events: auto !important;
+    border-radius: 4px !important;
+    z-index: 20 !important;
+    transition: transform 0.2s ease, opacity 0.5s ease !important;
+}
+.cuadrado-amarillo:active { transform: scale(0.85) !important; }
+
+/* El cuadrado azul del juego */
+.cuadrado-azul {
+    background-color: #1565c0 !important;
+    box-shadow: 0 0 25px rgba(21, 101, 192, 0.9) !important;
+    pointer-events: auto !important;
+    border-radius: 4px !important;
+    z-index: 20 !important;
+    transition: transform 0.2s ease, opacity 0.5s ease !important;
+}
+.cuadrado-azul:active { transform: scale(0.85) !important; }
+
+/* ==========================================================================
+   CLASES PARA LOS COLORES MALOS (OBSTÁCULOS / DISTRACTORES)
+   ========================================================================== */
+.cuadrado-malo-morado {
+    background-color: #6a1b9a !important; 
+    box-shadow: 0 0 15px rgba(106, 27, 154, 0.6) !important;
+    border-radius: 4px !important;
 }
 
-.cuadrado-rojo:active {
-    transform: scale(0.85) !important;
+.cuadrado-malo-naranja {
+    background-color: #d84315 !important; 
+    box-shadow: 0 0 15px rgba(216, 67, 21, 0.6) !important;
+    border-radius: 4px !important;
 }
+
+.cuadrado-malo-gris {
+    background-color: #4e342e !important; 
+    box-shadow: 0 0 15px rgba(78, 52, 46, 0.6) !important;
+    border-radius: 4px !important;
+}
+
+.cuadrado-malo-rosa {
+    background-color: #c2185b !important; 
+    box-shadow: 0 0 15px rgba(194, 24, 91, 0.6) !important;
+    border-radius: 4px !important;
+}
+
+.cuadrado-malo-cian {
+    background-color: #00838f !important; 
+    box-shadow: 0 0 15px rgba(0, 131, 143, 0.6) !important;
+    border-radius: 4px !important;
+}
+
+/* ==========================================================================
+   NUEVO: EFECTO DE SACUDIDA / TEMBLOR AL FALLAR
+   ========================================================================== */
+.efecto-temblor {
+    animation: temblor 0.15s ease-in-out infinite !important;
+}
+
+@keyframes temblor {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(0px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(2px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(2px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/* ==========================================================================
+   ESTILOS PARA EL MENSAJE DE ÉXITO FINAL (TUS ESTILOS INTEGRADOS)
+   ========================================================================== */
+.mensaje-exito-pantalla {
+    position: absolute;
+    bottom: 40px;               /* Distancia desde la parte inferior de la pantalla */
+    left: 50%;
+    transform: translateX(-50%) translateY(20px); /* Empieza un poco más abajo para el efecto */
+    
+    /* Tipografía y Textura (Tus valores originales) */
+    font-family: 'Louis George Cafe', sans-serif; 
+    font-size: 16px;                  
+    letter-spacing: 1px;              
+    color: #1e1e1e;                   
+    
+    /* Efectos Visuales */
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.5); 
+    z-index: 100;                     
+    pointer-events: none;             /* Evita que estorbe si el usuario hace clic ahí */
+    
+    /* Animación de entrada suave */
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Clase activa que se enciende desde JavaScript al terminar la línea */
+.mensaje-exito-pantalla.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); /* Sube suavemente a su posición ideal */
+}
+
+/* ==========================================================================
+   FONDO NEGRO PARA EL FINAL DE LAS 4 CONSTELACIONES
+   ========================================================================== */
+
+.escenario-juego.final-constelaciones {
+    background-color: #1e1e1e !important;
+    background: #1e1e1e !important;
+}
+
+.escenario-juego.final-constelaciones .cuadricula-oculta {
+    background-color: #1e1e1e !important;
+    background: #1e1e1e!important;
+}
+
+.escenario-juego.final-constelaciones .mensaje-exito-pantalla {
+    color: #e1e1e1 !important;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* ==========================================================================
+   SELECTOR INICIAL DE CANTIDAD DE FORMAS
+   ========================================================================== */
+
+#selector-constelaciones {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    z-index: 9999;
+
+    background: #1e1e1e;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 24px;
+
+    padding: 36px 46px;
+    text-align: center;
+
+    font-family: 'Louis George Cafe', sans-serif;
+    color: white;
+
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+#selector-constelaciones h2 {
+    margin: 0 0 24px 0;
+
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 1px;
+
+    color: white;
+}
+
+.selector-botones-formas {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.boton-cantidad-formas {
+    padding: 14px 22px;
+
+    border-radius: 18px;
+    border: 1px solid white;
+
+    background: transparent;
+    color: white;
+
+    cursor: pointer;
+
+    font-family: 'Louis George Cafe', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+
+    transition: 0.3s ease;
+}
+
+.boton-cantidad-formas:hover {
+    background: white;
+    color: #1e1e1e;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ==========================================================================
    15. EFECTOS FINALES: INVERSIÓN TOTAL Y COLAPSO CINEMÁTICO EN REJILLA
    ========================================================================== */
-/* Inversión total de la pantalla: la linterna ahora proyecta oscuridad */
 .escenario-juego.modo-invertido {
     background-color: #e1e1e1 !important;
     transition: background-color 0.4s ease !important;
@@ -1715,56 +2050,189 @@ p.visible,
 
 .cuadricula-invertida .casilla-secreta {
     border: 1px solid rgba(30, 30, 30, 0.15) !important;
-    perspective: 1200px !important; /* Añade más profundidad tridimensional */
+    perspective: 1200px !important;
 }
 
-/* 🟢 ANIMACIÓN EXTENDIDA: Ahora dura 5 segundos y tiene tres etapas físicas */
 .casilla-colapsada {
     animation: colapsoCinematico 5.0s cubic-bezier(0.3, 0, 0.2, 1) forwards !important;
 }
 
 @keyframes colapsoCinematico {
-    0% {
-        transform: translate(0, 0) rotate(0deg) scale(1) rotateX(0deg);
-        opacity: 1;
-    }
-    /* 🟢 Fase 1 (Turbulencia): Flotan y se desalinean de forma caótica en el lugar */
-    25% {
-        transform: translate(calc(var(--rx) * 2), calc(var(--ry) * 2)) rotate(var(--rot)) scale(0.95) rotateX(25deg);
-        opacity: 0.9;
-    }
-    /* 🟢 Fase 2 (Vaivén/Deriva): Los cuadrados rotan en su propio eje mientras empiezan a caer */
-    55% {
-        transform: translate(calc(var(--rx) * -1.5), calc(var(--ry) * 4 + 100px)) rotate(calc(var(--rot) * -1.5)) scale(0.7) rotateY(45deg);
-        opacity: 0.7;
-    }
-    /* 🟢 Fase 3 (Desplome total): Caída libre veloz hacia el fondo de la pantalla sacándolos del plano */
-    100% {
-        transform: translate(calc(var(--rx) * 5), calc(var(--ry) * 10 + 900px)) rotate(calc(var(--rot) * 4)) scale(0) rotateX(90deg);
-        opacity: 0;
-    }
+    0% { transform: translate(0, 0) rotate(0deg) scale(1) rotateX(0deg); opacity: 1; }
+    25% { transform: translate(calc(var(--rx) * 2), calc(var(--ry) * 2)) rotate(var(--rot)) scale(0.95) rotateX(25deg); opacity: 0.9; }
+    55% { transform: translate(calc(var(--rx) * -1.5), calc(var(--ry) * 4 + 100px)) rotate(calc(var(--rot) * -1.5)) scale(0.7) rotateY(45deg); opacity: 0.7; }
+    100% { transform: translate(calc(var(--rx) * 5), calc(var(--ry) * 10 + 900px)) rotate(calc(var(--rot) * 4)) scale(0) rotateX(90deg); opacity: 0; }
 }
 
-/* 🟢 RETRASO DE LA FRASE: Subimos el delay a 3.8s para que espere a que la rejilla se rompa casi entera */
-#mensaje-oculto-final {
-    position: absolute;
-    z-index: 5;
-    font-family: "inlanders", sans-serif;
-    font-size: 50px;
-    color: #1e1e1e;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    text-align: center;
+/* ==========================================================================
+   🟢 16. FASE 2: MATRIZ DE DECODIFICACIÓN (CUADROS FLOTANTES INTERACTIVOS)
+   ========================================================================== */
+#contenedor-linea-final {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+}
+
+.linea-trayectoria {
+    stroke: #aa4d3c !important;
+    stroke-width: 2px !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    stroke-dasharray: 4 4 !important;
     opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 2.0s ease 3.8s, transform 2.0s ease 3.8s; /* Transición más lenta y majestuosa */
-    pointer-events: auto;
+    transition: opacity 1.2s ease 3.5s !important;
 }
 
-#mensaje-oculto-final.mostrar {
-    opacity: 1;
-    transform: scale(1);
+.linea-trayectoria.mostrar-linea {
+    opacity: 0.6 !important;
 }
+
+/* Los pequeños cuadrados flotantes */
+.particula-cuadrado {
+    position: absolute !important;
+    width: 30px !important;
+    height: 30px !important;
+    border: 1px solid #111111 !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: monospace !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    color: transparent !important; /* Inician con la letra invisible */
+    box-sizing: border-box !important;
+    pointer-events: auto !important; 
+    
+    animation: flotacionAleatoria 3.2s infinite ease-in-out alternate;
+    transition: transform 0.2s ease-out, border-color 0.4s ease !important;
+    will-change: transform;
+}
+
+.particula-cuadrado.esquivando-cursor {
+    animation: none !important;
+}
+
+/* CLIC 1: Detener la tormenta */
+.particulas-congeladas .particula-cuadrado {
+    animation: none !important;
+    animation-play-state: paused !important;
+    border-color: #aa4d3c !important;
+}
+
+/* CLIC 2: Reunir la palabra al centro */
+.particulas-reunidas .particula-cuadrado {
+    animation: none !important;
+    animation-play-state: paused !important;
+    pointer-events: none !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(var(--desfase-x), -50%) rotate(0deg) !important;
+    border: 1px solid #aa4d3c !important;
+    background-color: #111111 !important;
+    color: #ffffff !important; /* Revela el texto en blanco */
+    box-shadow: 0 0 15px rgba(170, 77, 60, 0.4) !important;
+    transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1), left 2.5s cubic-bezier(0.25, 1, 0.5, 1), top 2.5s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.5s, color 0.5s !important;
+}
+
+/* CLIC 3: ¡EXPLOSIÓN TRIDIMENSIONAL QUE SE DESVANECE CON LETRAS VISIBLES! */
+.particulas-explotadas .particula-cuadrado {
+    animation: none !important;
+    
+    /* 🟢 CORRECCIÓN: Ahora SÍ se desvanecen por completo al estallar */
+    opacity: 0 !important;
+    
+    /* 🟢 CORRECCIÓN: Forzamos a que el texto sea blanco y visible durante el viaje */
+    color: #ffffff !important;
+    background-color: #111111 !important;
+    
+    transform: translate(var(--exp-x), var(--exp-y)) translateZ(850px) rotate(var(--exp-r)) scale(8) !important;
+    border-color: #aa4d3c !important;
+    box-shadow: 0 0 40px rgba(170, 77, 60, 0) !important;
+    
+    transition: transform 2.5s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 2.2s cubic-bezier(0.1, 0.8, 0.2, 1), color 0.3s ease !important;
+}
+
+/* ==========================================================================
+   🔄 17. CONTROLADORES COMPLEMENTARIOS (LA FLECHA LIMPIA ARRIBA A LA IZQUIERDA)
+   ========================================================================== */
+#boton-regresar-tablero {
+    position: absolute;
+    
+    /* 🟢 CORRECCIÓN: Movida exactamente a la esquina superior izquierda */
+    top: 30px !important;
+    left: 30px !important;
+    bottom: auto !important;
+    transform: scale(0.8) !important;
+    
+    z-index: 30;
+    opacity: 0;
+    cursor: pointer;
+    
+    /* Sin cajas artificiales alrededor */
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+}
+
+#boton-regresar-tablero.mostrar {
+    opacity: 1;
+    transform: scale(1) !important;
+}
+
+@keyframes flotacionAleatoria {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(var(--mov-x, 80px), var(--mov-y, 75px)) rotate(var(--mov-r, 70deg)); }
+}
+/* ==========================================================================
+   🔄 18. TEXTO DE INSTRUCCIÓN INICIAL (PARPADEANTE)
+   ========================================================================== */
+#instruccion-juego {
+    position: absolute !important;
+    bottom: 40px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-family: 'Louis George Cafe' !important;
+    font-size: 14px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    letter-spacing: 2px !important;
+    text-transform: lowercase;
+    z-index: 15 !important; /* Por encima de la linterna para que siempre se lea */
+    pointer-events: none !important;
+    
+    /* Animación de parpadeo continuo y suave */
+    animation: parpadeoSutil 2.5s infinite ease-in-out !important;
+    transition: opacity 0.5s ease !important;
+}
+
+@keyframes parpadeoSutil {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.75; }
+}
+
+/* Color rojo para las casillas activadas desde el minijuego */
+.casilla.activado-rojo {
+    background-color: #aa4d3c !important; /* El color rojo de tu minijuego */
+    box-shadow: 0 0 15px rgba(170, 77, 60, 0.6) !important; /* Un sutil brillo opcional */
+    transition: background-color 0.5s ease, box-shadow 0.5s ease !important;
+}
+
+
+
+
+
+
+
+
+
 
 /* 🟢 Botón de flecha en la esquina superior izquierda (Más grande y estilizado) */
 #boton-regresar-tablero {
@@ -1797,6 +2265,131 @@ p.visible,
     opacity: 1;
     transform: scale(1);
 }
+
+/* ==========================================================================
+   🟢 16. LÍNEA GEOMÉTRICA FINAL (CONECTORA DE PUNTOS)
+   ========================================================================== */
+#contenedor-linea-final {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 2 !important; /* Por encima de las casillas caídas, pero abajo de la flecha */
+    pointer-events: none !important;
+}
+
+.linea-trayectoria {
+    stroke: #aa4d3c !important; /* Mismo color rojo con brillo de tus cuadros */
+    stroke-width: 3px !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    opacity: 0;
+    
+    /* 💡 ESPERA CINEMÁTICA: Tardará 1.5s en aparecer suavemente, 
+       esperando a que la Fase 1 y 2 del colapso de la grilla ya hayan sucedido (3.5s de delay) */
+    transition: opacity 1.5s ease 3.5s !important;
+}
+
+.linea-trayectoria.mostrar-linea {
+    opacity: 0.85 !important;
+}
+
+/* ==========================================================================
+   🟢 FASE 2: MATRIZ DE DECODIFICACIÓN (CUADROS VOLADORES)
+   ========================================================================== */
+#contenedor-linea-final {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+}
+
+/* El contorno rojo que une tus 4 clics iniciales */
+.linea-trayectoria {
+    stroke: #aa4d3c !important;
+    stroke-width: 2px !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    stroke-dasharray: 4 4 !important; /* Línea discontinua conceptual */
+    opacity: 0;
+    transition: opacity 1.2s ease 3.5s !important;
+}
+
+.linea-trayectoria.mostrar-linea {
+    opacity: 0.6 !important;
+}
+
+/* Los pequeños cuadros que flotan por la pantalla */
+.particula-cuadrado {
+    position: absolute !important;
+    width: 30px !important;
+    height: 30px !important;
+    border: 1px solid #111111 !important; /* Solo borde negro, sin color interno */
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: monospace !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    color: transparent !important; /* La letra oculta inicia invisible */
+    box-sizing: border-box !important;
+    pointer-events: none !important;
+    
+    /* Animación inicial de flotación infinita */
+    animation: flotacionAleatoria 6s infinite ease-in-out alternate;
+    transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* 🟢 ESTADO 1: Detener los cuadros en su lugar */
+.particulas-congeladas .particula-cuadrado {
+    animation-play-state: paused !important;
+    border-color: #aa4d3c !important; /* Cambian sutilmente a rojo al pausarse */
+}
+
+/* 🟢 ESTADO 2: Concentrarse al centro formando la palabra */
+.particulas-reunidas .particula-cuadrado {
+    animation: none !important;
+    animation-play-state: paused !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(var(--desfase-x), -50%) rotate(0deg) !important; /* Se alinean en fila */
+    border: 1px solid #aa4d3c !important;
+    background-color: #111111 !important; /* Fondo oscuro para resaltar la palabra */
+    color: #ffffff !important; /* Se revela la letra en blanco */
+    box-shadow: 0 0 15px rgba(170, 77, 60, 0.4) !important;
+}
+
+/* Configuración fija de los 4 nodos del juego */
+.cuadrado-rojo {
+    background-color: #aa4d3c !important;
+    box-shadow: 0 0 25px rgba(170, 77, 60, 0.9) !important;
+    pointer-events: auto !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    z-index: 20 !important;
+    transition: transform 0.2s ease !important;
+}
+.cuadrado-rojo:hover {
+    transform: scale(1.08) !important;
+}
+
+/* Animación matemática de flotación */
+@keyframes flotacionAleatoria {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(var(--mov-x, 40px), var(--mov-y, 40px)) rotate(var(--mov-r, 45deg)); }
+}
+
+
+
+
+
+
+
 
 /* ==========================================================================
    INTERFAZ EXCLUSIVA PARA LA PANTALLA AMARILLA (MISMO SCRIPT)
@@ -1844,8 +2437,9 @@ p.visible,
    18. CONFIGURACIÓN EXCLUSIVA PARA EL JUEGO AMARILLO (RESTABLECIDO)
    ========================================================================== */
 .juego-amarillo .casilla-secreta {
-    width: 50px;
-    height: 50px;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
     box-sizing: border-box;
     border: 1px solid rgba(255, 255, 255, 0.03);
 }
@@ -1882,6 +2476,27 @@ p.visible,
 #capa-negra {
     background: radial-gradient(circle 100px at var(--x, 50%) var(--y, 50%), transparent 0%, rgba(0,0,0,0.95) 80%);
 }
+
+/* ==========================================================================
+   ESTRUCTURA UNIFICADA DE LA REJILLA (CON CIERRE INFERIOR HERMÉTICO)
+   ========================================================================== */
+#tablero-rejilla {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)) !important;
+    grid-template-rows: repeat(auto-fill, minmax(50px, 1fr)) !important;
+    align-content: start !important; /* 🟢 Fuerza a que las filas se agrupen estrictamente arriba */
+    box-sizing: border-box !important;
+    width: calc(100vw - 40px) !important;
+    height: calc(100vh - 40px) !important;
+    overflow: hidden !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important; /* 🟢 Sella el suelo para cortar las líneas verticales sobrantes */
+}
+
+
+
+
+
+
 
 
 
@@ -1958,51 +2573,61 @@ p.visible,
 
 
 
+/* ==========================================================================
+   CARRUSEL AUTO-RESPONSIVO (PROPORCIONAL EN CUALQUIER PANTALLA)
+   ========================================================================== */
+
+.carrusel-loop-contenedor {
+    width: 100vw;
+    max-width: 100vw;
+    overflow: hidden;
+    background: transparent;
+    
+    /* 🟢 CORRECCIÓN 1: Usamos paddings y márgenes dinámicos en 'em' o '%' 
+       en lugar de píxeles fijos. Esto hace que el espacio vertical se encoja 
+       en pantallas chicas y crezca proporcionalmente en pantallas gigantes. */
+    padding: 1.5vh 0; 
+    margin: 1rem 0;   
+    
+    box-sizing: border-box;
+    display: flex;
+}
+
+.carrusel-loop-tira {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    /* 🟢 CORRECCIÓN 2: El espacio entre imágenes también es relativo al tamaño de la pantalla (vw) */
+    gap: 2vw; 
+    width: max-content;
+    animation: carruselInfinitoPerfecto 12s linear infinite;
+}
+
+.carrusel-loop-tira img {
+    /* 🟢 CORRECCIÓN 3: Para que los cuadros no se vean gigantes en laptops ni diminutos 
+       en la pantalla de presentación, usamos una medida inteligente (clamp).
+       - En pantallas chicas, medirá mínimo 40px.
+       - En pantallas gigantes, escalará máximo a 90px.
+       - En el medio, se adaptará fluidamente al 5% del ancho de la pantalla (5vw). */
+    height: clamp(40px, 5vw, 90px); 
+    
+    width: auto;  
+    object-fit: contain;
+    backface-visibility: hidden;
+    transform: translate3d(0,0,0);
+}
 
 /* ==========================================================================
-   CARRUSEL SUPREMO: ROMPE CONTENEDORES Y VA DE EXTREMO A EXTREMO
+   🧠 MOTOR AJUSTADO AL NUEVO GAP DINÁMICO
    ========================================================================== */
-.contenedor-animacion-cuadros {
-    position: relative;
-    
-    /* 1. ESTO ROMPE CUALQUIER CAJA PADRE: Fuerza a que mida el ancho real del monitor */
-    width: 100vw !important;         
-    
-    /* 2. ESTO LO CENTRA AL MONITOR, ignorando si el diseño general está centrado */
-    left: 50% !important;
-    right: 50% !important;
-    margin-left: -50vw !important;
-    margin-right: -50vw !important;  
-    
-    overflow: hidden !important;     /* Esconde los cuadros antes de que entren y al salir */
-    background: transparent;      
-    padding: 15px 0;
-    display: flex !important;
-}
-
-.grupo-cuadros {
-    display: flex !important;
-    gap: 60px !important;            /* Distancia entre tus cuadritos */
-    
-    /* 🟢 VELOCIDAD MEDIA CALIBRADA: 
-       A esta velocidad (12s) se desplazan de forma constante sin ir lentos ni apurados. */
-    animation: desfileContinuoMedio 12s linear infinite !important;
-}
-
-.cuadro-animado {
-    width: 50px !important;          /* Tamaño pequeño idéntico */
-    height: auto !important;
-    object-fit: contain !important;
-}
-
-/* 🟢 LA MATEMÁTICA DEL RECORRIDO DE EXTREMO A EXTREMO REAL (Izquierda a Derecha)
-   Usamos left con porcentajes de pantalla (vw) para garantizar que cruce TODO tu monitor,
-   sin importar lo grande o chico que sea, y reinicie al instante sin esperar. */
-@keyframes desfileContinuoMedio {
+@keyframes carruselInfinitoPerfecto {
     0% {
-        transform: translateX(-100%); /* Empieza justo pegado al borde izquierdo exterior */
+        transform: translate3d(0, 0, 0);
     }
     100% {
-        transform: translateX(0%);    /* Camina hacia la derecha enganchando con la copia */
+        /* 🟢 Como cambiamos el gap a '2vw', aquí restamos la mitad exacta (1vw) 
+           para que el loop siga siendo matemáticamente perfecto y continuo */
+        transform: translate3d(calc(-50% - 1vw), 0, 0);
     }
 }
