@@ -1,16 +1,14 @@
 /* ==========================================================================
-   1. CONFIGURACIONES GENERALES Y FUENTES
+   1. CONFIGURACIONES GENERALES Y FUENTES (CORREGIDAS)
    ========================================================================== */
 @font-face {
     font-family: 'Louis George Cafe';
-    src: url('./Fonts/LouisGeorgeCafe.ttf') format('truetype');
-     
+    src: url('fonts/LouisGeorgeCafe.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Inlanders';
-    src: url('./Fonts/InlandersDemo.otf') format('truetype');
-     
+    src: url('fonts/InlandersDemo.otf') format('truetype');
 }
 
 
