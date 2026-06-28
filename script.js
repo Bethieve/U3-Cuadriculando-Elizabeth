@@ -18,7 +18,6 @@ const imagenes = [
     { elemento: document.querySelector(".img-001-1"), rotacion: 80, velocidad: 0.7, direccionX: 0.5 }
 ];
 
-// Mapeo dinámico del scroll (Movimiento original y freno del título)
 window.addEventListener("scroll", () => {
     const scroll = window.scrollY;
     const limiteFreno = 1800; 
@@ -29,7 +28,6 @@ window.addEventListener("scroll", () => {
         let moverY = scroll * img.velocidad;
         const moverX = scroll * img.direccionX;
 
-        // Lógica de congelamiento exclusiva para el título (.cuadri)
         if (img.elemento.classList.contains("cuadri")) {
             const posicionActualY = 200 - moverY; 
             if (posicionActualY >= limiteFreno) {
@@ -82,7 +80,6 @@ fichas.forEach(ficha => {
         ficha.style.transform = "rotate(0deg)";
     }
 
-    // Eventos Mouse y Touch integrados
     ficha.addEventListener("mousedown", iniciarAgitacion);
     ficha.addEventListener("mouseup", detenerAgitacion);
     ficha.addEventListener("mouseleave", detenerAgitacion);
@@ -91,23 +88,21 @@ fichas.forEach(ficha => {
 });
 
 // ==========================================================================
-// 3. EVENTOS DE PÁRRAFOS INTERACTIVOS (ANIMACIÓN CONTINUA AL SUBIR Y BAJAR)
+// 3. EVENTOS DE PÁRRAFOS INTERACTIVOS
 // ==========================================================================
 const todosLosParrafos = document.querySelectorAll("p");
 
 const opcionesObserver = {
     root: null,        
-    rootMargin: "0px 0px -50px 0px", // Se calibra para que actúe justo antes de entrar por abajo
+    rootMargin: "0px 0px -50px 0px",
     threshold: 0.10    
 };
 
 const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Activa la animación al entrar en pantalla
             entry.target.classList.add("parrafo-visible");
         } else {
-            // 🟢 Quita la clase al salir de pantalla para que funcione siempre en bucle al subir/bajar
             entry.target.classList.remove("parrafo-visible");
         }
     });
@@ -116,7 +111,6 @@ const scrollObserver = new IntersectionObserver((entries) => {
 todosLosParrafos.forEach(parrafo => {
     scrollObserver.observe(parrafo);
 });
-
 
 // ==========================================================================
 // 5. LÓGICA DE CONTROL DEL CARRUSEL
@@ -160,7 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const contenedorOriginal = document.querySelector('.cuadroscuadricula');
     const cuadricula = document.querySelector('.cuadricula-4x4');
 
-    // Configurar las imágenes
     document.querySelectorAll('.cuadroscuadricula img').forEach((img, index) => {
         img.draggable = true;
         img.id = `img-${index}`; 
@@ -171,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Configurar los casilleros de la cuadrícula
     document.querySelectorAll('.cuadro').forEach(cuadro => {
         cuadro.addEventListener('dragover', e => {
             e.preventDefault();
@@ -190,7 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (img && !cuadro.querySelector('img')) {
                 cuadro.appendChild(img);
 
-                // Comprobación de última imagen colocada
                 const imagenesRestantes = contenedorOriginal.querySelectorAll('img').length;
                 if (imagenesRestantes === 0) {
                     setTimeout(() => {
@@ -223,10 +214,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================================================
-// 7. COMPORTAMIENTO DE LETRAS INTERACTIVAS (TÍTULOS)
+// 7. COMPORTAMIENTO DE LETRAS INTERACTIVAS Y BOTÓN DESCUBRIR (OPCIÓN 1 RESTAURADA)
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
     
+    let audioSonidoInicial = null;
+    try {
+        audioSonidoInicial = new Audio("sounds/Sonidoinicial.mp3");
+        audioSonidoInicial.volume = 0.6; 
+    } catch(e) {
+        console.error("Error cargando el archivo Sonidoinicial: ", e);
+    }
+
     function aplicarEfectoLetras(idElemento) {
         const titulo = document.getElementById(idElemento);
 
@@ -253,22 +252,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     aplicarEfectoLetras("titulo-inicial-interactivo");
-    aplicarEfectoLetras("titulo-interactivo");
-});
-
-
-
-
-// ==========================================================================
-// 7. COMPORTAMIENTO DE LETRAS INTERACTIVAS Y DESAPARICIÓN ALEATORIA
-// ==========================================================================
-document.addEventListener("DOMContentLoaded", () => {
     
     const titulo = document.getElementById("titulo-interactivo");
     const boton = document.getElementById("btn-descubrir");
     const cortina = document.getElementById("cortina-negra");
 
-    // 1. Creamos las letras y les asignamos el efecto hover original
     if (titulo) {
         const textoOriginal = titulo.textContent;
         titulo.innerHTML = ""; 
@@ -278,34 +266,33 @@ document.addEventListener("DOMContentLoaded", () => {
             span.textContent = letra === " " ? "\u00A0" : letra;
             titulo.appendChild(span);
 
-            // Tu efecto hover original (No se toca)
             span.addEventListener("mouseenter", () => {
                 span.classList.add("letra-activa");
-            });
+                });
 
-            span.addEventListener("mouseleave", () => {
-                setTimeout(() => {
-                    span.classList.remove("letra-activa");
-                }, 300); 
-            });
+                span.addEventListener("mouseleave", () => {
+                    setTimeout(() => {
+                        span.classList.remove("letra-activa");
+                    }, 300); 
+                });
         });
     }
 
-    // 2. 🟢 CONTROL DEL CLICK: Desaparición al azar y parpadeo del botón
     if (boton && titulo) {
         boton.addEventListener("click", function(evento) {
-            evento.preventDefault(); // Frena el viaje directo
-            const destino = this.getAttribute("href");
+            evento.preventDefault(); 
+            const destino = this.getAttribute("href"); 
 
-            // Activamos el parpadeo tenso en el botón
+            if (audioSonidoInicial) {
+                audioSonidoInicial.currentTime = 0;
+                audioSonidoInicial.play().catch(err => console.log("Audio play blocked: ", err));
+            }
+
             this.classList.add("boton-parpadeo-activo");
 
-            // Capturamos las letras que acabamos de crear
             const letras = titulo.querySelectorAll("span");
             
-            // A cada letra le asignamos un tiempo de desaparición completamente al azar
             letras.forEach((span) => {
-                // Genera un tiempo aleatorio entre 0 y 800 milisegundos
                 const tiempoAleatorio = Math.random() * 1400; 
                 
                 setTimeout(() => {
@@ -313,30 +300,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, tiempoAleatorio);
             });
 
-            // 3. Cuando ya todas las letras se hayan esfumado (después de los 800ms)
             setTimeout(() => {
                 if (cortina) cortina.classList.add("activa");
             }, 900);
 
-            // 4. Salto final al siguiente HTML una vez que la cortina negra cubra todo
             setTimeout(() => {
                 window.location.href = destino;
-            }, 2100); // 900ms de espera + 1200ms de lo que tarda la cortina en CSS
+            }, 3500); 
         });
     }
 });
 
-
-
-
-
-
-
-
 // ==========================================================================
-// SCRIPT GENERAL UNIFICADO - CON SELECTOR DE 2, 3 O 4 CONSTELACIONES
+// 8. SCRIPT GENERAL UNIFICADO - JUEGO DE CONSTELACIONES
 // ==========================================================================
-
 document.addEventListener("DOMContentLoaded", () => {
 
     const capaNegra = document.getElementById('capa-negra') || document.querySelector('.linterna-oscuridad');
@@ -363,53 +340,70 @@ document.addEventListener("DOMContentLoaded", () => {
     let constelacionActual = 1;
     let TOTAL_CONSTELACIONES = 4;
 
+    // DECLARACIÓN DE EFECTOS DE SONIDO
+    let audioClickBueno = null;
+    let audioSonidoMalo = null;
+    let audioSonidoRoto = null; 
+    let audioSonidounion = null; 
+
+    try {
+        audioClickBueno = new Audio("sounds/Clickbueno.mp3");
+        audioClickBueno.volume = 0.5;
+
+        audioSonidoMalo = new Audio("sounds/sonidomalo.mp3");
+        audioSonidoMalo.volume = 0.55; 
+
+        audioSonidoRoto = new Audio("sounds/Sonidoroto.mp3");
+        audioSonidoRoto.volume = 0.65;
+
+        audioSonidounion = new Audio("sounds/Sonidounion.mp3");
+        audioSonidounion.volume = 0.6;
+    } catch(e) {
+        console.error("Error pre-cargando los efectos de sonido del tablero: ", e);
+    }
+
     function mostrarSelectorConstelaciones() {
+        const selector = document.getElementById('selector-constelaciones');
+        if (!selector) return;
 
-    const selector = document.getElementById('selector-constelaciones');
-    if (!selector) return;
+        const textoAyuda = document.getElementById('instruccion-juego');
+        if (textoAyuda) textoAyuda.style.display = 'none';
 
-    const textoAyuda = document.getElementById('instruccion-juego');
-    if (textoAyuda) textoAyuda.style.display = 'none';
+        if (rejilla) {
+            rejilla.innerHTML = '';
+            rejilla.style.setProperty('opacity', '0', 'important');
+            rejilla.style.setProperty('visibility', 'hidden', 'important');
+            rejilla.style.setProperty('pointer-events', 'none', 'important');
+            rejilla.style.setProperty('display', 'none', 'important');
+        }
 
-    // Ocultar el tablero mientras el usuario elige
-    if (rejilla) {
-        rejilla.innerHTML = '';
-        rejilla.style.setProperty('opacity', '0', 'important');
-        rejilla.style.setProperty('visibility', 'hidden', 'important');
-        rejilla.style.setProperty('pointer-events', 'none', 'important');
-    }
+        if (capaNegra) {
+            capaNegra.style.setProperty('opacity', '0', 'important');
+            capaNegra.style.setProperty('visibility', 'hidden', 'important');
+            capaNegra.style.display = 'none';
+        }
 
-    // Ocultar la linterna
-    if (capaNegra) {
-        capaNegra.style.setProperty('opacity', '0', 'important');
-        capaNegra.style.setProperty('visibility', 'hidden', 'important');
-    }
+        selector.style.display = 'flex';
 
-    // Mostrar el selector
-    selector.style.display = 'flex';
-
-    // Agregar el evento a los botones (evita duplicarlos si vuelves a abrir el selector)
-    selector.querySelectorAll('.boton-cantidad-formas').forEach(boton => {
-
-        boton.replaceWith(boton.cloneNode(true));
-
-    });
-
-    selector.querySelectorAll('.boton-cantidad-formas').forEach(boton => {
-
-        boton.addEventListener('click', () => {
-
-            TOTAL_CONSTELACIONES = parseInt(boton.dataset.total);
-
-            selector.style.display = 'none';
-
-            iniciarJuegoElegido();
-
+        selector.querySelectorAll('.boton-cantidad-formas').forEach(boton => {
+            boton.replaceWith(boton.cloneNode(true));
         });
 
-    });
+        selector.querySelectorAll('.boton-cantidad-formas').forEach(boton => {
+            boton.addEventListener('click', () => {
 
-}
+                if (audioClickBueno) {
+                    audioClickBueno.currentTime = 0;
+                    audioClickBueno.play().catch(err => console.log("Audio play blocked: ", err));
+                }
+
+                TOTAL_CONSTELACIONES = parseInt(boton.dataset.total);
+                selector.style.display = 'none';
+                iniciarJuegoElegido();
+            });
+        });
+    }
+
     function iniciarJuegoElegido() {
         contadorClics = 0;
         juegoTerminado = false;
@@ -424,9 +418,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (escenarioJuego) {
             escenarioJuego.classList.remove('modo-invertido');
-            escenarioJuego.style.backgroundColor = "#1e1e1e";
+            escenarioJuego.style.setProperty('background-color', '#1e1e1e', 'important');
+            escenarioJuego.style.setProperty('background', '#1e1e1e', 'important');
             escenarioJuego.style.opacity = '1';
         }
+
+        document.documentElement.style.removeProperty('background-color');
+        document.body.style.removeProperty('background-color');
 
         if (rejilla) {
             rejilla.classList.remove('cuadricula-invertida');
@@ -484,7 +482,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const colorActual = secuenciaColores[contadorClics];
-
         const todasLasClases = [...secuenciaColores, ...coloresMalos];
         const selectoresExclusion = todasLasClases.map(c => `:not(.${c})`).join('');
 
@@ -530,8 +527,17 @@ document.addEventListener("DOMContentLoaded", () => {
         e.stopPropagation();
 
         if (juegoTerminado) return;
-
         juegoTerminado = true;
+
+        if (audioSonidoMalo) {
+            audioSonidoMalo.currentTime = 0; 
+            audioSonidoMalo.play().catch(err => console.log("Audio play blocked: ", err));
+        }
+
+        if (audioSonidoRoto) {
+            audioSonidoRoto.currentTime = 0;
+            audioSonidoRoto.play().catch(err => console.log("Audio play blocked: ", err));
+        }
 
         if (capaNegra) capaNegra.style.display = 'none';
 
@@ -566,9 +572,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1100);
 
         setTimeout(() => {
-            if (escenarioJuego) {
-                escenarioJuego.classList.remove('efecto-temblor');
-            }
+            if (escenarioJuego) escenarioJuego.classList.remove('efecto-temblor');
 
             if (capaNegra) {
                 capaNegra.style.setProperty('opacity', '1', 'important');
@@ -596,6 +600,11 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         e.stopPropagation();
 
+        if (audioClickBueno) {
+            audioClickBueno.currentTime = 0; 
+            audioClickBueno.play().catch(err => console.log("Audio play blocked: ", err));
+        }
+
         contadorClics++;
 
         if (contadorClics < MAX_INTENTOS) {
@@ -609,13 +618,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
             this.removeEventListener('click', gestionarClicObjetivo);
 
-            const textoAyuda = document.getElementById('instruccion-juego');
-            if (textoAyuda) textoAyuda.style.display = 'none';
+            const textAyuda = document.getElementById('instruccion-juego');
+            if (textAyuda) textAyuda.style.display = 'none';
+
+            document.documentElement.style.setProperty('background-color', '#e1e1e1', 'important');
+            document.body.style.setProperty('background-color', '#e1e1e1', 'important');
 
             const contenedorJuego = document.querySelector('.escenario-juego') || document.body;
-            if (contenedorJuego) contenedorJuego.classList.add('modo-invertido');
+            if (contenedorJuego) {
+                contenedorJuego.classList.add('modo-invertido');
+            }
 
-            if (rejilla) rejilla.classList.add('cuadricula-invertida');
+            if (rejilla) {
+                rejilla.classList.add('cuadricula-invertida');
+            }
 
             if (capaNegra) {
                 capaNegra.classList.add('linterna-invertida');
@@ -625,7 +641,6 @@ document.addEventListener("DOMContentLoaded", () => {
             historialPosiciones.forEach(nodoHistorico => {
                 if (rejilla) {
                     const casillaHistorica = rejilla.querySelector(`[data-indice="${nodoHistorico.indice}"]`);
-
                     if (casillaHistorica) {
                         coloresMalos.forEach(cm => casillaHistorica.classList.remove(cm));
                         casillaHistorica.classList.add(nodoHistorico.color);
@@ -661,10 +676,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         historialPosiciones.forEach(item => {
             const casilla = rejilla.querySelector(`[data-indice="${item.indice}"]`);
-
             if (casilla) {
                 const box = casilla.getBoundingClientRect();
-
                 datosConstelacion.push({
                     x: box.left + box.width / 2,
                     y: box.top + box.height / 2,
@@ -679,8 +692,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function dibujarLineaTrayectoria() {
         if (!contenedorFinal || !rejilla) return;
 
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        if (audioSonidounion) {
+            audioSonidounion.currentTime = 0;
+            audioSonidounion.play().catch(err => console.log("Audio play blocked: ", err));
+        }
 
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("width", "100%");
         svg.setAttribute("height", "100%");
         svg.style.position = "absolute";
@@ -692,7 +709,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         historialPosiciones.forEach(item => {
             const n = rejilla.querySelector(`[data-indice="${item.indice}"]`);
-
             if (n) {
                 const box = n.getBoundingClientRect();
                 puntos.push(`${box.left + box.width / 2},${box.top + box.height / 2}`);
@@ -700,12 +716,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-
         polyline.setAttribute("points", puntos.join(" "));
         polyline.setAttribute("fill", "none");
         polyline.classList.add("linea-trayectoria");
-
-        polyline.addEventListener('transitionend', mostrarMensajeExitoFinal);
 
         svg.appendChild(polyline);
         contenedorFinal.appendChild(svg);
@@ -713,37 +726,59 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             polyline.classList.add('mostrar-linea');
         }, 50);
+
+        // ✨ AJUSTADO A 2000ms: Da el tiempo exacto para que la línea recorra y complete su animación antes de gatillar el botón
+        setTimeout(() => {
+            mostrarMensajeExitoFinal();
+        }, 4500);
     }
 
     function mostrarMensajeExitoFinal() {
         if (document.getElementById('mensaje-forma-final')) return;
 
         const mensaje = document.createElement('div');
-
         mensaje.id = 'mensaje-forma-final';
         mensaje.className = 'mensaje-exito-pantalla';
         mensaje.innerText = `Has encontrado la forma ${constelacionActual}.`;
 
         if (contenedorFinal) {
             contenedorFinal.appendChild(mensaje);
-
             setTimeout(() => {
                 mensaje.classList.add('visible');
             }, 10);
         }
 
-        setTimeout(() => {
+        const botonContinuar = document.createElement('button');
+        botonContinuar.className = 'boton-continuar-interactivo';
+        botonContinuar.innerText = 'Continuar';
+        
+        if (contenedorFinal) {
+            contenedorFinal.appendChild(botonContinuar);
+            setTimeout(() => {
+                botonContinuar.classList.add('mostrar');
+            }, 200);
+        }
+
+        botonContinuar.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (audioClickBueno) {
+                audioClickBueno.currentTime = 0;
+                audioClickBueno.play().catch(err => console.log("Audio play blocked: ", err));
+            } 
+
+            botonContinuar.remove(); 
             if (constelacionActual < TOTAL_CONSTELACIONES) {
                 prepararSiguienteConstelacion();
             } else {
                 mostrarFinalConstelaciones();
             }
-        }, 1800);
+        });
     }
 
     function prepararSiguienteConstelacion() {
         constelacionActual++;
-
         contadorClics = 0;
         juegoTerminado = false;
         historialPosiciones = [];
@@ -753,10 +788,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const textoAyuda = document.getElementById('instruccion-juego');
         if (textoAyuda) textoAyuda.style.display = 'block';
 
+        document.documentElement.style.setProperty('background-color', '#e1e1e1', 'important');
+        document.body.style.setProperty('background-color', '#e1e1e1', 'important');
+
         const contenedorJuego = document.querySelector('.escenario-juego') || document.body;
         if (contenedorJuego) {
             contenedorJuego.classList.remove('modo-invertido');
-            contenedorJuego.style.backgroundColor = "#1e1e1e";
+            contenedorJuego.style.removeProperty('background-color');
+            contenedorJuego.style.removeProperty('background');
         }
 
         if (rejilla) {
@@ -781,19 +820,56 @@ document.addEventListener("DOMContentLoaded", () => {
     function mostrarFinalConstelaciones() {
         if (!contenedorFinal) return;
 
+        let sonidoFinal = null;
+        try {
+            sonidoFinal = new Audio("sounds/formafinal.mp3");
+            sonidoFinal.volume = 0.6;
+        } catch(e) {
+            console.error("Error pre-cargando el objeto de audio: ", e);
+        }
+
         contenedorFinal.innerHTML = '';
+
+        document.documentElement.style.removeProperty('background-color');
+        document.body.style.removeProperty('background-color');
 
         if (rejilla) {
             rejilla.innerHTML = '';
             rejilla.style.setProperty('opacity', '0', 'important');
             rejilla.style.setProperty('visibility', 'hidden', 'important');
             rejilla.style.setProperty('pointer-events', 'none', 'important');
+            rejilla.style.setProperty('display', 'none', 'important');
         }
 
         if (capaNegra) {
             capaNegra.style.setProperty('opacity', '0', 'important');
             capaNegra.style.setProperty('visibility', 'hidden', 'important');
+            capaNegra.style.display = 'none';
         }
+
+        const escenarioJuegoFinal = document.querySelector('.escenario-juego') || document.body;
+        if (escenarioJuegoFinal) {
+            escenarioJuegoFinal.style.transition = 'background-color 1.5s ease, background 1.5s ease';
+            escenarioJuegoFinal.style.setProperty('background-color', '#ffffff', 'important');
+            escenarioJuegoFinal.style.setProperty('background', '#ffffff', 'important');
+        }
+
+        contenedorFinal.style.position = "relative";
+        contenedorFinal.style.width = "100vw";
+        contenedorFinal.style.height = "100vh";
+        contenedorFinal.style.overflow = "hidden";
+        contenedorFinal.style.display = "block"; 
+
+        const cantidad = constelacionesGuardadas.length;
+        const espacio = 40; 
+        const anchoDisponibleSeguro = window.innerWidth * 0.90;
+
+        const anchoCajaCalculado = Math.min(340, (anchoDisponibleSeguro - (espacio * (cantidad - 1))) / cantidad);
+        const altoCajaCalculado = anchoCajaCalculado * 0.88;  
+
+        const totalAnchoFila = (anchoCajaCalculado * cantidad) + (espacio * (cantidad - 1));
+        const inicioX = (window.innerWidth - totalAnchoFila) / 2;
+        const centroY = (window.innerHeight / 2) - 60; 
 
         const svgFinal = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svgFinal.setAttribute("width", "100%");
@@ -803,15 +879,9 @@ document.addEventListener("DOMContentLoaded", () => {
         svgFinal.style.left = "0";
         svgFinal.style.zIndex = "999";
         svgFinal.style.pointerEvents = "none";
+        svgFinal.style.overflow = "visible"; 
 
-        const cantidad = constelacionesGuardadas.length;
-        const anchoCaja = 260;
-        const altoCaja = 220;
-        const espacio = 80;
-
-        const totalAncho = (anchoCaja * cantidad) + (espacio * (cantidad - 1));
-        const inicioX = (window.innerWidth - totalAncho) / 2;
-        const centroY = window.innerHeight / 2 - 60;
+        let todosLosPuntosGlobales = [];
 
         constelacionesGuardadas.forEach((constelacion, index) => {
             if (!constelacion || constelacion.length === 0) return;
@@ -828,11 +898,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const altoOriginal = maxY - minY || 1;
 
             const escala = Math.min(
-                (anchoCaja - 70) / anchoOriginal,
-                (altoCaja - 70) / altoOriginal
+                (anchoCajaCalculado - 40) / anchoOriginal,
+                (altoCajaCalculado - 40) / altoOriginal
             );
 
-            const offsetX = inicioX + index * (anchoCaja + espacio) + anchoCaja / 2;
+            const offsetX = inicioX + index * (anchoCajaCalculado + espacio) + anchoCajaCalculado / 2;
             const offsetY = centroY;
 
             const puntosFinales = constelacion.map(p => ({
@@ -841,46 +911,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 color: p.color
             }));
 
-            const linea = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+            todosLosPuntosGlobales = todosLosPuntosGlobales.concat(puntosFinales);
+        });
 
-            linea.setAttribute(
-                "points",
-                puntosFinales.map(p => `${p.x},${p.y}`).join(" ")
-            );
+        todosLosPuntosGlobales.sort((a, b) => a.x - b.x);
 
-            linea.setAttribute("fill", "none");
-            linea.setAttribute("stroke", "white");
-            linea.setAttribute("stroke-width", "2.5");
-            linea.setAttribute("stroke-dasharray", "10 10");
-            linea.setAttribute("opacity", "0.9");
+        if (todosLosPuntosGlobales.length > 0) {
+            const lineaUnificada = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+            lineaUnificada.setAttribute("points", todosLosPuntosGlobales.map(p => `${p.x},${p.y}`).join(" "));
+            lineaUnificada.setAttribute("fill", "none");
+            lineaUnificada.setAttribute("stroke", "#bbbbbb");
+            lineaUnificada.setAttribute("stroke-width", "2.5");
+            lineaUnificada.setAttribute("stroke-dasharray", "10 10");
+            lineaUnificada.setAttribute("opacity", "0.9");
+            svgFinal.appendChild(lineaUnificada);
+        }
 
-            svgFinal.appendChild(linea);
+        todosLosPuntosGlobales.forEach(punto => {
+            const cuadrado = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            cuadrado.setAttribute("x", punto.x - 12);
+            cuadrado.setAttribute("y", punto.y - 12);
+            cuadrado.setAttribute("width", "24");
+            cuadrado.setAttribute("height", "24");
+            cuadrado.setAttribute("rx", "3");
 
-            puntosFinales.forEach(punto => {
-                const cuadrado = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            if (punto.color === 'cuadrado-rojo') cuadrado.setAttribute("fill", "#aa4d3c");
+            if (punto.color === 'cuadrado-verde') cuadrado.setAttribute("fill", "#2e7d32");
+            if (punto.color === 'cuadrado-amarillo') cuadrado.setAttribute("fill", "#fbc02d");
+            if (punto.color === 'cuadrado-azul') cuadrado.setAttribute("fill", "#1565c0");
 
-                cuadrado.setAttribute("x", punto.x - 12);
-                cuadrado.setAttribute("y", punto.y - 12);
-                cuadrado.setAttribute("width", "24");
-                cuadrado.setAttribute("height", "24");
-                cuadrado.setAttribute("rx", "3");
-
-                if (punto.color === 'cuadrado-rojo') cuadrado.setAttribute("fill", "#aa4d3c");
-                if (punto.color === 'cuadrado-verde') cuadrado.setAttribute("fill", "#2e7d32");
-                if (punto.color === 'cuadrado-amarillo') cuadrado.setAttribute("fill", "#fbc02d");
-                if (punto.color === 'cuadrado-azul') cuadrado.setAttribute("fill", "#1565c0");
-
-                cuadrado.setAttribute("stroke", "white");
-                cuadrado.setAttribute("stroke-width", "1.5");
-
-                svgFinal.appendChild(cuadrado);
-            });
+            cuadrado.setAttribute("stroke", "none");
+            svgFinal.appendChild(cuadrado);
         });
 
         contenedorFinal.appendChild(svgFinal);
 
         const mensajeFinal = document.createElement('div');
         mensajeFinal.className = 'mensaje-exito-pantalla';
+        mensajeFinal.style.color = '#1e1e1e';
+        mensajeFinal.style.textShadow = 'none';
 
         if (TOTAL_CONSTELACIONES === 2) {
             mensajeFinal.innerText = 'Has encontrado las dos formas.';
@@ -893,10 +962,150 @@ document.addEventListener("DOMContentLoaded", () => {
         contenedorFinal.appendChild(mensajeFinal);
 
         setTimeout(() => {
-            mensajeFinal.classList.add('visible');
-        }, 10);
-    }
+            mensajeFinal.innerText = 'Haz clic secuencialmente en los nodos para revelar lo oculto...';
+            
+            const nodosFinales = svgFinal.querySelectorAll('rect');
+            if (nodosFinales.length === 0) return;
 
+            svgFinal.style.pointerEvents = "auto";
+
+            const palabra = "CUADRICULANDO";
+            let clicsEfectuados = 0;
+
+            const contenedorPalabra = document.createElement('div');
+            contenedorPalabra.id = 'revelacion-palabra-oculta';
+            contenedorPalabra.style.position = 'absolute';
+            contenedorPalabra.style.bottom = '12%'; 
+            contenedorPalabra.style.left = '50%';
+            contenedorPalabra.style.transform = 'translateX(-50%)';
+            contenedorPalabra.style.fontSize = '3rem';
+            contenedorPalabra.style.fontWeight = 'bold';
+            contenedorPalabra.style.letterSpacing = '8px';
+            contenedorPalabra.style.color = '#1e1e1e'; 
+            contenedorPalabra.style.fontFamily = "'Inlanders', sans-serif"; 
+            contenedorPalabra.style.textAlign = 'center';
+            contenedorPalabra.style.zIndex = '1000';
+            contenedorFinal.appendChild(contenedorPalabra);
+
+            nodosFinales.forEach(nodo => {
+                nodo.style.cursor = 'pointer';
+                nodo.style.transition = 'transform 0.2s ease, filter 0.2s ease, stroke 0.2s ease, fill 0.2s ease';
+                nodo.style.transformOrigin = 'center';
+                nodo.style.transformBox = 'fill-box';
+            });
+
+            nodosFinales.forEach((nodo) => {
+                nodo.addEventListener('click', function gestionarClicRevelacion(e) {
+                    e.stopPropagation();
+
+                    if (audioClickBueno) {
+                        audioClickBueno.currentTime = 0;
+                        audioClickBueno.play().catch(err => console.log("Audio play blocked: ", err));
+                    }
+                    
+                    if (nodo.dataset.clickeado === "true") return;
+                    nodo.dataset.clickeado = "true";
+
+                    clicsEfectuados++;
+
+                    nodo.setAttribute("fill", "#ffffff"); 
+                    nodo.setAttribute("stroke", "#1e1e1e"); 
+                    nodo.setAttribute("stroke-width", "2");
+                    nodo.style.transform = "scale(1.3)";
+                    nodo.style.filter = "drop-shadow(0px 4px 6px rgba(0,0,0,0.15))";
+
+                    const letrasPorClic = Math.ceil(palabra.length / nodosFinales.length);
+                    const limiteLetras = Math.min(clicsEfectuados * letrasPorClic, palabra.length);
+                    
+                    contenedorPalabra.innerText = palabra.substring(0, limiteLetras);
+
+                    if (clicsEfectuados >= nodosFinales.length) {
+                        contenedorPalabra.innerText = palabra;
+                        mensajeFinal.innerText = 'Has desvelado el concepto oculto.';
+
+                        escenarioJuegoFinal.style.setProperty('background-color', '#000000', 'important');
+                        escenarioJuegoFinal.style.setProperty('background', '#000000', 'important');
+
+                        if (sonidoFinal) {
+                            sonidoFinal.play().catch(err => console.log("Audio play blocked: ", err));
+                        }
+
+                        mensajeFinal.style.color = '#ffffff';
+                        mensajeFinal.style.textShadow = '0 0 12px rgba(255,255,255,.8)';
+                        contenedorPalabra.style.color = '#ffffff';
+
+                        nodosFinales.forEach(n => {
+                            n.setAttribute("stroke", "#ffffff");
+                            n.style.filter = "drop-shadow(0px 0px 10px #ffffff)";
+                        });
+
+                        const lineasConectoras = svgFinal.querySelectorAll('polyline');
+                        lineasConectoras.forEach(linea => linea.remove());
+
+                        let todasLasCoordenadas = [];
+
+                        nodosFinales.forEach(rect => {
+                            todasLasCoordenadas.push({
+                                x: parseFloat(rect.getAttribute("x")) + 12,
+                                y: parseFloat(rect.getAttribute("y")) + 12
+                            });
+                        });
+
+                        todasLasCoordenadas.sort((a, b) => a.x - b.x);
+
+                        const granFormaFinal = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+                        granFormaFinal.setAttribute("points", todasLasCoordenadas.map(p => `${p.x},${p.y}`).join(" "));
+                        granFormaFinal.setAttribute("fill", "none");
+                        granFormaFinal.setAttribute("stroke", "#ffffff");
+                        granFormaFinal.setAttribute("stroke-width", "3");
+                        granFormaFinal.style.filter = "drop-shadow(0 0 8px white)";
+
+                        svgFinal.insertBefore(granFormaFinal, svgFinal.firstChild);
+
+                        const botonVolver = document.createElement("button");
+                        botonVolver.id = "boton-volver-experiencia";
+                        botonVolver.className = "boton-continuar-interactivo"; 
+                        botonVolver.innerText = "Volver a la experiencia";
+
+                        if (contenedorFinal) {
+                            contenedorFinal.appendChild(botonVolver);
+                        } else {
+                            document.body.appendChild(botonVolver);
+                        }
+
+                        setTimeout(() => {
+                            botonVolver.classList.add("mostrar-suave");
+                        }, 1000);
+
+                        botonVolver.addEventListener("click", () => {
+
+                            if (audioClickBueno) {
+                                audioClickBueno.currentTime = 0;
+                                audioClickBueno.play().catch(err => console.log("Audio play blocked: ", err));
+                            }
+
+                            botonVolver.remove();
+
+                            contadorClics = 0;
+                            historialPosiciones = [];
+                            constelacionesGuardadas = [];
+                            constelacionActual = 1;
+                            juegoTerminado = true;
+
+                            contenedorFinal.innerHTML = "";
+
+                            escenarioJuegoFinal.classList.remove("modo-invertido");
+                            escenarioJuegoFinal.style.setProperty("background", "#1e1e1e", "important");
+                            escenarioJuegoFinal.style.setProperty("background-color", "#1e1e1e", "important");
+
+                            mostrarSelectorConstelaciones();
+                        });
+                    }
+                });
+            });
+        }, 2000); 
+    }
+    
     function procesarAccionMovimientoGlobal(clientX, clientY) {
         if (capaNegra && !juegoTerminado && capaNegra.style.display !== 'none') {
             capaNegra.style.setProperty('--x', `${clientX}px`);
@@ -924,15 +1133,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
-
-
-
-
-
-
 // ==========================================================================
-// 9. LÓGICA DEL BOTÓN INTERACTIVO DESPLEGABLE (IFRAME DEL PIX)
+// 9. LÓGICA DEL BOTÓN INTERACTIVO DESPLEGABLE (IFRAME)
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", function() {
     const boton = document.getElementById("btn-desplegar-iframe");
@@ -945,12 +1147,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 contenedor.classList.add("iframe-visible");
                 boton.textContent = "OCULTAR EL PIX";
 
-                // Desplazamiento centrado y suave automático
                 setTimeout(() => {
-                    contenedor.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'center' 
-                    });
+                    contenedor.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 50);
 
             } else {
@@ -962,30 +1160,34 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-
-
-
-
-
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
-    const cuadro = document.getElementById("cuadro-movil");
+    const cuadro = document.querySelector(".cuadro-amarillo");
+    if (!cuadro) return;
 
-    if (cuadro) {
-        cuadro.addEventListener("click", () => {
-            /* Genera un número entero aleatorio entre 1 y 4 
-               Matemática: Math.random() genera de 0 a 0.99 -> * 4 = 0 a 3.96 -> Math.floor baja a 0-3 -> + 1 = 1-4 */
-            const nuevaColumna = Math.floor(Math.random() * 4) + 1;
-            const nuevaFila = Math.floor(Math.random() * 4) + 1;
+    const colores = ["color-amarillo", "color-rojo", "color-verde", "color-azul"];
+    let indiceColorActual = 0;
 
-            /* Aplicamos las coordenadas directamente a las propiedades de Grid del CSS */
-            cuadro.style.gridColumn = nuevaColumna;
-            cuadro.style.gridRow = nuevaFila;
-        });
+    function moverYCambiarColor() {
+        const nuevaColumna = Math.floor(Math.random() * 4) + 1;
+        const nuevaFila = Math.floor(Math.random() * 4) + 1;
+
+        cuadro.style.gridColumn = nuevaColumna;
+        cuadro.style.gridRow = nuevaFila;
+
+        colores.forEach(color => cuadro.classList.remove(color));
+
+        indiceColorActual = (indiceColorActual + 1) % colores.length;
+        const siguienteColor = colores[indiceColorActual];
+        cuadro.classList.add(siguienteColor);
+        
+        cuadro.style.transform = "scale(0.70)";
+        setTimeout(() => {
+            cuadro.style.transform = "scale(0.80)";
+        }, 80);
     }
+
+    cuadro.addEventListener("click", (e) => {
+        e.stopPropagation(); 
+        moverYCambiarColor();
+    });
 });

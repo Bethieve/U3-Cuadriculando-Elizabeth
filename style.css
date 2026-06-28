@@ -310,23 +310,7 @@ p.visible,
 
 
 
-.back-arrow {
-    position: fixed;
-    top: 80px;
-    left: 55px;
-    text-decoration: none;
-    color: #e1e1e1;
-    font-size: 70px;
-    font-weight: bold;
-    line-height: 1;
-    transition: transform 0.25s ease;
-    cursor: pointer;
-    z-index: 1000;
-}
 
-.back-arrow:hover {
-    transform: scale(1.15);
-}
 
 .espaciador-inferior {
     display: block;
@@ -1420,13 +1404,6 @@ p.visible,
     transition: transform 0.1s ease;
 }
 
-.cuadro-amarillo:hover {
-    transform: scale(0.96); 
-}
-
-.cuadro-amarillo:active {
-    transform: scale(0.85);
-}
 
 /* ==========================================================================
    NUEVO CONTENEDOR NEGRO PARA LA CUADRÍCULA
@@ -1450,6 +1427,56 @@ p.visible,
 
     margin-top: 30px;
 }
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   🎨 VARIACIONES DE COLOR PARA LOS CLICKS (Añadir al final del CSS)
+   ========================================================================== */
+
+/* 1. Variante Amarilla (puedes usar esta o tu .cuadro-amarillo original) */
+.cuadro-amarillo, .color-amarillo { 
+    background-color: #ffd32a !important; 
+    box-shadow: 0 0 15px rgba(255, 250, 231, 0.4);
+}
+
+/* 2. Variante Roja */
+.cuadro-rojo, .color-rojo { 
+    background-color: #aa4d3c !important; 
+    box-shadow: 0 0 15px rgba(252, 167, 167, 0.4);
+     border-radius: 4px; 
+      transform: scale(0.80); 
+}
+
+/* 3. Variante Verde */
+.cuadro-verde, .color-verde { 
+    background-color: #74aa9f !important; /* Verde vibrante */
+    box-shadow: 0 0 15px rgba(212, 255, 230, 0.4);
+     border-radius: 4px; 
+      transform: scale(0.80); 
+}
+
+/* 4. Variante Azul */
+.cuadro-azul, .color-azul { 
+    background-color: #1565c0 !important; 
+    box-shadow: 0 0 15px rgba(219, 236, 253, 0.4);
+     border-radius: 4px; 
+      transform: scale(0.80); 
+}
+
+
+
+
+
+
+
+
 
 /* ==========================================================================
    SECCIÓN DE FONDO COMPLETO DE EXTREMO A EXTREMO
@@ -1749,7 +1776,6 @@ p.visible,
 
 
 
-
 /* ==========================================================================
    14. CONFIGURACIÓN COMPLETA DEL MINIJUEGO (MALLA FLUIDA AUTOMÁTICA)
    ========================================================================== */
@@ -1808,7 +1834,7 @@ p.visible,
 /* El cuadrado rojo del juego */
 .cuadrado-rojo {
     background-color: #aa4d3c !important;
-    box-shadow: 0 0 25px rgba(170, 77, 60, 0.9) !important;
+    box-shadow: 0 0 25px rgba(255, 164, 149, 0.9) !important;
     pointer-events: auto !important;
     border-radius: 4px !important;
     z-index: 20 !important;
@@ -1818,8 +1844,8 @@ p.visible,
 
 /* El cuadrado verde del juego */
 .cuadrado-verde {
-    background-color: #2e7d32 !important;
-    box-shadow: 0 0 25px rgba(46, 125, 50, 0.9) !important;
+    background-color: #74aa9f !important;
+    box-shadow: 0 0 25px rgba(177, 255, 181, 0.9) !important;
     pointer-events: auto !important;
     border-radius: 4px !important;
     z-index: 20 !important;
@@ -1830,7 +1856,7 @@ p.visible,
 /* El cuadrado amarillo del juego */
 .cuadrado-amarillo {
     background-color: #fbc02d !important;
-    box-shadow: 0 0 25px rgba(251, 192, 45, 0.9) !important;
+    box-shadow: 0 0 25px rgba(251, 236, 196, 0.9) !important;
     pointer-events: auto !important;
     border-radius: 4px !important;
     z-index: 20 !important;
@@ -1841,7 +1867,7 @@ p.visible,
 /* El cuadrado azul del juego */
 .cuadrado-azul {
     background-color: #1565c0 !important;
-    box-shadow: 0 0 25px rgba(21, 101, 192, 0.9) !important;
+    box-shadow: 0 0 25px rgba(191, 221, 255, 0.9) !important;
     pointer-events: auto !important;
     border-radius: 4px !important;
     z-index: 20 !important;
@@ -1854,31 +1880,31 @@ p.visible,
    ========================================================================== */
 .cuadrado-malo-morado {
     background-color: #6a1b9a !important; 
-    box-shadow: 0 0 15px rgba(106, 27, 154, 0.6) !important;
+    
     border-radius: 4px !important;
 }
 
 .cuadrado-malo-naranja {
     background-color: #d84315 !important; 
-    box-shadow: 0 0 15px rgba(216, 67, 21, 0.6) !important;
+  
     border-radius: 4px !important;
 }
 
 .cuadrado-malo-gris {
     background-color: #4e342e !important; 
-    box-shadow: 0 0 15px rgba(78, 52, 46, 0.6) !important;
+
     border-radius: 4px !important;
 }
 
 .cuadrado-malo-rosa {
     background-color: #c2185b !important; 
-    box-shadow: 0 0 15px rgba(194, 24, 91, 0.6) !important;
+   
     border-radius: 4px !important;
 }
 
 .cuadrado-malo-cian {
     background-color: #00838f !important; 
-    box-shadow: 0 0 15px rgba(0, 131, 143, 0.6) !important;
+  
     border-radius: 4px !important;
 }
 
@@ -1953,10 +1979,15 @@ p.visible,
     text-shadow: 0 0 12px rgba(255, 255, 255, 0.8) !important;
 }
 
+
+
+
+
+
+
 /* ==========================================================================
    SELECTOR INICIAL DE CANTIDAD DE FORMAS (CORREGIDO)
    ========================================================================== */
-
 #selector-constelaciones {
     position: absolute;
     top: 50%;
@@ -1969,7 +2000,8 @@ p.visible,
     border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: 24px;
 
-    padding: 36px 46px;
+    /* Espaciado interno amplio para acompañar la nueva estructura horizontal */
+    padding: 55px 55px 50px 55px; 
     text-align: center;
 
     font-family: 'Louis George Cafe', sans-serif;
@@ -1977,15 +2009,68 @@ p.visible,
 
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 
-    /* ALINEACIÓN VERTICAL: Fuerza a que los elementos se apilen uno debajo del otro */
+    /* ALINEACIÓN VERTICAL */
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+    /* MODIFICADO: Ancho amplio definitivo y altura mínima adaptada */
+    width: 640px;
+    max-width: 95%; /* Mantiene un margen seguro en pantallas medianas o tablets */
+    min-height: 280px; 
+    box-sizing: border-box;
+}
+
+/* NUEVA CLASE PARA LA FLECHA: Flota en la esquina superior izquierda del cuadro */
+.back-arrow {
+    position: absolute;       /* Rompe el flexbox y se posiciona de forma independiente */
+    top: 20px;                /* Distancia desde el borde superior interno del cuadro */
+    left: 25px;               /* Distancia desde el borde izquierdo interno del cuadro */
+    text-decoration: none;
+    color: #e1e1e1;
+    font-size: 38px;          /* Ajustado a 38px para que mantenga proporción y elegancia con tu h2 de 22px */
+    font-weight: bold;
+    line-height: 1;
+    transition: transform 0.25s ease;
+    cursor: pointer;
+    z-index: 10000;           /* Un paso por encima del contenedor */
+}
+
+.back-arrow:hover {
+    transform: scale(1.15);
+}
+
+/* NUEVA ESTILIZACIÓN PARA EL PARRAFO DE ADVERTENCIA */
+/* NUEVA ESTILIZACIÓN PARA EL PÁRRAFO DE ADVERTENCIA (ESTÁTICO Y CON SU AMARILLO ORIGINAL) */
+.advertencia-sitio {
+    /* Desactiva por completo cualquier animación o transición heredada de JavaScript */
+    all: unset !important; 
+    
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+
+    /* Tu color amarillo original con toda su fuerza */
+    color: #ffbc42 !important; 
+    font-weight: bold !important;
+
+    /* Diseño y proporciones adaptadas al contenedor de 740px */
+    margin: 45px 0 10px 0 !important;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+    text-align: center;
+    font-family: 'Louis George Cafe', sans-serif;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 #selector-constelaciones h2 {
-    /* Mantiene el espacio controlado hacia abajo */
-    margin: 0 0 24px 0;
+    /* MODIFICADO: Reducido el margen superior a 10px ya que la advertencia ahora ocupa el espacio intermedio */
+    margin: 10px 0 24px 0;
 
     font-size: 22px;
     font-weight: 400;
@@ -1994,8 +2079,7 @@ p.visible,
     color: white;
 }
 
-.selector-botones-formas {
-    /* Los botones se mantienen en fila horizontal entre sí, pero abajo del título */
+.selector-botones-shapes {
     display: flex;
     gap: 16px;
     justify-content: center;
@@ -2026,7 +2110,177 @@ p.visible,
     color: #1e1e1e;
 }
 
+#boton-continuar-juego:hover {
+    transform: translateX(-50%) scale(1.05) !important;
+    background-color: #e1e1e1 !important;
+    font-family: 'Louis George Cafe';
+}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   ESTILOS PARA EL BOTÓN "CONTINUAR" (SIGUIENTE CONSTELACIÓN)
+   ========================================================================== */
+.boton-continuar-interactivo {
+    position: fixed;         /* Se queda fijo en la pantalla sin importar el scroll */
+    top: 10%;                /* Ubicación en la parte superior */
+    left: 50%;
+    transform: translateX(-50%) scale(1); /* Posición base */
+    
+    /* Tipografía y Espaciado */
+    font-family: 'Louis George Cafe', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding: 14px 32px;
+    
+    /* Restablecemos cualquier estilo nativo del navegador */
+    outline: none;
+    background-image: none !important; 
+    filter: none !important;            /* Bloquea inversiones de color de la pantalla */
+    
+    /* Colores y Apariencia Fijos */
+    background: #ffffff !important; 
+    background-color: #ffffff !important; 
+    color: #1e1e1e !important;            
+    border: 2px solid #ffffff !important; 
+    border-radius: 25px;       
+    
+    /* Interactividad y Efectos */
+    cursor: pointer;
+    z-index: 9999999 !important;   
+    pointer-events: auto !important;      
+   
+    
+    /* Animación suave: Controla la aparición y únicamente el cambio de tamaño */
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Estado cuando el botón ya se muestra en pantalla */
+.boton-continuar-interactivo.mostrar {
+    opacity: 1;
+}
+
+/* EFECTO HOVER: Mantiene los colores idénticos pero se agranda un poco */
+.boton-continuar-interactivo:hover {
+    transform: translateX(-50%) scale(1.12) !important; /* Solo se agranda un poco */
+    background: #ffffff !important;                      /* Forzamos que siga blanco */
+    background-color: #ffffff !important; 
+    color: #1e1e1e !important;                           /* Forzamos que el texto siga oscuro */
+    border-color: #ffffff !important;     
+}
+
+/* Efecto visual al hacer clic */
+.boton-continuar-interactivo:active {
+    transform: translateX(-50%) scale(0.98) !important; 
+}
+
+
+/* ==========================================================================
+   ESTILO DEFINITIVO Y UNIFICADO PARA EL BOTÓN DE VOLVER
+   ========================================================================== */
+#boton-volver-experiencia {
+    display: inline-block !important;    /* Cambiado de block a inline-block para que no ocupe todo el ancho */
+    visibility: visible !important;
+    top: 10px;
+    /* PREPARACIÓN PARA LA APARICIÓN SUAVE */
+    opacity: 0;                          /* Inicia totalmente invisible */
+    transition: opacity 1s ease-in-out !important; /* Transición suave de 1 segundo */
+    
+    /* ELIMINADO EL POSITION FIXED QUE LO CLAVABA ARRIBA */
+    margin: 40px auto !important;        /* Le da un margen limpio para que respire abajo */
+    
+    /* COLORES DE ALTO CONTRASTE */
+    background-color: #ffffff !important; /* Fondo blanco puro */
+    color: #000000 !important;            /* Letras negras intensas */
+    border: 3px solid #ffffff !important; /* Contorno blanco grueso */
+    
+    /* DISEÑO Y PRESENTACIÓN EXQUISITA */
+    padding: 14px 28px !important;        /* Tamaño grande y cómodo */
+    font-size: 1.1rem !important;
+    font-weight: 900 !important;          /* Letra extra negrita */
+    font-family: 'Louis George Cafe', sans-serif !important; /* Tu tipografía ideal */
+    
+    text-transform: none !important;      /* Respeta la V mayúscula original */
+    cursor: pointer !important;
+    border-radius: 30px !important;       /* Esquinas redondeadas como te gustaban */
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4) !important; /* Brillo blanco extra */
+}
+
+/* Esta clase la activará el JavaScript un segundo después */
+#boton-volver-experiencia.mostrar-suave {
+    opacity: 1 !important;                /* Se vuelve completamente visible */
+}
+
+/* Efecto hover interactivo */
+#boton-volver-experiencia:hover {
+    background-color: #ffffff !important; /* Fondo oscuro al pasar el mouse */
+    color: #1e1e1e !important;            /* Letras blancas */
+    border-color: #ffffff !important;
+}
+
+
+
+/* ==========================================================================
+   ESTILOS PARA EL FINAL INTERACTIVO "CUADRICULANDO" (PULSO DE RESPLANDOR)
+   ========================================================================== */
+#revelacion-palabra-oculta {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    animation: aparecerPalabra 0.3s ease-out;
+    text-transform: uppercase;
+}
+
+@keyframes aparecerPalabra {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 10px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* Evitamos que las polilíneas automáticas estorben los clics de los rectángulos */
+.linea-trayectoria {
+    pointer-events: none !important;
+}
+
+/* ✨ REGLA CORREGIDA: SÓLIDOS AL 100%, PALPITAN SOLO EN SU BRILLO EXTERIOR */
+#contenedor-linea-final svg rect {
+    animation: pulsoLuminosoEstatico 1.5s infinite ease-in-out !important;
+    cursor: pointer;
+    opacity: 1 !important; /* Forzamos a que siempre esté visible al 100% */
+}
+
+@keyframes pulsoLuminosoEstatico {
+    0% {
+        filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.5));
+        stroke: rgba(255, 255, 255, 0.4);
+        stroke-width: 1.5;
+    }
+    50% {
+        filter: drop-shadow(0px 0px 14px rgba(255, 255, 255, 1)); /* Genera el destello de luz hacia afuera */
+        stroke: rgba(255, 255, 255, 1); /* El borde se enciende en blanco puro */
+        stroke-width: 3; /* El borde se engrosa sutilmente en el pulso */
+    }
+    100% {
+        filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.5));
+        stroke: rgba(255, 255, 255, 0.4);
+        stroke-width: 1.5;
+    }
+}
 
 
 
@@ -2164,36 +2418,6 @@ p.visible,
     transition: transform 2.5s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 2.2s cubic-bezier(0.1, 0.8, 0.2, 1), color 0.3s ease !important;
 }
 
-/* ==========================================================================
-   🔄 17. CONTROLADORES COMPLEMENTARIOS (LA FLECHA LIMPIA ARRIBA A LA IZQUIERDA)
-   ========================================================================== */
-#boton-regresar-tablero {
-    position: absolute;
-    
-    /* 🟢 CORRECCIÓN: Movida exactamente a la esquina superior izquierda */
-    top: 30px !important;
-    left: 30px !important;
-    bottom: auto !important;
-    transform: scale(0.8) !important;
-    
-    z-index: 30;
-    opacity: 0;
-    cursor: pointer;
-    
-    /* Sin cajas artificiales alrededor */
-    background: none !important;
-    border: none !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
-}
-
-#boton-regresar-tablero.mostrar {
-    opacity: 1;
-    transform: scale(1) !important;
-}
 
 @keyframes flotacionAleatoria {
     0% { transform: translate(0, 0) rotate(0deg); }
@@ -2239,39 +2463,6 @@ p.visible,
 
 
 
-
-
-/* 🟢 Botón de flecha en la esquina superior izquierda (Más grande y estilizado) */
-#boton-regresar-tablero {
-    position: fixed;
-    left: 30px;
-    top: 30px;
-    background: transparent;
-    border: none;
-    color: #1e1e1e;
-    font-size: 55px; /* Flecha un poco más grande */
-    font-family: sans-serif;
-    cursor: pointer;
-    z-index: 10;
-    opacity: 0;
-    padding: 10px;
-    line-height: 1;
-    transform: scale(0.8);
-    transition: opacity 2.0s ease 3.8s, transform 2.0s ease 3.8s, color 0.3s ease;
-    pointer-events: auto;
-}
-
-/* Efecto hover interactivo para la flecha */
-#boton-regresar-tablero:hover {
-    color: rgba(30, 30, 30, 0.5);
-    transform: scale(1.1);
-}
-
-/* Clase de activación síncronica junto con la frase */
-#boton-regresar-tablero.mostrar {
-    opacity: 1;
-    transform: scale(1);
-}
 
 /* ==========================================================================
    🟢 16. LÍNEA GEOMÉTRICA FINAL (CONECTORA DE PUNTOS)
@@ -2395,186 +2586,6 @@ p.visible,
 
 
 
-
-
-
-/* ==========================================================================
-   INTERFAZ EXCLUSIVA PARA LA PANTALLA AMARILLA (MISMO SCRIPT)
-   ========================================================================== */
-/* Hace que el cuadro sea amarillo cuando corre el script aquí */
-.juego-amarillo .cuadrado-rojo {
-    background-color: #ffeb3b !important;
-    box-shadow: 0 0 15px #ffeb3b !important;
-    cursor: pointer !important;
-}
-
-/* Modificación de la flecha para que aparezca INSTANTÁNEAMENTE en el sexto clic */
-.juego-amarillo #boton-regresar-tablero {
-    position: fixed !important;
-    left: 40px !important;
-    top: 40px !important;
-    background: transparent !important;
-    border: none !important;
-    color: #ffffff !important; /* Blanca para que resalte en la oscuridad */
-    font-size: 60px !important;
-    font-family: sans-serif !important;
-    cursor: pointer !important;
-    z-index: 10 !important;
-    line-height: 1 !important;
-    opacity: 0;
-    transform: scale(0.8);
-    /* Sin retrasos: aparece de golpe en cuanto el script le mete la clase .mostrar */
-    transition: opacity 0.5s ease, transform 0.5s ease, color 0.3s ease !important;
-    pointer-events: auto !important;
-}
-
-/* Efecto hover interactivo para la flecha amarilla */
-.juego-amarillo #boton-regresar-tablero:hover {
-    color: rgba(255, 255, 255, 0.6) !important;
-    transform: scale(1.1) !important;
-}
-
-/* Clase que gatilla tu script.js automáticamente al llegar al sexto clic */
-.juego-amarillo #boton-regresar-tablero.mostrar {
-    opacity: 1 !important;
-    transform: scale(1) !important;
-}
-
-/* ==========================================================================
-   18. CONFIGURACIÓN EXCLUSIVA PARA EL JUEGO AMARILLO (RESTABLECIDO)
-   ========================================================================== */
-.juego-amarillo .casilla-secreta {
-    width: 100% !important;
-    height: 100% !important;
-    aspect-ratio: 1 / 1 !important;
-    box-sizing: border-box;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.juego-amarillo .cuadrado-amarillo {
-    background-color: #ffeb3b !important;
-    box-shadow: 0 0 20px #ffeb3b, 0 0 10px #ffeb3b !important;
-    cursor: pointer !important;
-    display: block !important;
-    border-radius: 8px !important;
-}
-
-.juego-amarillo #boton-regresar-tablero {
-    position: fixed !important;
-    left: 40px !important;
-    top: 40px !important;
-    background: transparent !important;
-    border: none !important;
-    color: #1e1e1e !important;
-    font-size: 60px !important;
-    cursor: pointer !important;
-    z-index: 9999 !important;
-    opacity: 0;
-    transition: opacity 0.3s ease !important;
-    pointer-events: auto !important;
-}
-
-/* Ajuste de color para que la flecha sea más clara */
-.juego-amarillo #boton-regresar-tablero {
-    color: #e0e0e0 !important; /* Un gris claro muy elegante */
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important; /* Añadimos una pequeña sombra para que no se pierda si el fondo es muy brillante */
-}
-
-#capa-negra {
-    background: radial-gradient(circle 100px at var(--x, 50%) var(--y, 50%), transparent 0%, rgba(0,0,0,0.95) 80%);
-}
-
-/* ==========================================================================
-   ESTRUCTURA UNIFICADA DE LA REJILLA (CON CIERRE INFERIOR HERMÉTICO)
-   ========================================================================== */
-#tablero-rejilla {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)) !important;
-    grid-template-rows: repeat(auto-fill, minmax(50px, 1fr)) !important;
-    align-content: start !important; /* 🟢 Fuerza a que las filas se agrupen estrictamente arriba */
-    box-sizing: border-box !important;
-    width: calc(100vw - 40px) !important;
-    height: calc(100vh - 40px) !important;
-    overflow: hidden !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important; /* 🟢 Sella el suelo para cortar las líneas verticales sobrantes */
-}
-
-
-
-
-
-
-
-
-
-/* ==========================================================================
-   ESTILO PARA EL OBJETIVO DEL MINIJUEGO VERDE (BORDES REDONDEADOS)
-   ========================================================================== */
-
-.casilla-secreta.cuadrado-verde {
-    background-color: #74aa9f !important; /* Color verde de tu paleta */
-    cursor: pointer;                      
-    z-index: 10;                          
-    opacity: 1 !important;                
-    
-    /* 🟢 BORDES UN POQUITO REDONDEADOS */
-    border-radius: 6px;                   /* 💡 Ajusta a 4px si lo quieres menos redondo, o a 8px si lo quieres más blando */
-    
-    /* El destello místico en la oscuridad */
-    box-shadow: 0 0 15px #00ff66;
-}
-/* Estilo del escenario durante la revelación */
-.modo-revelacion-final {
-    background-color: #050505; /* Un negro más profundo */
-    transition: background-color 1.5s ease;
-}
-
-/* La rejilla se prepara para el desvanecimiento regular */
-.cuadricula-oculta.rejilla-revelada {
-    background-color: transparent;
-    border: 1px solid rgba(0, 255, 102, 0.15); /* Deja ver un rastro sutil de la matriz */
-    box-shadow: 0 0 40px rgba(0, 255, 102, 0.05);
-    transition: all 1s ease;
-}
-
-/* Cambiamos el comportamiento de colapso por uno de desintegración limpia */
-.casilla-secreta {
-    /* Asegúrate de que tus casillas tengan una transición base suave */
-    transition: background-color 0.2s ease, opacity 0.5s ease, transform 0.5s ease;
-}
-
-
-
-
-
-/* ==========================================================================
-   ESTILO PARA EL OBJETIVO DEL MINIJUEGO AZUL
-   ========================================================================== */
-.casilla-secreta.cuadrado-azul {
-    background-color: #273584!important; /* 🔵 Un azul cyan brillante o el de tu paleta */
-    cursor: pointer;                      
-    z-index: 10;                          
-    opacity: 1 !important;                
-    border-radius: 6px;                   /* Bordes sutilmente redondeados */
-    box-shadow: 0 0 15px #00d2ff;         /* Destello místico azul */
-}
-/* Escenario durante la implosión */
-.modo-implosion-final {
-    background-color: #020617; /* Un fondo azul noche ultra profundo, casi negro */
-    transition: background-color 1s ease;
-}
-
-/* La rejilla se prepara para la distorsión del vórtice */
-.cuadricula-oculta.rejilla-vortice {
-    background-color: transparent;
-    transition: all 0.5s ease;
-}
-
-/* Asegura un comportamiento de transformación limpio en las casillas */
-.casilla-secreta {
-    transform-origin: center center;
-    backface-visibility: hidden;
-}
 
 
 
