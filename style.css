@@ -1,13 +1,10 @@
 /* ==========================================================================
    1. CONFIGURACIONES GENERALES Y FUENTES
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
 
 html {
     scroll-behavior: smooth;
-    
 }
-
 
 /* Limpieza total y única del body */
 body {
@@ -20,7 +17,6 @@ body {
     justify-content: flex-start; /* Permite que la página crezca de arriba a abajo */
     background: #1e1e1e;
     overflow-x: hidden;
-
 }
 
 /* Contenedor que agrupa todo para mantener el ancho máximo controlado */
@@ -50,7 +46,7 @@ div.cuadri {
    
     text-align: center;
     
-    /* 🟢 RESTAURADO: Capa baja para que las imágenes (que tienen z-index superior) pasen por encima */
+    /* RESTAURADO: Capa baja para que las imágenes (que tienen z-index superior) pasen por encima */
     z-index: 5 !important; 
     
     pointer-events: none;
@@ -58,8 +54,8 @@ div.cuadri {
 }
 
 div.cuadri h1 {
-    font-family: "Black Ops One", cursive;
-    font-size: 120px;
+    font-family: 'Black Ops One', sans-serif;
+    font-size: 130px;
     color: #e1e1e1;
     margin: 0;
     padding: 0 20px;
@@ -68,19 +64,21 @@ div.cuadri h1 {
 }
 
 h2 {
-   font-family: "Black Ops One", cursive;
+    font-family: 'Black Ops One', sans-serif;
     font-size: 60px;
     color: #e1e1e1;
     margin-top: 80px;
     letter-spacing: 4px;
 }
 
+/* AQUÍ ESTÁ TU H4 EN POPPINS CON NEGRITA */
 h4 {
-   font-family: "Poppins";
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
     font-size: 23px;              
     color: #efc300;   
     margin-top: -10px;  
-    text-align: left !important; /* 🟢 Cambia solo este título a la izquierda */
+    text-align: left !important; 
 }
 
 /* ==========================================================================
@@ -88,12 +86,12 @@ h4 {
    ========================================================================== */
 
 .linea-titulo {
-    position: relative;       
+    position: relative;        
     display: inline-block;    
     padding-bottom: 15px;     /* Espacio vertical entre texto y línea */
     margin-bottom: 30px;      
     
-    /* 🟢 Evita que herede distorsiones si el título tiene efectos de escala o movimiento */
+    /* Evita que herede distorsiones si el título tiene efectos de escala o movimiento */
     transform: translateZ(0); 
     backface-visibility: hidden;
 }
@@ -108,27 +106,28 @@ h4 {
     /* CONTROL DE MEDIDA FIJA: */
     width: 1150px;             /* Aquí manejas el largo a tu gusto */
     
-    /* 🟢 CONFIGURACIÓN ULTRA NITIDEZ: Fija 1px real sin importar la resolución */
+    /* CONFIGURACIÓN ULTRA NITIDEZ: Fija 1px real sin importar la resolución */
     height: 1px;              
     background-color: #e1e1e1; 
     
-    /* 🟢 SOLUCIÓN AL SUBPIXEL RENDERING: Obliga al navegador a renderizar bordes limpios */
+    /* SOLUCIÓN AL SUBPIXEL RENDERING: Obliga al navegador a renderizar bordes limpios */
     image-rendering: pixelated;
     shape-rendering: crispEdges;
 }
+
 /* ==========================================================================
    2. TEXTOS Y ANIMACIONES DE PÁRRAFO
    ========================================================================== */
 
 p {
-    font-family: 'Louis George Cafe';
-    font-size: 23px;              
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;              
     color: #e1e1e1;              
     line-height: 1.6;
     margin: 40px auto 80px auto;
     text-align: center;            
     
-    /* 🔴 ESTADO INICIAL: Oculto y un poco más abajo */
+    /* ESTADO INICIAL: Oculto y un poco más abajo */
     opacity: 0;
     transform: translateX(-50%) translateY(30px); 
     
@@ -143,39 +142,31 @@ p {
     column-gap: 110px;           
     text-wrap: pretty;           
 
-    /* 🟢 Transición suave para que funcione en ambas direcciones */
+    /* Transición suave para que funcione en ambas direcciones */
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-/* 🟢 ESTADO VISIBLE: Esta clase se pondrá al bajar y se quitará al subir */
+/* ESTADO VISIBLE: Esta clase se pondrá al bajar y se quitará al subir */
 p.parrafo-visible {
     opacity: 1;
     transform: translateX(-50%) translateY(0); /* Vuelve a su altura original */
 }
 
-/* 🟢 Modificado: Ahora el texto de autor también se prepara oculto para animarse */
-
-
-
-
-
-
-
 /* ==========================================================================
    TEXTO AUTOR (UNA SOLA COLUMNA REAL Y CONTINUA)
    ========================================================================== */
 .texto-autor { 
-    font-family: 'Louis George Cafe';
-    font-size: 23px;              
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;              
     color: #e1e1e1;              
     line-height: 1.6;
     margin: 40px auto 80px auto;
     
-    /* 🟢 EL REMEDIO REAL: Fuerza a comportarse como un bloque único y continuo */
-    display: block;               
-    text-align: center;           /* Alinea las letras al centro */
+    /* EL REMEDIO REAL: Fuerza a comportarse como un bloque único y continuo */
+    display: block;                
+    text-align: center;           
     
-    /* 🟢 ANULA CUALQUIER DIVISIÓN DE COLUMNAS HEREDADA DEL PADRE */
+    /* ANULA CUALQUIER DIVISIÓN DE COLUMNAS HEREDADA DEL PADRE */
     column-count: 1 !important;   
     columns: 1 !important;
     
@@ -187,19 +178,12 @@ p.parrafo-visible {
     opacity: 0;
 }
 
-/* El estado visible para la animación (Exactamente como lo tenías) */
+/* El estado visible para la animación */
 p.visible,
 .texto-autor.visible {
     opacity: 1;
     transform: translateX(-50%) translateY(0); 
 }
-
-
-
-
-
-
-
 
 /* ==========================================================================
    3. ESTRUCTURA DE PANTALLAS Y NAVEGACIÓN
@@ -228,35 +212,31 @@ p.visible,
 }
 
 /* ==========================================================================
-   4. PESTAÑA DE NAVEGACIÓN SUPERIOR FIJA (CORREGIDA SIN INTERFERENCIAS)
+   4. PESTAÑA DE NAVEGACIÓN SUPERIOR FIJA
    ========================================================================== */
 .buttons-group {
     display: flex !important;
     flex-direction: row !important;   
     justify-content: center !important; 
     align-items: center !important;
-    gap: 24px !important;             
+    gap: 24px !important;              
     
-    /* Pestaña fija arriba */
-    position: fixed !important;       
+    position: fixed !important;        
     top: 0 !important;                
-    left: 0 !important;               
+    left: 0 !important;                
     width: 100vw !important;          
     height: 65px !important;          
     background-color: #e1e1e1 !important; 
     
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05); 
-    z-index: 99999 !important; /* Capa suprema para la barra */
+    z-index: 99999 !important; 
     box-sizing: border-box !important;
     padding: 0 20px !important;
-    margin: 0 !important;             
+    margin: 0 !important;              
 }
 
-/* 🟢 ELIMINAMOS EL ::AFTER VIEJO QUE EMPUJA EL CONTENIDO AL INFINITO */
-
-/* Botones estáticos horizontales */
 .discover-btn {
-    display: inline-flex !important;       
+    display: inline-flex !important;        
     align-items: center !important;        
     justify-content: center !important;    
     text-align: center !important;         
@@ -268,7 +248,8 @@ p.visible,
     background: #1e1e1e !important;
     color: #ffffff !important;
     
-    font-family: 'Louis George Cafe' ;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     font-size: 11px;            
     letter-spacing: 2px;        
     text-decoration: none !important;
@@ -278,29 +259,19 @@ p.visible,
 
 .discover-btn:hover {
     background: #ffffff !important;          
-    color: #1e1e1e !important;               
+    color: #1e1e1e !important;                
     border-color: #1e1e1e !important;        
 }
 
-
-
 /* ==========================================================================
-   COMPENSACIÓN DE SCROLL PARA ENLACES ANCLA (EVITA QUE LA PESTAÑA TAPE TÍTULOS)
+   COMPENSACIÓN DE SCROLL PARA ENLACES ANCLA
    ========================================================================== */
 #seccion-info,
 #seccion-concepto,
 #seccion-Pix,
 #seccion-materialidad {
-    /* 🟢 Le dice al navegador que se detenga 95px antes del borde de la sección.
-       Como tu pestaña mide 65px, el título quedará con 30px libres por debajo, 
-       mostrándose completo y con aire para que se vea impecable. */
     scroll-margin-top: 95px !important;
 }
-
-
-
-
-
 
 .espaciador-inferior {
     display: block;
@@ -310,7 +281,7 @@ p.visible,
 }
 
 /* ==========================================================================
-   5. IMÁGENES Y CAPAS VISUALES (PARALLAX COORDENADAS)
+   5. IMÁGENES Y CAPAS VISUALES (PARALLAX)
    ========================================================================== */
 .cuadri {
     width: 1100px;
@@ -366,24 +337,16 @@ p.visible,
     50% { opacity: 1; filter: brightness(1.15) contrast(1.05); }
 }
 
-
-
-
-
-
 /* ==========================================================================
-   NUEVOS BOTONES ESTÁTICOS CON EFECTO DE ESCALA
+   BOTONES ESTÁTICOS
    ========================================================================== */
-
-/* Contenedor para alinearlos al centro y separarlos entre sí */
 .grupo-botones-estaticos {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 25px; /* Espacio de separación entre cada botón */
+    gap: 25px; 
     margin: 30px 0;
     width: 100%;
-    
 }
 
 .btn-estatico-escala {
@@ -395,223 +358,176 @@ p.visible,
     padding: 0 !important; 
     width: 100px !important;  
     height: 35px !important; 
-    font-family: 'Louis George Cafe', sans-serif !important;
+    font-family: 'Poppins', sans-serif !important;
     font-size: 15px !important; 
     text-align: center;
     letter-spacing: normal !important;
-
-    /* ==========================================================================
-       🟢 CORRECCIÓN: ELIMINAR LA NEGRITA Y DEJAR LA LETRA FINITA
-       ========================================================================== */
-    font-weight: normal !important; /* 💡 Esto le quita el grosor "bold" por completo */
-    /* text-transform: none !important; */ /* Opcional: Descomenta esto si tampoco quieres que esté todo en mayúsculas */
+    font-weight: normal !important; 
 }
 
-/* 🟢 INTERACCIÓN: Se agranda un poquito (5%) al pasar el mouse por encima */
 .btn-estatico-escala:hover {
     transform: scale(1.09) !important;
 }
 
-/* Evitamos que el navegador haga un salto abrupto al hacerles clic */
 .btn-estatico-escala:active {
     transform: scale(1.02) !important; 
 }
 
-
-/* Fondo para el primer botón (BOTÓN 01) */
 .grupo-botones-estaticos .btn-estatico-escala:nth-child(1) {
-    background-color:  #aa4d3c !important; /* Tu color de fondo */
-    color: #ffffff !important;            /* Fuerza el texto a blanco para que contraste */
+    background-color:  #aa4d3c !important; 
+    color: #ffffff !important;            
 }
 
-/* Fondo para el segundo botón (BOTÓN 02) */
 .grupo-botones-estaticos .btn-estatico-escala:nth-child(2) {
-    background-color: #74aa9f !important; /* Tu color de fondo */
+    background-color: #74aa9f !important; 
     color: #ffffff !important;
 }
 
-/* Fondo para el tercer botón (BOTÓN 03) */
 .grupo-botones-estaticos .btn-estatico-escala:nth-child(3) {
-    background-color: #273584 !important; /* Tu color de fondo */
+    background-color: #273584 !important; 
     color: #ffffff !important;
 }
- 
 
 /* ==========================================================================
-   PRIMERA GALERIA DE GIFS (CON EFECTO DE ESCALA EN HOVER)
+   PRIMERA GALERIA DE GIFS
    ========================================================================== */
-
-/* 1. Contenedor general invisible (Se mantiene igual) */
 .seccion-bloques-gifs {
     display: flex;            
     justify-content: center;  
     align-items: center;      
     gap: 25px;                
     width: 100%;
-    
     margin-top: 40px;         
     margin-bottom: 90px;      
     margin-left: auto;
     margin-right: auto;       
 }
 
-/* 2. Cajas contenedoras negras individuales MODIFICADAS */
 .caja-gif {
     background-color: #000000;
     padding: 12px;            
     border-radius: 15px;      
     box-sizing: border-box;
-    
-    /* Tamaño simétrico */
     width: 350px;             
     height: 350px;            
-    
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;         
-
-    /* 🟢 CORRECCIÓN PARA EL EFECTO:
-       Agregamos una transición a la caja completa para que el agrandado sea suave.
-       Usamos cubic-bezier para que se sienta más cinemático, igual que tus botones. */
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
-    
-    /* Asegura que la caja esté por encima de otras si se solapan al agrandar */
     position: relative;
     z-index: 1;
 }
 
-/* 🟢 NUEVO: Efecto al pasar el cursor sobre LA CAJA COMPLETA */
 .caja-gif:hover {
-    /* Se agranda un 5% (1.05). Es un cambio sutil pero notorio. */
     transform: scale(1.05);
-    
-    /* Opcional: Agregamos una sombra suave para darle profundidad al "levitar" */
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    
-    /* Sube el z-index en hover para que no quede detrás de la caja vecina */
     z-index: 2; 
 }
 
-/* 3. Ajuste de los GIFs dentro de sus cajas MODIFICADAS */
 .caja-gif .gif-media {
     width: 100%;              
     height: 100%;             
     object-fit: cover;        
     border-radius: 8px;       
     display: block;
-
-    /* Capa oscura por defecto */
     filter: brightness(0.5);  
-    
-    /* Mantenemos la transición suave del brillo */
     transition: filter 0.4s ease; 
 }
 
-/* Efecto de brillo al pasar el cursor (Se mantiene igual, se activa junto con la escala) */
 .caja-gif:hover .gif-media {
     filter: brightness(1);    
 }
 
-
 /* ==========================================================================
-   COMPONENTES TÉCNICOS LINEALES (CARRUSEL / FILA DE RULETAS)
+   COMPONENTES TÉCNICOS LINEALES
    ========================================================================== */
 
-/* Contenedor principal del módulo individual */
 .caja-componente-tecnico {
-    width: 240px;                     /* Tamaño compacto para colocar 3 o 4 en fila */
-    background-color: #1e1e1e;        /* Fondo negro puro/oscuro técnico */
-    border: 1px solid #e1e1e1;        /* Línea exterior blanca muy delgada */
-    border-radius: 4px;               /* Esquinas ligeramente suavizadas, no circulares */
+    width: 240px;                     
+    background-color: #1e1e1e;        
+    border: 1px solid #e1e1e1;        
+    border-radius: 4px;               
     display: flex;
     flex-direction: column;
     overflow: hidden;
     box-sizing: border-box;
 }
 
-/* Área superior donde habita el gráfico de la ruleta */
 .ruleta-tecnica-contenedor {
     width: 100%;
-    padding: 25px 0;                  /* Aire arriba y abajo para centrar visualmente */
+    padding: 25px 0;                  
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #e1e1e1; /* Línea divisoria técnica entre gráfico y texto */
+    border-bottom: 1px solid #e1e1e1; 
 }
 
-/* El SVG adaptativo */
 .ruleta-svg {
-    width: 170px;                     /* Dimensión equilibrada dentro de la caja */
+    width: 170px;                     
     height: 170px;
 }
 
-/* Estilo estricto para las líneas del plano */
 .linea-tecnica {
     fill: none;
-    stroke: #e1e1e1;                  /* Color lineal blanco */
-    stroke-width: 1px;                /* Grosor mínimo y limpio */
+    stroke: #e1e1e1;                  
+    stroke-width: 1px;                
 }
 
-/* Estilo tipográfico para los números internos */
 .texto-tecnico-numero {
     fill: #e1e1e1;
-    font-family: 'Louis George Cafe' ;
+    font-family: 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: bold;
-    text-anchor: middle;              /* Centra horizontalmente el texto en su coordenada */
+    text-anchor: middle;              
     dominant-baseline: middle;  
-    text-align: left;      /* Centra verticalmente el texto en su coordenada */
+    text-align: left;      
 }
 
-/* Área inferior de información */
 .espacio-texto-tecnico {
     padding: 15px;
-    background-color: #1e1e1e;        /* Un tono apenas sutil para diferenciar el fondo */
+    background-color: #1e1e1e;        
     color: #e1e1e1;
-    font-family: 'Louis George Cafe' ;
+    font-family: 'Poppins', sans-serif;
     text-align: left;  
 }
 
 .espacio-texto-tecnico h3 {
     margin: 0 0 5px 0;
     font-size: 14px;
-    letter-spacing: 2px;              /* Estilo técnico expandido */
-    font-family: 'Louis George Cafe';
+    letter-spacing: 2px;              
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
 }
 
 .espacio-texto-tecnico p {
     margin: 0;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.4;
-    color: #e1e1e1;                   /* Blanco suavizado para legibilidad del párrafo */
-    width: 100% !important;           /* Ignora los anchos globales de tus otros párrafos */
+    color: #e1e1e1;                   
+    width: 100% !important;           
     max-width: 100% !important;
-    transform: none !important;       /* Evita heredar la animación de desplazamiento */
-    opacity: 1 !important;            /* Siempre visible */
+    transform: none !important;       
+    opacity: 1 !important;            
     left: 0 !important;
-    columns: 1 !important;            /* Columna única obligatoria aquí adentro */
+    columns: 1 !important;            
     text-align: left;  
     margin-top: 15px;
 }
 
 /* ==========================================================================
-   ANIMACIÓN DE ROTACIÓN PARA LA RULETA COMPLETAMENTE INTEGRADA (EJE FIJO)
+   ANIMACIÓN DE ROTACIÓN PARA LA RULETA
    ========================================================================== */
-
-/* 1. Forzamos al navegador a usar el centro geométrico del objeto vectorial */
 .ruleta-svg {
-    transform-origin: center center;     /* Obliga a girar sobre su propio eje central */
-    transform-box: fill-box;             /* 🟢 CLAVE: Mantiene el centro estricto dentro de su caja SVG */
-    transition: transform 0.8s ease-out; /* Desaceleración suave al quitar el cursor */
+    transform-origin: center center;     
+    transform-box: fill-box;             
+    transition: transform 0.8s ease-out; 
 }
 
-/* 2. Al pasar el cursor por la tarjeta, toda la estructura del SVG gira */
 .caja-componente-tecnico:hover .ruleta-svg {
     animation: girarRuletaCompleta 8s linear infinite;
 }
 
-/* 3. Definición del bucle de giro continuo de 0 a 360 grados */
 @keyframes girarRuletaCompleta {
     from {
         transform: rotate(0deg);
@@ -621,15 +537,10 @@ p.visible,
     }
 }
 
-
-
 /* ==========================================================================
    COMPONENTES TÉCNICOS LINEALES - ADICIÓN DE FICHA
    ========================================================================== */
 
-/* Comparte las mismas propiedades estructurales que la ruleta (.caja-componente-tecnico) */
-
-/* Área superior donde habita el gráfico de la ficha */
 .grafico-tecnico-contenedor {
     width: 100%;
     padding: 25px 0;
@@ -639,37 +550,28 @@ p.visible,
     border-bottom: 1px solid #e1e1e1;
 }
 
-/* El SVG adaptativo de la ficha */
 .ficha-svg {
     width: 170px;
     height: 170px;
 }
 
-/* Líneas de ejes o guías de plano técnico (Efecto punteado sutil) */
 .linea-guia-tecnica {
     fill: none;
-    stroke: #e1e1e1;                  /* Un blanco muy oscuro / gris para que sea discreto */
+    stroke: #e1e1e1;                  
     stroke-width: 1px;
-    stroke-dasharray: 4 4;            /* Crea el patrón técnico intermitente */
+    stroke-dasharray: 4 4;            
 }
 
-/* ==========================================================================
-   ANIMACIÓN DE SACUDIDA PARA EL PEÓN (HOVER EFFECT)
-   ========================================================================== */
-
-/* 1. Definimos la base del peón como el punto de pivote para el movimiento */
 .ficha-svg {
-    transform-origin: bottom center;     /* El eje se queda fijo abajo para simular balanceo */
+    transform-origin: bottom center;     
     transform-box: fill-box;
     transition: transform 0.2s ease;
 }
 
-/* 2. Cuando el cursor entra a la tarjeta del peón, se activa la sacudida continua */
 .caja-componente-tecnico:hover .ficha-svg {
     animation: sacudirPeonTecnico 0.4s ease-in-out infinite;
 }
 
-/* 3. Definición de los micropasos del movimiento (rotación rápida de lado a lado) */
 @keyframes sacudirPeonTecnico {
     0%   { transform: rotate(0deg) translate(0, 0); }
     20%  { transform: rotate(-3deg) translate(-0.5px, 0); }
@@ -683,97 +585,76 @@ p.visible,
    COMPONENTES TÉCNICOS LINEALES - ADICIÓN DE CARTA
    ========================================================================== */
 
-/* Ajuste dimensional para el SVG de la carta */
 .carta-svg {
     width: 170px;
     height: 170px;
 }
 
-/* Tipografía: Título de juego superior (Muy pequeño y espaciado) */
 .texto-carta-sub {
-    fill: #e1e1e1;                     /* Gris sutil */
-    font-family: 'Louis George Cafe';
+    fill: #e1e1e1;                     
+    font-family: 'Poppins', sans-serif;
     font-size: 7px;
     font-weight: bold;
     letter-spacing: 1px;
     text-anchor: middle;
 }
 
-/* Tipografía: Título principal de la carta (Marcado y técnico) */
 .texto-carta-titulo {
     fill: #e1e1e1;
-    font-family: 'Louis George Cafe';
+    font-family: 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: bold;
     letter-spacing: 1.5px;
     text-anchor: middle;
 }
 
-/* Tipografía: Cuerpo explicativo general */
 .texto-carta-cuerpo {
     fill: #e1e1e1;
-    font-family: 'Louis George Cafe';
+    font-family: 'Poppins', sans-serif;
     font-size: 9px;
     text-anchor: middle;
 }
 
-/* Tipografía: El valor numérico de los puntos (Destacado en el centro) */
 .texto-carta-resaltado {
     fill: #e1e1e1;
-    font-family: 'Louis George Cafe';
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     font-weight: bold;
     letter-spacing: 0.5px;
     text-anchor: middle;
 }
 
-/* ==========================================================================
-   ANIMACIÓN DE ESCALA PARA LA CARTA (HOVER EFFECT)
-   ========================================================================== */
-
-/* 1. Preparamos el SVG de la carta con transiciones suaves de transformación y filtro */
 .carta-svg {
     transform-origin: center center;
     transform-box: fill-box;
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s ease;
-    will-change: transform; /* Optimiza la renderización en el navegador */
+    will-change: transform; 
 }
 
-/* 2. Cuando el cursor entra a la tarjeta de la carta, esta se agranda y gana relieve */
 .caja-componente-tecnico:hover .carta-svg {
-    transform: scale(1.1); /* Se agranda un 10% de su tamaño original */
-    
-    /* Añade un resplandor técnico sutil blanco que simula una sombra proyectada minimalista */
+    transform: scale(1.1); 
     filter: drop-shadow(0px 0px 8px rgba(225, 225, 225, 0.15)); 
 }
-
-
 
 /* ==========================================================================
    ALINEACIÓN EN FILA ESTRICTA (SCOLL HORIZONTAL SIN PERDER TAMAÑO)
    ========================================================================== */
 .contenedor-ruletas-fila {
-    display: flex;                  /* Activa el comportamiento en fila */
-    flex-direction: row;            /* Fuerza a los elementos a ir uno al lado del otro */
-    gap: 25px;                      /* Distancia de separación exacta entre cajas */
-    justify-content: flex-start;    /* Alinea al inicio para permitir el recorrido horizontal */
-    align-items: stretch;           /* Misma altura para todas las tarjetas */
-    
-    /* 🟢 Las dos líneas clave para evitar que se bajen y activar el scroll: */
-    flex-wrap: nowrap !important;   /* PROHIBE rotundamente que las cajas bajen a la siguiente línea */
-    overflow-x: auto;               /* Activa el scroll horizontal solo si no caben en pantalla */
-    
-    padding: 20px 10px;             /* Margen interno para que las líneas blancas no se peguen al borde */
+    display: flex;                  
+    flex-direction: row;            
+    gap: 25px;                      
+    justify-content: flex-start;    
+    align-items: stretch;           
+    flex-wrap: nowrap !important;   
+    overflow-x: auto;               
+    padding: 20px 10px;             
     margin: 40px auto;
     width: 100%;
     box-sizing: border-box;
-
-    /* Estilizado opcional para que la barra de scroll sea sutil y minimalista */
     scrollbar-width: thin;
     scrollbar-color: #e1e1e1 #1e1e1e;
 }
 
-/* Opcional: Estilo de la barra de scroll para navegadores Chrome/Safari */
 .contenedor-ruletas-fila::-webkit-scrollbar {
     height: 6px;
 }
@@ -789,64 +670,49 @@ p.visible,
    COMPONENTES TÉCNICOS LINEALES - ADICIÓN DE TABLERO
    ========================================================================== */
 
-/* Ajuste dimensional para el gráfico vectorial del tablero */
 .tablero-svg {
     width: 170px;
     height: 170px;
 }
 
-/* ==========================================================================
-   ANIMACIÓN DE ESCALA SIMÉTRICA PARA EL TABLERO (HOVER EFFECT)
-   ========================================================================== */
-
-/* 1. Configuramos el SVG para que crezca desde su centro matemático */
 .tablero-svg {
-    transform-origin: center center;     /* 🟢 CAMBIO: Ahora crece de forma simétrica */
+    transform-origin: center center;     
     transform-box: fill-box;
-    
-    /* Transición suave e idéntica a la de los otros componentes */
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
 }
 
-/* 2. Cuando el cursor entra a la tarjeta, todo el tablero se agranda un 10% */
 .caja-componente-tecnico:hover .tablero-svg {
-    transform: scale(1.1);               /* 🟢 Se expande un 10% sin desplazarse */
+    transform: scale(1.1);               
 }
 
 /* ==========================================================================
    COMPONENTES TÉCNICOS LINEALES - ADICIÓN DE CUADRÍCULA
    ========================================================================== */
 
-/* Ajuste dimensional para el gráfico de la cuadrícula */
 .cuadrula-svg {
     width: 170px;
     height: 170px;
 }
-/* Tipografía micro para los números del borde (Gris sutil) */
+
 .texto-matriz-num {
     fill: #e1e1e1;                     
-    font-family: 'Louis George Cafe';
+    font-family: 'Poppins', sans-serif;
     font-size: 7px;
     font-weight: bold;
     text-anchor: middle;
     dominant-baseline: middle;
 }
 
-/* Tipografía micro para el centro del núcleo (Blanco técnico puro) */
 .texto-matriz-num-centro {
     fill: #e1e1e1;                     
-    font-family: 'Louis George Cafe';
+    font-family: 'Poppins', sans-serif;
     font-size: 7.5px;
     font-weight: bold;
     text-anchor: middle;
     dominant-baseline: middle;
 }
-/* ==========================================================================
-   ANIMACIÓN DE ENCAJE MODULAR PARA LA CUADRÍCULA (HOVER EFFECT)
-   ========================================================================== */
 
-/* 1. Preparamos los elementos del SVG con transiciones limpias */
 .cuadrula-svg rect,
 .cuadrula-svg path,
 .cuadrula-svg circle {
@@ -854,75 +720,50 @@ p.visible,
                 opacity 0.4s ease;
 }
 
-/* 2. Seleccionamos el cuadrado equivalente mediante su posición original en el SVG 
-      (x="145", y="87.5") y lo configuramos como el bloque móvil */
 .cuadrula-svg rect[x="145"] {
     transform-origin: 145px 87.5px;
     transform-box: fill-box;
     will-change: transform;
 }
 
-/* 3. AL PASAR EL CURSOR: El cuadrado se desplaza exactamente a la tercera casilla de la segunda fila */
 .caja-componente-tecnico:hover .cuadrula-svg rect[x="145"] {
-    /* -50px lo mueve horizontalmente a la celda del centro (número 20 de la derecha) 
-       y le da un leve realce en su trazo */
     transform: translateX(-50px);
-    stroke: #efc300; /* Se vuelve amarillo junto con el resto de la interacción */
+    stroke: #efc300; 
 }
 
-/* 4. AL PASAR EL CURSOR: Ocultamos la línea de cota que los conectaba para limpiar el plano */
 .caja-componente-tecnico:hover .cuadrula-svg .linea-guia-tecnica,
 .caja-componente-tecnico:hover .cuadrula-svg circle[fill="#e1e1e1"] {
     opacity: 0;
 }
 
-
-
 /* ==========================================================================
    INTERACCIÓN HOVER: EFECTO AMARILLO TÉCNICO EN DIBUJOS
    ========================================================================== */
 
-/* 1. Definimos una transición suave para que el cambio de color no sea brusco */
 .linea-tecnica, 
 .texto-tecnico-numero,
 .texto-matriz-num-centro,
-.ficha-svg circle[fill="#e1e1e1"], /* El punto central de la ruleta */
+.ficha-svg circle[fill="#e1e1e1"], 
 .ruleta-svg circle[fill="#e1e1e1"],
 .texto-carta-titulo,
 .texto-carta-resaltado {
     transition: stroke 0.3s ease, fill 0.3s ease;
 }
 
-/* 2. Al pasar el cursor por la tarjeta, cambiamos las líneas a amarillo */
 .caja-componente-tecnico:hover .linea-tecnica {
-    stroke: #efc300;  ; /* Amarillo técnico/industrial */
+    stroke: #efc300;  
 }
 
-/* 3. Al pasar el cursor por la tarjeta, cambiamos los textos y rellenos internos clave a amarillo */
 .caja-componente-tecnico:hover .texto-tecnico-numero,
 .caja-componente-tecnico:hover .texto-matriz-num-centro,
 .caja-componente-tecnico:hover .texto-carta-titulo,
 .caja-componente-tecnico:hover .texto-carta-resaltado {
-    fill: #efc300;  ;
+    fill: #efc300;  
 }
 
-/* 4. Cambiamos también el punto del eje central de la ruleta */
 .caja-componente-tecnico:hover .ruleta-svg circle[fill="#e1e1e1"] {
-    fill: #efc300;  ;
+    fill: #efc300;  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ==========================================================================
    NUEVA GALERÍA ACORDEÓN DE IMPACTO VISUAL
@@ -931,47 +772,42 @@ p.visible,
 .galeria-acordeon-impacto {
     display: flex;
     width: 100%;
-    max-width: 1150px;           /* Se expande casi al límite del main-wrapper (1200px) */
-    height: 400px;              /* Altura generosa para apreciar los detalles del juego */
-    gap: 10px;                  /* Separación sutil entre paneles */
+    max-width: 1150px;           
+    height: 400px;              
+    gap: 10px;                  
     margin: 50px auto;
     padding: 0 20px;
     box-sizing: border-box;
 }
 
-/* Estructura individual de cada panel */
 .panel-componente {
-    flex: 1;                    /* Todos los paneles ocupan inicialmente el mismo ancho distributivo */
+    flex: 1;                    
     height: 100%;
-    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Curva de animación ultra fluida y elástica */
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
     border-radius: 16px;
-    overflow: hidden;           /* Mantiene las esquinas redondeadas impecables */
+    overflow: hidden;           
 }
 
-/* La caja contenedora negra interna que protege la imagen */
 .panel-componente .caja-fondo-negro {
     position: relative;
     width: 100%;
     height: 100%;
     background-color: #a8a8a8;
-    padding: 10px;              /* Espesor del marco negro */
+    padding: 10px;              
     box-sizing: border-box;
     border-radius: 16px;
 }
 
-/* Imagen de fondo del panel */
 .panel-componente img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
     
-    /* 🟢 CAPA OSCURA POR DEFECTO: Bastante pronunciada para dar misterio */
     filter: brightness(0.3) grayscale(0.2);
     transition: filter 0.5s ease;
 }
 
-/* Contenedor del título y pie de foto */
 .panel-componente .contenido-panel {
     position: absolute;
     bottom: 0;
@@ -979,26 +815,24 @@ p.visible,
     width: 100%;
     padding: 30px 20px;
     box-sizing: border-box;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.95) 60%); /* Degradado negro inferior para legibilidad */
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.95) 60%); 
     
-    /* Ocultamos el texto por defecto mientras el panel está cerrado */
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* Título interno del componente */
 .panel-componente .contenido-panel h3 {
-    font-family: 'Louis George Cafe';
-    color: #ffeb3b;             /* Amarillo interactivo para destacar el título */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #ffeb3b;             
     font-size: 24px;
     margin: 0 0 10px 0;
 }
 
-/* 🟢 CONFIGURACIÓN EXCLUSIVA PARA EL TEXTO P3 (UNA SOLA COLUMNA CONTROLADA) */
 .panel-componente .contenido-panel p3 {
-    font-family: 'Louis George Cafe';
-    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
     color: #e1e1e1;
     line-height: 1.5;
     text-align: left;
@@ -1006,48 +840,35 @@ p.visible,
     width: 100%;
     margin: 0;
     
-    /* Garantiza una sola columna ignorando los párrafos generales */
     columns: 1 !important; 
 }
 
-
-/* ==========================================================================
-   INTERACCIÓN DINÁMICA (HOVER)
-   ========================================================================== */
-
-/* 🟢 EL IMPACTO: Cuando pasas el cursor, el panel seleccionado se vuelve gigante */
 .galeria-acordeon-impacto:hover .panel-componente:hover {
-    flex: 5;                    /* Crece 5 veces más en comparación a sus hermanos */
+    flex: 5;                    
 }
 
-/* Al abrirse el panel, la imagen se ilumina por completo */
 .panel-componente:hover img {
     filter: brightness(1) grayscale(0);
 }
 
-/* Al abrirse el panel, el texto aparece mágicamente flotando desde abajo */
 .panel-componente:hover .contenido-panel {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.15s;    /* Espera una fracción de segundo a que se abra el panel para mostrar el texto */
+    transition-delay: 0.15s;    
 }
 
-
-/* ==========================================================================
-   ADAPTACIÓN RESPONSIVA (CELULARES)
-   ========================================================================== */
 @media (max-width: 768px) {
     .galeria-acordeon-impacto {
-        flex-direction: column; /* Cambia a formato vertical en pantallas pequeñas */
+        flex-direction: column; 
         height: auto;
         gap: 15px;
     }
     .panel-componente {
         height: 200px;
-        flex: none !important;  /* Apaga el sistema expandible horizontal */
+        flex: none !important;  
     }
     .panel-componente:hover {
-        height: 320px;          /* En celulares se expande hacia abajo */
+        height: 320px;          
     }
     .panel-componente .contenido-panel {
         opacity: 1;
@@ -1059,37 +880,23 @@ p.visible,
     }
 }
 
-
-
-
-
-
-
 /* ==========================================================================
-   CONTENEDOR DE VIDEO INTERACTIVO (CON FILTROS Y ESCALA)
+   CONTENEDOR DE VIDEO INTERACTIVO
    ========================================================================== */
 
-/* La caja negra exterior con bordes redondeados */
 .caja-video-contenedor {
     background-color: #000000;   
     padding: 12px;               
     border-radius: 16px;         
-    display: block;              /* Cambiado a block para un centrado más cómodo */
+    display: block;              
     overflow: hidden;            
     width: 100%;
     margin: 40px auto;           
-    
-    /* 🟢 1. CONTROL DE TAMAÑO: Modifica este número a tu antojo */
-    max-width: 750px;            /* 💡 Cambia este valor (ej: 500px, 800px) para agrandar o achicar el video */
-
-    /* Animación fluida para el tamaño y los filtros */
+    max-width: 750px;            
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease; 
-    
-    /* 🟢 2. CAPA OSCURA POR DEFECTO */
-    filter: brightness(0.6);     /* Reduce el brillo al 60% para que se vea opaco inicialmente */
+    filter: brightness(0.6);     
 }
 
-/* Ajuste del elemento de video nativo por dentro */
 .caja-video-contenedor video {
     width: 100%;
     height: auto;
@@ -1097,86 +904,60 @@ p.visible,
     border-radius: 8px;          
 }
 
-/* ==========================================================================
-   INTERACCIÓN (HOVER)
-   ========================================================================== */
-
-/* 🟢 3. EFECTO AL PASAR EL CURSOR: Se agranda y se ilumina a la vez */
 .caja-video-contenedor:hover {
-    transform: scale(1.04);      /* Se agranda un 4% */
-    filter: brightness(1);       /* Recupera el 100% de su brillo (se ilumina) */
+    transform: scale(1.04);      
+    filter: brightness(1);       
 }
-
-
 
 /* ==========================================================================
    ESTADOS DE CONTROL PARA EL DESPLEGABLE INTERACTIVO
    ========================================================================== */
 
-/* El contenedor inicia totalmente escondido y colapsado */
 .iframe-oculto {
     display: none !important;
     opacity: 0;
     transition: opacity 0.4s ease;
 }
 
-/* Esta clase se activará dinámicamente con JS para mostrarlo */
 .iframe-visible {
     display: block !important;
     opacity: 1;
     scroll-margin-top: 85px;
 }
+
 /* ==========================================================================
    CONTENEDOR PARA IFRAME INTERACTIVO (PIX)
    ========================================================================== */
 
 .caja-iframe-contenedor {
-    background-color: #000000;   /* Fondo negro del contenedor */
-    padding: 15px;               /* Grosor del marco negro */
-    border-radius: 16px;         /* Bordes redondeados */
-    margin: 40px auto;           /* Centrado horizontal en la pantalla */
-    overflow: hidden;            /* Corta las esquinas del iframe para que no sobresalgan */
+    background-color: #000000;   
+    padding: 15px;               
+    border-radius: 16px;         
+    margin: 40px auto;           
+    overflow: hidden;            
     box-sizing: border-box;
-
-    /* 🟢 MODIFICA AQUÍ EL ANCHO A TU ANTOJO */
     width: 100%;                 
-    max-width: 900px;            /* 💡 Cambia este número (ej: 800px, 1050px) para el ancho total */
-
-    /* Animación elástica para el tamaño y el filtro */
+    max-width: 900px;            
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
-
-    /* CAPA OSCURA POR DEFECTO (Igual que tus otros elementos) */
     filter: brightness(0.6);     
 }
 
-/* Ajuste del iframe interno */
 .caja-iframe-contenedor iframe {
     width: 100%;
     display: block;
-    border-radius: 8px;          /* Bordes suavizados para el contenido de Pix */
-    
-    /* 🟢 MODIFICA AQUÍ EL ALTO A TU ANTOJO */
-    height: 600px;               /* 💡 Cambia este número (ej: 500px, 700px) para darle más o menos altura */
+    border-radius: 8px;          
+    height: 600px;               
 }
 
-/* ==========================================================================
-   INTERACCIÓN (HOVER)
-   ========================================================================== */
-
-/* Se agranda un poquito y se ilumina al pasar el cursor por encima */
 .caja-iframe-contenedor:hover {
-    transform: scale(1.02);      /* Se agranda un 2% (un toque sutil para no perder el foco del interactivo) */
-    filter: brightness(1);       /* Se ilumina al 100% */
+    transform: scale(1.02);      
+    filter: brightness(1);       
 }
-
-
-
 
 /* ==========================================================================
    DESPLAZAMIENTO FORZADO DEL PÁRRAFO HACIA LA IZQUIERDA
    ========================================================================== */
 
-/* 1. Mantenemos el contenedor como una fila para los dos elementos */
 .seccion-mixta-oculto {
     display: flex;
     flex-direction: row;
@@ -1187,52 +968,37 @@ p.visible,
     box-sizing: border-box;
 }
 
-/* 2. 🟢 MODIFICACIÓN DIRECTA DEL MARGEN PARA MOVER EL TEXTO */
 .texto-columna-izquierda {
-    /* 1. Mantenemos tus configuraciones de movimiento hacia la izquierda */
-    flex: 1;                      
+    flex: 1;                     
     text-align: left;             
-    margin: 0;                    
+    margin: 0;                   
     margin-left: -210px; 
-    
-    /* 2. Definimos el largo de las líneas de letras */
-    max-width: 650px;             /* Sube o baja este número para cambiar la longitud de las líneas */
-    
-    /* 3. 🟢 CORRECCIÓN CLAVE: Empuja los GIFs para que no se muevan de su sitio */
-    margin-right: auto;           /* 💡 Absorbe todo el espacio sobrante a la derecha del texto, creando el aire */
-    
-    /* Tipografía */
-    font-family: 'Louis George Cafe';
+    max-width: 650px;             
+    margin-right: auto;           
+    font-family: 'Poppins', sans-serif;
     color: #e1e1e1;
-    font-size: 23px;
+    font-size: 20px;
     line-height: 1.6;             
 }
 
-/* ==========================================================================
-   🟢 CONTROL DE ESPACIADO PARA EL SEGUNDO PÁRRAFO
-   ========================================================================== */
 .texto-interactivo-ajuste {
-    align-self: flex-start;       /* Mantiene el anclaje arriba para un cálculo limpio */
-    margin-top: 50px !important; /* Ahora sí se va a aplicar de inmediato */
+    align-self: flex-start;       
+    margin-top: 50px !important; 
 }
 
-/* 3. Columna de GIFs (Se mantiene fija a la derecha del texto) */
 .contenedor-bloques-secundario {
     display: flex;            
     flex-direction: column;       
     gap: 20px;                    
     flex-shrink: 0;               
     width: 350px;      
-               
 }
 
-/* 4. Cajas contenedoras negras individuales (Mismo tamaño que tenías) */
 .caja-gif-secundaria {
     background-color: #000000;
     padding: 12px;            
     border-radius: 15px;      
     box-sizing: border-box;
-    
     width: 340px;             
     height: 300px;            
     margin-left: 10px;
@@ -1243,7 +1009,6 @@ p.visible,
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* 5. Ajuste de las imágenes dentro de sus cajas secundarias */
 .caja-gif-secundaria .gif-media {
     width: 100%;              
     height: 100%;             
@@ -1254,146 +1019,101 @@ p.visible,
     transition: filter 0.4s ease;
 }
 
-/* ==========================================================================
-   INTERACCIÓN (HOVER EXCLUSIVO)
-   ========================================================================= */
 .caja-gif-secundaria:hover {
-    transform: scale(1.04);    
+    transform: scale(1.04);   
 }
 
 .caja-gif-secundaria:hover .gif-media {
     filter: brightness(1);    
 }
 
-
-
-
-
-
-
 /* ==========================================================================
-   FILA DE CUADROS INTERACTIVOS (SIN CONTENEDOR Y MÁS LENTO)
+   FILA DE CUADROS INTERACTIVOS
    ========================================================================== */
 
-/* Contenedor principal para alinear los cuadros en fila */
 .contenedor-cuadros-color {
     display: flex;
     justify-content: center;  
     align-items: center;
-    gap: 20px;                /* Espacio de separación entre cada imagen */
+    gap: 20px;                
     width: 100%;
     margin: 40px auto;
     flex-wrap: wrap;          
 }
 
-/* Caja individual para cada cuadro (Ahora invisible, sin fondo negro ni padding) */
 .contenedor-cuadros-color .caja-cuadro {
-    background: transparent;  /* 🟢 Eliminado el contenedor negro */
-    padding: 0;               /* 🟢 Eliminado el espacio interno para que se vea la imagen directa */
+    background: transparent;  
+    padding: 0;               
     box-sizing: border-box;
-    
-    /* 💡 MODIFICA AQUÍ EL TAMAÑO A TU ANTOJO */
-    width: 110px;             /* Ancho de cada cuadro */
-    height: 100px;            /* Alto de cada cuadro */
-
-    /* Estado inicial: Completamente visible y tamaño normal */
+    width: 110px;             
+    height: 100px;            
     transform: scale(1);
     opacity: 1;
-
-    /* Transición al RETIRAR el cursor: Vuelve a aparecer de forma suave y elegante */
     transition: transform 1.9s ease, opacity 0.3s ease;
 }
 
-/* Ajuste de las imágenes */
 .contenedor-cuadros-color .caja-cuadro img {
     width: 100%;
     height: 100%;
     object-fit: cover;        
-    border-radius: 12px;      /* El borde redondeado se aplica directo a tu imagen */
+    border-radius: 12px;      
 }
 
-/* ==========================================================================
-   INTERACCIÓN (HOVER EN SECUENCIA LENTA)
-   ========================================================================== */
-
-/* 🟢 AL PASAR EL CURSOR: Se agranda y luego se desvanece pausadamente */
 .contenedor-cuadros-color .caja-cuadro:hover {
-    transform: scale(1.15);   /* Se agranda un 15% */
-    opacity: 0;               /* Se desvanece por completo */
-    
-    /* Control de tiempos al ENTRAR el cursor:
-       - El tamaño cambia en 0.4 segundos de forma fluida.
-       - La opacidad tarda 1.2 segundos en desaparecer (mucho más lento).
-       - transition-delay: El '0s' es para el tamaño y el '0.3s' hace que el 
-         desvanecimiento espere a que la imagen ya se haya agrandado para empezar a actuar. */
+    transform: scale(1.15);   
+    opacity: 0;               
     transition-property: transform, opacity;
     transition-duration: 0.2s, 0.5s;
     transition-delay: 0s, 0.1s;
     transition-timing-function: ease;
 }
 
-/* Contenedor para alinear el texto y la cuadrícula uno al lado del otro */
 .contenedor-interactivo {
     display: flex;
     align-items: center;
-    gap: 20px; /* Separación entre el texto y el juego */
+    gap: 20px; 
     width: 100%;
     margin: 20px 0;
 }
 
-/* El texto ocupa el espacio restante */
 .texto-acompanante {
     flex: 1;
-    font-family: 'Louis George Cafe', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 15px;
-    color: #ffffff; /* Ajusta a tu color de texto */
+    color: #ffffff; 
 }
 
 /* ==========================================================================
-   CUADRÍCULA ORIGINAL RECTIFICADA (SÓLO LO QUE PEDISTE)
+   CUADRÍCULA ORIGINAL RECTIFICADA
    ========================================================================== */
 
 .cuadricula-miniatura {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    
-    /* 🟢 MODIFICACIÓN 1 y 2: El nuevo tamaño de la cuadrícula (Ancho y Alto) */
-    width: 300px;  /* 💡 Cambia este valor al tamaño que quieras (Ej: 300px, 400px) */
-    height: 300px; /* 💡 Debe ser exactamente igual al ancho para mantener el cuadrado */
-    
+    width: 300px;  
+    height: 300px; 
     box-sizing: border-box;
     position: relative;
     flex-shrink: 0; 
-    
     background-color: #111111; 
     background-image: 
         linear-gradient(to right, #e1e1e1 2px, transparent 2px),
         linear-gradient(to bottom, #e1e1e1 2px, transparent 2px);
-
-    /* 🟢 MODIFICACIÓN 3: El tamaño de cada celda del fondo */
-    /* 💡 REGLA MATEMÁTICA: Divide el ancho de arriba por 4. 
-       Si usas 300px -> 300 / 4 = 75px. 
-       Si usaras 400px -> 400 / 4 = 100px. */
     background-size: 75px 75px; 
-
     box-shadow: inset 0px 0px 0px 2px #e1e1e1; 
 }
 
-/* El cuadro amarillo se adapta automáticamente al nuevo tamaño de celda */
 .cuadro-amarillo {
     background-color: #ffd32a; 
     cursor: pointer;
     border-radius: 4px; 
-    
     grid-column: 1;
     grid-row: 1;
     z-index: 2; 
-    
     transform: scale(0.80); 
     transition: transform 0.1s ease;
 }
-
 
 /* ==========================================================================
    NUEVO CONTENEDOR NEGRO PARA LA CUADRÍCULA
@@ -1403,70 +1123,45 @@ p.visible,
     padding: 20px;                
     border-radius: 15px;          
     box-sizing: border-box;
-    
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    /* 🟢 MODIFICACIÓN EXTRA: El tamaño del contenedor negro */
-    /* 💡 REGLA MATEMÁTICA: Suma el nuevo tamaño de tu cuadrícula + los 40px del padding (20px de cada lado).
-       Si tu cuadrícula mide 300px -> 300 + 40 = 340px. */
     width: 340px;                 
     height: 340px;                
     flex-shrink: 0;
-
     margin-top: 30px;
+    position: relative; 
 }
 
-
-
-
-
-
-
-
-
 /* ==========================================================================
-   🎨 VARIACIONES DE COLOR PARA LOS CLICKS (Añadir al final del CSS)
+   VARIACIONES DE COLOR PARA LOS CLICKS
    ========================================================================== */
 
-/* 1. Variante Amarilla (puedes usar esta o tu .cuadro-amarillo original) */
 .cuadro-amarillo, .color-amarillo { 
     background-color: #ffd32a !important; 
     box-shadow: 0 0 15px rgba(255, 250, 231, 0.4);
 }
 
-/* 2. Variante Roja */
 .cuadro-rojo, .color-rojo { 
     background-color: #aa4d3c !important; 
     box-shadow: 0 0 15px rgba(252, 167, 167, 0.4);
-     border-radius: 4px; 
-      transform: scale(0.80); 
+    border-radius: 4px; 
+    transform: scale(0.80); 
 }
 
-/* 3. Variante Verde */
 .cuadro-verde, .color-verde { 
-    background-color: #74aa9f !important; /* Verde vibrante */
+    background-color: #74aa9f !important; 
     box-shadow: 0 0 15px rgba(212, 255, 230, 0.4);
-     border-radius: 4px; 
-      transform: scale(0.80); 
+    border-radius: 4px; 
+    transform: scale(0.80); 
 }
 
-/* 4. Variante Azul */
 .cuadro-azul, .color-azul { 
     background-color: #1565c0 !important; 
     box-shadow: 0 0 15px rgba(219, 236, 253, 0.4);
-     border-radius: 4px; 
-      transform: scale(0.80); 
+    border-radius: 4px; 
+    transform: scale(0.80); 
 }
-
-
-
-
-
-
-
-
 
 /* ==========================================================================
    SECCIÓN DE FONDO COMPLETO DE EXTREMO A EXTREMO
@@ -1475,77 +1170,40 @@ p.visible,
 .franja-fondo {
     width: 100%;                  
     box-sizing: border-box;
-    background-color: #1e1e1e;    /* Tu color de fondo */
+    background-color: #1e1e1e;    
     padding: 60px 0;              
     margin: 40px 0;               
-
-    /* Solución exclusiva para el fondo de extremo a extremo sin mover nada */
     box-shadow: 0 0 0 100vw #ffffff;
     clip-path: inset(0 -100vw);
 }
 
-/* Forzamos que la estructura interna mantenga el ancho y centrado original del sitio */
 .franja-fondo .main-wrapper {
     width: 100%;
-    max-width: 1100px;            /* Calza esta medida con el ancho máximo de tu página */
-    margin: 0 auto;               /* Centra perfectamente el bloque del contenido */
+    max-width: 1100px;            
+    margin: 0 auto;               
     padding: 0 20px;              
     box-sizing: border-box;
 }
 
-/* 🟢 CORRECCIÓN: Fuerza a los títulos H2 de esta sección a volver a estar centrados */
 .franja-fondo h2 {
-    text-align: center !important; /* Devuelve el título a su posición centrada original */
-}
-
-
-/* ==========================================================================
-   NUEVO CONTENEDOR NEGRO PARA LA CUADRÍCULA
-   ========================================================================== */
-.contenedor-negro-juego {
-    background-color: #000000;    
-    padding: 20px;                
-    border-radius: 15px;          
-    box-sizing: border-box;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    width: 340px;                 
-    height: 340px;                
-    flex-shrink: 0;
-    margin-top: 0px; /* Tu margen para moverlo a tu antojo hacia arriba o abajo */
-
-    /* 🟢 CLAVE: Permite colgar el texto abajo de forma independiente */
-    position: relative; 
+    text-align: center !important; 
 }
 
 /* ==========================================================================
-   🟢 ESTILO PARA EL TEXTO INFERIOR (SIN AFECTAR EL FLUJO)
+   ESTILO PARA EL TEXTO INFERIOR
    ========================================================================== */
 .texto-prueba-interaccion {
     position: absolute;
-    bottom: -35px; /* 💡 Empuja el texto hacia afuera de la caja negra, justo abajo */
+    bottom: -35px; 
     left: 50%;
-    transform: translateX(-50%); /* Lo centra perfectamente respecto a la cuadrícula */
-    white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
-    
-    /* Tu tipografía limpia */
-    font-family: 'Louis George Cafe', !important;
+    transform: translateX(-50%); 
+    white-space: nowrap; 
+    font-family: 'Poppins', sans-serif !important;
     font-size: 14px !important;
     font-weight: normal !important;
     color: #e1e1e1;
     text-align: center;
 }
-
-
-
-
-
-
-
-
 
 /* ==========================================================================
    11. SECCIÓN DE COLOR CLARA / FOOTER
@@ -1599,9 +1257,9 @@ p.visible,
 }
 
 .p2 {
-    font-family: 'Louis George Cafe' !important;
+    font-family: 'Poppins', sans-serif !important;
     color: #1e1e1e !important;
-    font-size: 15px;
+    font-size: 14px; 
     text-align: left !important;      
     max-width: 650px !important;      
     width: 100% !important;
@@ -1612,11 +1270,7 @@ p.visible,
     margin-bottom: 0 !important;
     margin-left: 0 !important;
     margin-right: auto !important;    
-
-    /* 🟢 APAGAR ANIMACIONES HEREDADAS */
-   
     transition: none;
-   
 }
 
 .site-footer1 {
@@ -1627,7 +1281,7 @@ p.visible,
    EFECTO LÍQUIDO LOCALIZADO (LETRA POR LETRA)
    ========================================================================== */
 .contenedor-letras {
-    font-family: inlanders !important; /* Mantiene tu fuente original */
+    font-family: 'Black Ops One', sans-serif !important; 
     font-size: 60px !important;
     color: #ffffff !important;
     letter-spacing: 4px !important;
@@ -1635,20 +1289,18 @@ p.visible,
     cursor: default;
 }
 
-/* Estilo para cada letra individual generado por JS */
 .contenedor-letras span {
     display: inline-block;
-    transition: filter 0.2s ease, opacity 0.4s ease; /* Transición fluida */
+    transition: filter 0.2s ease, opacity 0.4s ease; 
     opacity: 1;
     filter: none;
-    white-space: pre; /* Mantiene los espacios correctos entre palabras */
+    white-space: pre; 
 }
 
-/* 🟢 EL EFECTO: Se aplica SOLO a la letra sobre la que está el cursor */
 .contenedor-letras span.letra-activa {
-    filter: url(#deformacion-liquida) !important; /* Aplica las ondas de agua */
-    opacity: 0 !important; /* Desaparece por completo al pasar el mouse */
-    transition: filter 0.1s ease, opacity 0.1s ease; /* Desvanecimiento inmediato */
+    filter: url(#deformacion-liquida) !important; 
+    opacity: 0 !important; 
+    transition: filter 0.1s ease, opacity 0.1s ease; 
 }
 
 
@@ -1656,7 +1308,6 @@ p.visible,
    NUEVA TRANSICIÓN: DESAPARICIÓN ALEATORIA Y PARPADEO
    ========================================================================== */
 
-/* Cortina que se va a negro */
 .capa-transicion-negra {
     position: fixed;
     top: 0;
@@ -1675,14 +1326,12 @@ p.visible,
     pointer-events: all;
 }
 
-/* Esfumar las letras con un sutil desenfoque */
 .letra-esfumada {
     opacity: 0 !important;
     filter: blur(4px) !important;
     transition: opacity 0.3s ease, filter 0.3s ease !important;
 }
 
-/* Parpadeo rápido del botón */
 @keyframes parpadeoTenso {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.2; }
@@ -1695,10 +1344,9 @@ p.visible,
 
 
 /* ==========================================================================
-   ANIMACIÓN DE ENTRADA SUAVE PARA el juego
+   ANIMACIÓN DE ENTRADA SUAVE
    ========================================================================== */
 
-/* La cortina cubre todo al cargar y se desvanece de forma lenta y elegante */
 .cortina-entrada-negra {
     position: fixed;
     top: 0;
@@ -1706,21 +1354,18 @@ p.visible,
     width: 100vw;
     height: 100vh;
     background-color: #000000;
-    z-index: 99999; /* Por encima de absolutamente todo */
-    pointer-events: none; /* No bloquea clics mientras desaparece */
-    
-    /* 🟢 Aquí controlas qué tan lento aparece la nueva página (1.2 segundos) */
+    z-index: 99999; 
+    pointer-events: none; 
     animation: desvanecerEntrada 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-/* El motor de la animación: va de opaco (negro) a transparente */
 @keyframes desvanecerEntrada {
     0% {
         opacity: 1;
     }
     100% {
         opacity: 0;
-        visibility: hidden; /* Se apaga por completo al terminar */
+        visibility: hidden; 
     }
 }
 
@@ -1729,19 +1374,16 @@ p.visible,
    13. PERSONALIZACIÓN EXCLUSIVA DEL BOTÓN FINAL DESCUBRIR
    ========================================================================== */
 .discover-btn-final {
-    /* Ajustes de tamaño del botón (Modifica estos valores si lo quieres aún más grande) */
-    padding: 16px 45px;          /* Espaciado interno: arriba/abajo e izquierda/derecha */
-    font-size: 18px;             /* Tamaño del texto del botón */
-    min-width: 220px;            /* Ancho mínimo asegurado para el botón */
-   
-    /* Mantiene los estilos estéticos de tus botones originales */
+    padding: 16px 45px;          
+    font-size: 18px;             
+    min-width: 220px;            
     border: 2px solid #e1e1e1;
     border-radius: 25px;
     background: #1e1e1e;
     color: #e1e1e1;
     letter-spacing: 5px;
-    font-family: 'Louis George Cafe';
-    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
     cursor: pointer;
     transition: .3s;
     text-decoration: none;
@@ -1751,23 +1393,13 @@ p.visible,
     text-align: center;        
 }
 
-/* Efecto Hover idéntico para mantener la línea de diseño */
 .discover-btn-final:hover {
     background: #e1e1e1;
     color: black;
 }
 
-
-
-
-
-
-
-
-
-
 /* ==========================================================================
-   14. CONFIGURACIÓN COMPLETA DEL MINIJUEGO (MALLA FLUIDA AUTOMÁTICA)
+   14. CONFIGURACIÓN COMPLETA DEL MINIJUEGO
    ========================================================================== */
 .escenario-juego {
     width: 100vw !important;
@@ -1782,7 +1414,6 @@ p.visible,
     perspective: 1000px !important;
 }
 
-/* La linterna con el haz de luz grande (160px) */
 .linterna-oscuridad {
     position: absolute !important;
     top: 0 !important;
@@ -1797,7 +1428,6 @@ p.visible,
     -webkit-mask-image: radial-gradient(circle 160px at var(--x, -500px) var(--y, -500px), rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%) !important;
 }
 
-/* 🟢 LA CUADRÍCULA */
 .cuadricula-oculta {
     position: absolute !important;
     display: grid !important;
@@ -1811,7 +1441,6 @@ p.visible,
     overflow: hidden !important;
 }
 
-/* 🟢 LAS CASILLAS */
 .casilla-secreta {
     box-sizing: border-box !important;
     width: 100% !important;
@@ -1821,7 +1450,6 @@ p.visible,
     transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease !important;
 }
 
-/* El cuadrado rojo del juego */
 .cuadrado-rojo {
     background-color: #aa4d3c !important;
     box-shadow: 0 0 25px rgba(255, 164, 149, 0.9) !important;
@@ -1832,7 +1460,6 @@ p.visible,
 }
 .cuadrado-rojo:active { transform: scale(0.85) !important; }
 
-/* El cuadrado verde del juego */
 .cuadrado-verde {
     background-color: #74aa9f !important;
     box-shadow: 0 0 25px rgba(177, 255, 181, 0.9) !important;
@@ -1843,7 +1470,6 @@ p.visible,
 }
 .cuadrado-verde:active { transform: scale(0.85) !important; }
 
-/* El cuadrado amarillo del juego */
 .cuadrado-amarillo {
     background-color: #fbc02d !important;
     box-shadow: 0 0 25px rgba(251, 236, 196, 0.9) !important;
@@ -1854,7 +1480,6 @@ p.visible,
 }
 .cuadrado-amarillo:active { transform: scale(0.85) !important; }
 
-/* El cuadrado azul del juego */
 .cuadrado-azul {
     background-color: #1565c0 !important;
     box-shadow: 0 0 25px rgba(191, 221, 255, 0.9) !important;
@@ -1866,40 +1491,16 @@ p.visible,
 .cuadrado-azul:active { transform: scale(0.85) !important; }
 
 /* ==========================================================================
-   CLASES PARA LOS COLORES MALOS (OBSTÁCULOS / DISTRACTORES)
+   CLASES PARA LOS COLORES MALOS
    ========================================================================== */
-.cuadrado-malo-morado {
-    background-color: #6a1b9a !important; 
-    
-    border-radius: 4px !important;
-}
-
-.cuadrado-malo-naranja {
-    background-color: #d84315 !important; 
-  
-    border-radius: 4px !important;
-}
-
-.cuadrado-malo-gris {
-    background-color: #4e342e !important; 
-
-    border-radius: 4px !important;
-}
-
-.cuadrado-malo-rosa {
-    background-color: #c2185b !important; 
-   
-    border-radius: 4px !important;
-}
-
-.cuadrado-malo-cian {
-    background-color: #00838f !important; 
-  
-    border-radius: 4px !important;
-}
+.cuadrado-malo-morado { background-color: #6a1b9a !important; border-radius: 4px !important; }
+.cuadrado-malo-naranja { background-color: #d84315 !important; border-radius: 4px !important; }
+.cuadrado-malo-gris { background-color: #4e342e !important; border-radius: 4px !important; }
+.cuadrado-malo-rosa { background-color: #c2185b !important; border-radius: 4px !important; }
+.cuadrado-malo-cian { background-color: #00838f !important; border-radius: 4px !important; }
 
 /* ==========================================================================
-   NUEVO: EFECTO DE SACUDIDA / TEMBLOR AL FALLAR
+   EFECTO DE SACUDIDA / TEMBLOR AL FALLAR
    ========================================================================== */
 .efecto-temblor {
     animation: temblor 0.15s ease-in-out infinite !important;
@@ -1920,34 +1521,29 @@ p.visible,
 }
 
 /* ==========================================================================
-   ESTILOS PARA EL MENSAJE DE ÉXITO FINAL (TUS ESTILOS INTEGRADOS)
+   ESTILOS PARA EL MENSAJE DE ÉXITO FINAL
    ========================================================================== */
 .mensaje-exito-pantalla {
     position: absolute;
-    bottom: 40px;               /* Distancia desde la parte inferior de la pantalla */
+    bottom: 40px;               
     left: 50%;
-    transform: translateX(-50%) translateY(20px); /* Empieza un poco más abajo para el efecto */
+    transform: translateX(-50%) translateY(20px); 
     
-    /* Tipografía y Textura (Tus valores originales) */
-    font-family: 'Louis George Cafe'; 
+    font-family: 'Poppins', sans-serif; 
     font-size: 16px;                  
     letter-spacing: 1px;              
     color: #1e1e1e;                   
-    
-    /* Efectos Visuales */
     text-shadow: 0 0 12px rgba(255, 255, 255, 0.5); 
     z-index: 100;                     
-    pointer-events: none;             /* Evita que estorbe si el usuario hace clic ahí */
+    pointer-events: none;             
     
-    /* Animación de entrada suave */
     opacity: 0;
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-/* Clase activa que se enciende desde JavaScript al terminar la línea */
 .mensaje-exito-pantalla.visible {
     opacity: 1;
-    transform: translateX(-50%) translateY(0); /* Sube suavemente a su posición ideal */
+    transform: translateX(-50%) translateY(0); 
 }
 
 /* ==========================================================================
@@ -1969,103 +1565,75 @@ p.visible,
     text-shadow: 0 0 12px rgba(255, 255, 255, 0.8) !important;
 }
 
-
-
-
-
-
-
 /* ==========================================================================
-   SELECTOR INICIAL DE CANTIDAD DE FORMAS (CORREGIDO)
+   SELECTOR INICIAL DE CANTIDAD DE FORMAS
    ========================================================================== */
 #selector-constelaciones {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
     z-index: 9999;
-
     background: #1e1e1e;
     border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: 24px;
-
-    /* Espaciado interno amplio para acompañar la nueva estructura horizontal */
     padding: 55px 55px 50px 55px; 
     text-align: center;
-
-    font-family: 'Louis George Cafe';
+    font-family: 'Poppins', sans-serif;
     color: white;
-
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-
-    /* ALINEACIÓN VERTICAL */
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-    /* MODIFICADO: Ancho amplio definitivo y altura mínima adaptada */
     width: 640px;
-    max-width: 95%; /* Mantiene un margen seguro en pantallas medianas o tablets */
+    max-width: 95%; 
     min-height: 280px; 
     box-sizing: border-box;
 }
 
-/* NUEVA CLASE PARA LA FLECHA: Flota en la esquina superior izquierda del cuadro */
 .back-arrow {
-    position: absolute;       /* Rompe el flexbox y se posiciona de forma independiente */
-    top: 20px;                /* Distancia desde el borde superior interno del cuadro */
-    left: 25px;               /* Distancia desde el borde izquierdo interno del cuadro */
+    position: absolute;       
+    top: 20px;                
+    left: 25px;               
     text-decoration: none;
     color: #e1e1e1;
-    font-size: 38px;          /* Ajustado a 38px para que mantenga proporción y elegancia con tu h2 de 22px */
+    font-size: 38px;          
     font-weight: bold;
     line-height: 1;
     transition: transform 0.25s ease;
     cursor: pointer;
-    z-index: 10000;           /* Un paso por encima del contenedor */
+    z-index: 10000;           
 }
 
 .back-arrow:hover {
     transform: scale(1.15);
 }
 
-/* NUEVA ESTILIZACIÓN PARA EL PARRAFO DE ADVERTENCIA */
-/* NUEVA ESTILIZACIÓN PARA EL PÁRRAFO DE ADVERTENCIA (ESTÁTICO Y CON SU AMARILLO ORIGINAL) */
 .advertencia-sitio {
-    /* Desactiva por completo cualquier animación o transición heredada de JavaScript */
     all: unset !important; 
-    
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;
     transition: none !important;
-
-    /* Tu color amarillo original con toda su fuerza */
     color: #ffbc42 !important; 
-    font-weight: bold !important;
-
-    /* Diseño y proporciones adaptadas al contenedor de 740px */
+    font-weight: 700 !important;
     margin: 45px 0 10px 0 !important;
     font-size: 14px;
     letter-spacing: 0.5px;
     line-height: 1.4;
     text-align: center;
-    font-family: 'Louis George Cafe';
+    font-family: 'Poppins', sans-serif;
     max-width: 100%;
     box-sizing: border-box;
 }
 
 #selector-constelaciones h2 {
-    /* MODIFICADO: Reducido el margen superior a 10px ya que la advertencia ahora ocupa el espacio intermedio */
     margin: 10px 0 24px 0;
-
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 1px;
-
     color: white;
 }
 
@@ -2079,19 +1647,15 @@ p.visible,
 
 .boton-cantidad-formas {
     padding: 14px 22px;
-
     border-radius: 18px;
     border: 1px solid white;
-
     background: transparent;
     color: white;
-
     cursor: pointer;
-
-    font-family: 'Louis George Cafe';
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     font-size: 15px;
     letter-spacing: 1px;
-
     transition: 0.3s ease;
 }
 
@@ -2103,75 +1667,49 @@ p.visible,
 #boton-continuar-juego:hover {
     transform: translateX(-50%) scale(1.05) !important;
     background-color: #e1e1e1 !important;
-    font-family: 'Louis George Cafe';
+    font-family: 'Poppins', sans-serif;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ==========================================================================
-   ESTILOS PARA EL BOTÓN "CONTINUAR" (SIGUIENTE CONSTELACIÓN)
+   ESTILOS PARA EL BOTÓN "CONTINUAR"
    ========================================================================== */
 .boton-continuar-interactivo {
-    position: fixed;         /* Se queda fijo en la pantalla sin importar el scroll */
-    top: 10%;                /* Ubicación en la parte superior */
+    position: fixed;         
+    top: 10%;                
     left: 50%;
-    transform: translateX(-50%) scale(1); /* Posición base */
-    
-    /* Tipografía y Espaciado */
-    font-family: 'Louis George Cafe';
-    font-size: 18px;
+    transform: translateX(-50%) scale(1); 
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
     letter-spacing: 1px;
     padding: 14px 32px;
-    
-    /* Restablecemos cualquier estilo nativo del navegador */
     outline: none;
     background-image: none !important; 
-    filter: none !important;            /* Bloquea inversiones de color de la pantalla */
-    
-    /* Colores y Apariencia Fijos */
+    filter: none !important;            
     background: #ffffff !important; 
     background-color: #ffffff !important; 
     color: #1e1e1e !important;            
     border: 2px solid #ffffff !important; 
     border-radius: 25px;       
-    
-    /* Interactividad y Efectos */
     cursor: pointer;
     z-index: 9999999 !important;   
     pointer-events: auto !important;      
-   
-    
-    /* Animación suave: Controla la aparición y únicamente el cambio de tamaño */
     opacity: 0;
     transition: opacity 0.4s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Estado cuando el botón ya se muestra en pantalla */
 .boton-continuar-interactivo.mostrar {
     opacity: 1;
 }
 
-/* EFECTO HOVER: Mantiene los colores idénticos pero se agranda un poco */
 .boton-continuar-interactivo:hover {
-    transform: translateX(-50%) scale(1.12) !important; /* Solo se agranda un poco */
-    background: #ffffff !important;                      /* Forzamos que siga blanco */
+    transform: translateX(-50%) scale(1.12) !important; 
+    background: #ffffff !important;                     
     background-color: #ffffff !important; 
-    color: #1e1e1e !important;                           /* Forzamos que el texto siga oscuro */
-    border-color: #ffffff !important;     
+    color: #1e1e1e !important;                           
+    border-color: #ffffff !important;      
 }
 
-/* Efecto visual al hacer clic */
 .boton-continuar-interactivo:active {
     transform: translateX(-50%) scale(0.98) !important; 
 }
@@ -2181,49 +1719,37 @@ p.visible,
    ESTILO DEFINITIVO Y UNIFICADO PARA EL BOTÓN DE VOLVER
    ========================================================================== */
 #boton-volver-experiencia {
-    display: inline-block !important;    /* Cambiado de block a inline-block para que no ocupe todo el ancho */
+    display: inline-block !important;    
     visibility: visible !important;
     top: 10px;
-    /* PREPARACIÓN PARA LA APARICIÓN SUAVE */
-    opacity: 0;                          /* Inicia totalmente invisible */
-    transition: opacity 1s ease-in-out !important; /* Transición suave de 1 segundo */
-    
-    /* ELIMINADO EL POSITION FIXED QUE LO CLAVABA ARRIBA */
-    margin: 40px auto !important;        /* Le da un margen limpio para que respire abajo */
-    
-    /* COLORES DE ALTO CONTRASTE */
-    background-color: #ffffff !important; /* Fondo blanco puro */
-    color: #000000 !important;            /* Letras negras intensas */
-    border: 3px solid #ffffff !important; /* Contorno blanco grueso */
-    
-    /* DISEÑO Y PRESENTACIÓN EXQUISITA */
-    padding: 14px 28px !important;        /* Tamaño grande y cómodo */
+    opacity: 0;                          
+    transition: opacity 1s ease-in-out !important; 
+    margin: 40px auto !important;        
+    background-color: #ffffff !important; 
+    color: #000000 !important;            
+    border: 3px solid #ffffff !important; 
+    padding: 14px 28px !important;        
     font-size: 1.1rem !important;
-    font-weight: 900 !important;          /* Letra extra negrita */
-    font-family: 'Louis George Cafe' !important; /* Tu tipografía ideal */
-    
-    text-transform: none !important;      /* Respeta la V mayúscula original */
+    font-weight: 700 !important;          
+    font-family: 'Poppins', sans-serif !important; 
+    text-transform: none !important;      
     cursor: pointer !important;
-    border-radius: 30px !important;       /* Esquinas redondeadas como te gustaban */
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4) !important; /* Brillo blanco extra */
+    border-radius: 30px !important;       
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4) !important; 
 }
 
-/* Esta clase la activará el JavaScript un segundo después */
 #boton-volver-experiencia.mostrar-suave {
-    opacity: 1 !important;                /* Se vuelve completamente visible */
+    opacity: 1 !important;                
 }
 
-/* Efecto hover interactivo */
 #boton-volver-experiencia:hover {
-    background-color: #ffffff !important; /* Fondo oscuro al pasar el mouse */
-    color: #1e1e1e !important;            /* Letras blancas */
+    background-color: #ffffff !important; 
+    color: #1e1e1e !important;            
     border-color: #ffffff !important;
 }
 
-
-
 /* ==========================================================================
-   ESTILOS PARA EL FINAL INTERACTIVO "CUADRICULANDO" (PULSO DE RESPLANDOR)
+   ESTILOS PARA EL FINAL INTERACTIVO "CUADRICULANDO"
    ========================================================================== */
 #revelacion-palabra-oculta {
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
@@ -2242,16 +1768,14 @@ p.visible,
     }
 }
 
-/* Evitamos que las polilíneas automáticas estorben los clics de los rectángulos */
 .linea-trayectoria {
     pointer-events: none !important;
 }
 
-/* ✨ REGLA CORREGIDA: SÓLIDOS AL 100%, PALPITAN SOLO EN SU BRILLO EXTERIOR */
 #contenedor-linea-final svg rect {
     animation: pulsoLuminosoEstatico 1.5s infinite ease-in-out !important;
     cursor: pointer;
-    opacity: 1 !important; /* Forzamos a que siempre esté visible al 100% */
+    opacity: 1 !important; 
 }
 
 @keyframes pulsoLuminosoEstatico {
@@ -2261,9 +1785,9 @@ p.visible,
         stroke-width: 1.5;
     }
     50% {
-        filter: drop-shadow(0px 0px 14px rgba(255, 255, 255, 1)); /* Genera el destello de luz hacia afuera */
-        stroke: rgba(255, 255, 255, 1); /* El borde se enciende en blanco puro */
-        stroke-width: 3; /* El borde se engrosa sutilmente en el pulso */
+        filter: drop-shadow(0px 0px 14px rgba(255, 255, 255, 1)); 
+        stroke: rgba(255, 255, 255, 1); 
+        stroke-width: 3; 
     }
     100% {
         filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.5));
@@ -2272,17 +1796,8 @@ p.visible,
     }
 }
 
-
-
-
-
-
-
-
-
-
 /* ==========================================================================
-   15. EFECTOS FINALES: INVERSIÓN TOTAL Y COLAPSO CINEMÁTICO EN REJILLA
+   15. EFECTOS FINALES: INVERSIÓN TOTAL Y COLAPSO CINEMÁTICO
    ========================================================================== */
 .escenario-juego.modo-invertido {
     background-color: #e1e1e1 !important;
@@ -2316,7 +1831,7 @@ p.visible,
 }
 
 /* ==========================================================================
-   🟢 16. FASE 2: MATRIZ DE DECODIFICACIÓN (CUADROS FLOTANTES INTERACTIVOS)
+   16. FASE 2: MATRIZ DE DECODIFICACIÓN
    ========================================================================== */
 #contenedor-linea-final {
     position: absolute !important;
@@ -2342,7 +1857,6 @@ p.visible,
     opacity: 0.6 !important;
 }
 
-/* Los pequeños cuadrados flotantes */
 .particula-cuadrado {
     position: absolute !important;
     width: 30px !important;
@@ -2355,7 +1869,7 @@ p.visible,
     font-family: monospace !important;
     font-size: 18px !important;
     font-weight: bold !important;
-    color: transparent !important; /* Inician con la letra invisible */
+    color: transparent !important; 
     box-sizing: border-box !important;
     pointer-events: auto !important; 
     
@@ -2368,14 +1882,12 @@ p.visible,
     animation: none !important;
 }
 
-/* CLIC 1: Detener la tormenta */
 .particulas-congeladas .particula-cuadrado {
     animation: none !important;
     animation-play-state: paused !important;
     border-color: #aa4d3c !important;
 }
 
-/* CLIC 2: Reunir la palabra al centro */
 .particulas-reunidas .particula-cuadrado {
     animation: none !important;
     animation-play-state: paused !important;
@@ -2385,19 +1897,14 @@ p.visible,
     transform: translate(var(--desfase-x), -50%) rotate(0deg) !important;
     border: 1px solid #aa4d3c !important;
     background-color: #111111 !important;
-    color: #ffffff !important; /* Revela el texto en blanco */
+    color: #ffffff !important; 
     box-shadow: 0 0 15px rgba(170, 77, 60, 0.4) !important;
     transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1), left 2.5s cubic-bezier(0.25, 1, 0.5, 1), top 2.5s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.5s, color 0.5s !important;
 }
 
-/* CLIC 3: ¡EXPLOSIÓN TRIDIMENSIONAL QUE SE DESVANECE CON LETRAS VISIBLES! */
 .particulas-explotadas .particula-cuadrado {
     animation: none !important;
-    
-    /* 🟢 CORRECCIÓN: Ahora SÍ se desvanecen por completo al estallar */
     opacity: 0 !important;
-    
-    /* 🟢 CORRECCIÓN: Forzamos a que el texto sea blanco y visible durante el viaje */
     color: #ffffff !important;
     background-color: #111111 !important;
     
@@ -2408,28 +1915,27 @@ p.visible,
     transition: transform 2.5s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 2.2s cubic-bezier(0.1, 0.8, 0.2, 1), color 0.3s ease !important;
 }
 
-
 @keyframes flotacionAleatoria {
     0% { transform: translate(0, 0) rotate(0deg); }
     100% { transform: translate(var(--mov-x, 80px), var(--mov-y, 75px)) rotate(var(--mov-r, 70deg)); }
 }
+
 /* ==========================================================================
-   🔄 18. TEXTO DE INSTRUCCIÓN INICIAL (PARPADEANTE)
+   18. TEXTO DE INSTRUCCIÓN INICIAL (PARPADEANTE)
    ========================================================================== */
 #instruccion-juego {
     position: absolute !important;
     bottom: 40px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    font-family: 'Louis George Cafe' !important;
+    font-family: 'Poppins', sans-serif !important;
     font-size: 14px !important;
     color: rgba(255, 255, 255, 0.6) !important;
     letter-spacing: 2px !important;
     text-transform: lowercase;
-    z-index: 15 !important; /* Por encima de la linterna para que siempre se lea */
+    z-index: 15 !important; 
     pointer-events: none !important;
     
-    /* Animación de parpadeo continuo y suave */
     animation: parpadeoSutil 2.5s infinite ease-in-out !important;
     transition: opacity 0.5s ease !important;
 }
@@ -2439,164 +1945,22 @@ p.visible,
     50% { opacity: 0.75; }
 }
 
-/* Color rojo para las casillas activadas desde el minijuego */
 .casilla.activado-rojo {
-    background-color: #aa4d3c !important; /* El color rojo de tu minijuego */
-    box-shadow: 0 0 15px rgba(170, 77, 60, 0.6) !important; /* Un sutil brillo opcional */
+    background-color: #aa4d3c !important; 
+    box-shadow: 0 0 15px rgba(170, 77, 60, 0.6) !important; 
     transition: background-color 0.5s ease, box-shadow 0.5s ease !important;
 }
 
-
-
-
-
-
-
-
-
 /* ==========================================================================
-   🟢 16. LÍNEA GEOMÉTRICA FINAL (CONECTORA DE PUNTOS)
+   CARRUSEL AUTO-RESPONSIVO
    ========================================================================== */
-#contenedor-linea-final {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 2 !important; /* Por encima de las casillas caídas, pero abajo de la flecha */
-    pointer-events: none !important;
-}
-
-.linea-trayectoria {
-    stroke: #aa4d3c !important; /* Mismo color rojo con brillo de tus cuadros */
-    stroke-width: 3px !important;
-    stroke-linecap: round !important;
-    stroke-linejoin: round !important;
-    opacity: 0;
-    
-    /* 💡 ESPERA CINEMÁTICA: Tardará 1.5s en aparecer suavemente, 
-       esperando a que la Fase 1 y 2 del colapso de la grilla ya hayan sucedido (3.5s de delay) */
-    transition: opacity 1.5s ease 3.5s !important;
-}
-
-.linea-trayectoria.mostrar-linea {
-    opacity: 0.85 !important;
-}
-
-/* ==========================================================================
-   🟢 FASE 2: MATRIZ DE DECODIFICACIÓN (CUADROS VOLADORES)
-   ========================================================================== */
-#contenedor-linea-final {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 2 !important;
-    pointer-events: none !important;
-}
-
-/* El contorno rojo que une tus 4 clics iniciales */
-.linea-trayectoria {
-    stroke: #aa4d3c !important;
-    stroke-width: 2px !important;
-    stroke-linecap: round !important;
-    stroke-linejoin: round !important;
-    stroke-dasharray: 4 4 !important; /* Línea discontinua conceptual */
-    opacity: 0;
-    transition: opacity 1.2s ease 3.5s !important;
-}
-
-.linea-trayectoria.mostrar-linea {
-    opacity: 0.6 !important;
-}
-
-/* Los pequeños cuadros que flotan por la pantalla */
-.particula-cuadrado {
-    position: absolute !important;
-    width: 30px !important;
-    height: 30px !important;
-    border: 1px solid #111111 !important; /* Solo borde negro, sin color interno */
-    background: transparent !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-family: monospace !important;
-    font-size: 18px !important;
-    font-weight: bold !important;
-    color: transparent !important; /* La letra oculta inicia invisible */
-    box-sizing: border-box !important;
-    pointer-events: none !important;
-    
-    /* Animación inicial de flotación infinita */
-    animation: flotacionAleatoria 6s infinite ease-in-out alternate;
-    transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
-}
-
-/* 🟢 ESTADO 1: Detener los cuadros en su lugar */
-.particulas-congeladas .particula-cuadrado {
-    animation-play-state: paused !important;
-    border-color: #aa4d3c !important; /* Cambian sutilmente a rojo al pausarse */
-}
-
-/* 🟢 ESTADO 2: Concentrarse al centro formando la palabra */
-.particulas-reunidas .particula-cuadrado {
-    animation: none !important;
-    animation-play-state: paused !important;
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(var(--desfase-x), -50%) rotate(0deg) !important; /* Se alinean en fila */
-    border: 1px solid #aa4d3c !important;
-    background-color: #111111 !important; /* Fondo oscuro para resaltar la palabra */
-    color: #ffffff !important; /* Se revela la letra en blanco */
-    box-shadow: 0 0 15px rgba(170, 77, 60, 0.4) !important;
-}
-
-/* Configuración fija de los 4 nodos del juego */
-.cuadrado-rojo {
-    background-color: #aa4d3c !important;
-    box-shadow: 0 0 25px rgba(170, 77, 60, 0.9) !important;
-    pointer-events: auto !important;
-    border-radius: 4px !important;
-    cursor: pointer !important;
-    z-index: 20 !important;
-    transition: transform 0.2s ease !important;
-}
-.cuadrado-rojo:hover {
-    transform: scale(1.08) !important;
-}
-
-/* Animación matemática de flotación */
-@keyframes flotacionAleatoria {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(var(--mov-x, 40px), var(--mov-y, 40px)) rotate(var(--mov-r, 45deg)); }
-}
-
-
-
-
-
-
-
-
-
-
-/* ==========================================================================
-   CARRUSEL AUTO-RESPONSIVO (PROPORCIONAL EN CUALQUIER PANTALLA)
-   ========================================================================== */
-
 .carrusel-loop-contenedor {
     width: 100vw;
     max-width: 100vw;
     overflow: hidden;
     background: transparent;
-    
-    /* 🟢 CORRECCIÓN 1: Usamos paddings y márgenes dinámicos en 'em' o '%' 
-       en lugar de píxeles fijos. Esto hace que el espacio vertical se encoja 
-       en pantallas chicas y crezca proporcionalmente en pantallas gigantes. */
     padding: 1.5vh 0; 
     margin: 1rem 0;   
-    
     box-sizing: border-box;
     display: flex;
 }
@@ -2605,37 +1969,25 @@ p.visible,
     display: flex;
     flex-direction: row;
     align-items: center;
-    
-    /* 🟢 CORRECCIÓN 2: El espacio entre imágenes también es relativo al tamaño de la pantalla (vw) */
     gap: 2vw; 
     width: max-content;
     animation: carruselInfinitoPerfecto 12s linear infinite;
 }
 
 .carrusel-loop-tira img {
-    /* 🟢 CORRECCIÓN 3: Para que los cuadros no se vean gigantes en laptops ni diminutos 
-       en la pantalla de presentación, usamos una medida inteligente (clamp).
-       - En pantallas chicas, medirá mínimo 40px.
-       - En pantallas gigantes, escalará máximo a 90px.
-       - En el medio, se adaptará fluidamente al 5% del ancho de la pantalla (5vw). */
     height: clamp(40px, 5vw, 90px); 
-    
     width: auto;  
     object-fit: contain;
     backface-visibility: hidden;
     transform: translate3d(0,0,0);
 }
 
-/* ==========================================================================
-   🧠 MOTOR AJUSTADO AL NUEVO GAP DINÁMICO
-   ========================================================================== */
 @keyframes carruselInfinitoPerfecto {
     0% {
         transform: translate3d(0, 0, 0);
     }
     100% {
-        /* 🟢 Como cambiamos el gap a '2vw', aquí restamos la mitad exacta (1vw) 
-           para que el loop siga siendo matemáticamente perfecto y continuo */
         transform: translate3d(calc(-50% - 1vw), 0, 0);
     }
 }
+
