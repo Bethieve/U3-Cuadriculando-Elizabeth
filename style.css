@@ -1,24 +1,13 @@
 /* ==========================================================================
    1. CONFIGURACIONES GENERALES Y FUENTES
    ========================================================================== */
-@font-face {
-    font-family: 'Louis George Cafe';
-    src: url("Fonts/LouisGeorgeCafe.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Inlanders';
-    src: url("Fonts/InlandersDemo.otf") format("opentype");
-    font-weight: normal;
-    font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
 
 html {
     scroll-behavior: smooth;
     
 }
+
 
 /* Limpieza total y única del body */
 body {
@@ -69,7 +58,7 @@ div.cuadri {
 }
 
 div.cuadri h1 {
-    font-family: 'Inlanders', sans-serif;
+    font-family: 'Black Ops One', cursive;
     font-size: 140px;
     color: #e1e1e1;
     margin: 0;
@@ -79,7 +68,7 @@ div.cuadri h1 {
 }
 
 h2 {
-    font-family: 'Inlanders';
+   font-family: 'Black Ops One', cursive;
     font-size: 60px;
     color: #e1e1e1;
     margin-top: 80px;
