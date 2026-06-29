@@ -1,13 +1,19 @@
+/* ==========================================================================
+   1. CONFIGURACIONES GENERALES Y FUENTES
+   ========================================================================== */
 @font-face {
     font-family: 'Louis George Cafe';
-    src: url('fonts/LouisGeorgeCafe.ttf') format('truetype');
+    src: url('Fonts/LouisGeorgeCafe.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
     font-family: 'Inlanders';
-    src: url('fonts/InlandersDemo.otf') format('truetype');
+    src: url('Fonts/InlandersDemo.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
-
 
 html {
     scroll-behavior: smooth;
