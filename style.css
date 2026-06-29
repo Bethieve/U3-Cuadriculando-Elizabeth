@@ -3,12 +3,12 @@
    ========================================================================== */
 @font-face {
     font-family: 'Louis George Cafe';
-    src: url('./Fonts/LouisGeorgeCafe.ttf') format('truetype');
+    src: url('./Fonts/Louis%20George%20Cafe.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Inlanders';
-    src: url('./Fonts/InlandersDemo.otf') format('opentype');
+    src: url('./Fonts/Inlanders%20Demo.otf') format('opentype');
 }
 
 html {
@@ -275,7 +275,7 @@ p.visible,
     background: #1e1e1e !important;
     color: #ffffff !important;
     
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe' ;
     font-size: 11px;            
     letter-spacing: 2px;        
     text-decoration: none !important;
@@ -563,7 +563,7 @@ p.visible,
 /* Estilo tipográfico para los números internos */
 .texto-tecnico-numero {
     fill: #e1e1e1;
-    font-family: 'Louis George Cafe', sans-serif;
+    font-family: 'Louis George Cafe' ;
     font-size: 18px;
     font-weight: bold;
     text-anchor: middle;              /* Centra horizontalmente el texto en su coordenada */
@@ -576,7 +576,7 @@ p.visible,
     padding: 15px;
     background-color: #1e1e1e;        /* Un tono apenas sutil para diferenciar el fondo */
     color: #e1e1e1;
-    font-family: 'Louis George Cafe', sans-serif;
+    font-family: 'Louis George Cafe' ;
     text-align: left;  
 }
 
@@ -584,7 +584,7 @@ p.visible,
     margin: 0 0 5px 0;
     font-size: 14px;
     letter-spacing: 2px;              /* Estilo técnico expandido */
-    font-family: 'Louis George Cafe', sans-serif;
+    font-family: 'Louis George Cafe';
 }
 
 .espacio-texto-tecnico p {
@@ -699,7 +699,7 @@ p.visible,
 /* Tipografía: Título de juego superior (Muy pequeño y espaciado) */
 .texto-carta-sub {
     fill: #e1e1e1;                     /* Gris sutil */
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe';
     font-size: 7px;
     font-weight: bold;
     letter-spacing: 1px;
@@ -709,7 +709,7 @@ p.visible,
 /* Tipografía: Título principal de la carta (Marcado y técnico) */
 .texto-carta-titulo {
     fill: #e1e1e1;
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe';
     font-size: 18px;
     font-weight: bold;
     letter-spacing: 1.5px;
@@ -719,7 +719,7 @@ p.visible,
 /* Tipografía: Cuerpo explicativo general */
 .texto-carta-cuerpo {
     fill: #e1e1e1;
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe';
     font-size: 9px;
     text-anchor: middle;
 }
@@ -727,7 +727,7 @@ p.visible,
 /* Tipografía: El valor numérico de los puntos (Destacado en el centro) */
 .texto-carta-resaltado {
     fill: #e1e1e1;
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe';
     font-size: 13px;
     font-weight: bold;
     letter-spacing: 0.5px;
@@ -833,7 +833,7 @@ p.visible,
 /* Tipografía micro para los números del borde (Gris sutil) */
 .texto-matriz-num {
     fill: #e1e1e1;                     
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe';
     font-size: 7px;
     font-weight: bold;
     text-anchor: middle;
@@ -843,7 +843,7 @@ p.visible,
 /* Tipografía micro para el centro del núcleo (Blanco técnico puro) */
 .texto-matriz-num-centro {
     fill: #e1e1e1;                     
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe';
     font-size: 7.5px;
     font-weight: bold;
     text-anchor: middle;
@@ -996,7 +996,7 @@ p.visible,
 
 /* Título interno del componente */
 .panel-componente .contenido-panel h3 {
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe';
     color: #ffeb3b;             /* Amarillo interactivo para destacar el título */
     font-size: 24px;
     margin: 0 0 10px 0;
@@ -1004,7 +1004,7 @@ p.visible,
 
 /* 🟢 CONFIGURACIÓN EXCLUSIVA PARA EL TEXTO P3 (UNA SOLA COLUMNA CONTROLADA) */
 .panel-componente .contenido-panel p3 {
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe';
     font-size: 18px;
     color: #e1e1e1;
     line-height: 1.5;
@@ -1209,7 +1209,7 @@ p.visible,
     margin-right: auto;           /* 💡 Absorbe todo el espacio sobrante a la derecha del texto, creando el aire */
     
     /* Tipografía */
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe';
     color: #e1e1e1;
     font-size: 23px;
     line-height: 1.6;             
@@ -1539,7 +1539,7 @@ p.visible,
     white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
     
     /* Tu tipografía limpia */
-    font-family: 'Louis George Cafe', sans-serif !important;
+    font-family: 'Louis George Cafe', !important;
     font-size: 14px !important;
     font-weight: normal !important;
     color: #e1e1e1;
@@ -1747,7 +1747,7 @@ p.visible,
     background: #1e1e1e;
     color: #e1e1e1;
     letter-spacing: 5px;
-    font-family: "Louis George Cafe", sans-serif;
+    font-family: 'Louis George Cafe';
     font-weight: bold;
     cursor: pointer;
     transition: .3s;
@@ -1936,7 +1936,7 @@ p.visible,
     transform: translateX(-50%) translateY(20px); /* Empieza un poco más abajo para el efecto */
     
     /* Tipografía y Textura (Tus valores originales) */
-    font-family: 'Louis George Cafe', sans-serif; 
+    font-family: 'Louis George Cafe'; 
     font-size: 16px;                  
     letter-spacing: 1px;              
     color: #1e1e1e;                   
@@ -2001,7 +2001,7 @@ p.visible,
     padding: 55px 55px 50px 55px; 
     text-align: center;
 
-    font-family: 'Louis George Cafe', sans-serif;
+    font-family: 'Louis George Cafe';
     color: white;
 
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
@@ -2060,7 +2060,7 @@ p.visible,
     letter-spacing: 0.5px;
     line-height: 1.4;
     text-align: center;
-    font-family: 'Louis George Cafe', sans-serif;
+    font-family: 'Louis George Cafe';
     max-width: 100%;
     box-sizing: border-box;
 }
@@ -2095,7 +2095,7 @@ p.visible,
 
     cursor: pointer;
 
-    font-family: 'Louis George Cafe', sans-serif;
+    font-family: 'Louis George Cafe';
     font-size: 15px;
     letter-spacing: 1px;
 
@@ -2136,7 +2136,7 @@ p.visible,
     transform: translateX(-50%) scale(1); /* Posición base */
     
     /* Tipografía y Espaciado */
-    font-family: 'Louis George Cafe', sans-serif;
+    font-family: 'Louis George Cafe';
     font-size: 18px;
     letter-spacing: 1px;
     padding: 14px 32px;
@@ -2207,7 +2207,7 @@ p.visible,
     padding: 14px 28px !important;        /* Tamaño grande y cómodo */
     font-size: 1.1rem !important;
     font-weight: 900 !important;          /* Letra extra negrita */
-    font-family: 'Louis George Cafe', sans-serif !important; /* Tu tipografía ideal */
+    font-family: 'Louis George Cafe' !important; /* Tu tipografía ideal */
     
     text-transform: none !important;      /* Respeta la V mayúscula original */
     cursor: pointer !important;
