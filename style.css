@@ -58,8 +58,8 @@ div.cuadri {
 }
 
 div.cuadri h1 {
-    font-family: 'Black Ops One', cursive;
-    font-size: 140px;
+    font-family: "Black Ops One", cursive;
+    font-size: 120px;
     color: #e1e1e1;
     margin: 0;
     padding: 0 20px;
@@ -68,7 +68,7 @@ div.cuadri h1 {
 }
 
 h2 {
-   font-family: 'Black Ops One', cursive;
+   font-family: "Black Ops One", cursive;
     font-size: 60px;
     color: #e1e1e1;
     margin-top: 80px;
@@ -76,7 +76,7 @@ h2 {
 }
 
 h4 {
-   font-family: 'Black Ops One', cursive;
+   font-family: "poppins", cursive;
     font-size: 23px;              
     color: #efc300;   
     margin-top: -10px;  
